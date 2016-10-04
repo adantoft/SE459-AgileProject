@@ -2,6 +2,8 @@ package floor;
 
 public class Tile {
 	
+	private Tile north, south, east, west;
+	
 	public enum Floor {
 		BARE(1),
 		LOW(2),

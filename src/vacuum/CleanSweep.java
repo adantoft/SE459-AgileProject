@@ -1,8 +1,12 @@
 package vacuum;
 
+import floor.Tile;
+
 public class CleanSweep {
 	
 	private static CleanSweep instance;
+	
+	private Tile currentTile;
 	
 	private CleanSweep() {}
 	
