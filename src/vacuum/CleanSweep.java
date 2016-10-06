@@ -59,6 +59,13 @@ public class CleanSweep {
 		}
 	}
 	
+	public void followPath(char[] path) throws DataValidationException {
+		for (char c : path) {
+			move(c);
+			// TODO: Vacuum when necessary (?)
+		}
+	}
+	
 	public Tile getTile() {
 		return currentTile;
 	}

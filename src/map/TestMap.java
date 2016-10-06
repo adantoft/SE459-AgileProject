@@ -14,14 +14,14 @@ public class TestMap {
 		Tile t2 = new Tile(1, Floor.LOW);
 		Tile t3 = new Tile(3, Floor.HIGH);
 		
+		char[] path = { 'n', 'e' };
+		
 		try {
 			t1.attachTile(t2, 'n');
 			t2.attachTile(t3, 'e');
+			
 			cs.setTile(t1);
-			System.out.println(cs.getTile().toString());
-			cs.move('n');
-			System.out.println(cs.getTile().toString());
-			cs.move('e');
+			cs.followPath(path);
 			System.out.println(cs.getTile().toString());
 			
 			
