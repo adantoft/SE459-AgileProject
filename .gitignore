@@ -1,5 +1,13 @@
 /bin/
+<<<<<<< HEAD
 .classpath
 .project
 .settings
 .class
+=======
+/.idea/
+.settings/
+.classpath
+.project
+*.iml
+>>>>>>> 0d0254edd237c935cb082758443286853fa6a8fa
