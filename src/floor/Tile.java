@@ -5,7 +5,7 @@ import general.DataValidationException;
 public class Tile {
 	
 	private Tile north, south, east, west;
-	private boolean visited;
+	private int visited;
 	
 	public enum Floor {
 		BARE(1),
@@ -45,7 +45,7 @@ public class Tile {
 	public Tile(int dirtIn, Floor floorIn) {
 		dirt = dirtIn;
 		floor = floorIn;
-		visited = false;
+		visited = 0;
 	}
 	
 	@Override
@@ -84,7 +84,7 @@ public class Tile {
 		}
 	}
 	
-	public boolean isVisited() {
+	public int getVisited() {
 		return visited;
 	}
 	
@@ -116,8 +116,8 @@ public class Tile {
 		return adjacents;
 	}
 	
-	public void setVisited(boolean visitedIn) {
-		visited = visitedIn;
+	public void visit() {
+		visited ++;
 	}
 	
 }

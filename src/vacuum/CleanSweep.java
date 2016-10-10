@@ -1,6 +1,7 @@
 package vacuum;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 import floor.Tile;
 import general.DataValidationException;
@@ -12,6 +13,7 @@ public class CleanSweep {
 	private Tile currentTile;
 	private ArrayList<Tile> visited;	// Visited tiles
 	private ArrayList<Tile> unvisited;	// Tiles seen but not visited
+	private Stack<Tile> lastVisited;
 	
 	private CleanSweep() {}
 	
@@ -20,6 +22,7 @@ public class CleanSweep {
 			instance = new CleanSweep();
 			instance.visited = new ArrayList<Tile>();
 			instance.unvisited = new ArrayList<Tile>();
+			instance.lastVisited = new Stack<Tile>();
 		}
 		
 		return instance;
@@ -48,6 +51,7 @@ public class CleanSweep {
 		}
 		
 		// Re-categorizes the current tile from unvisited to visited
+		currentTile.visit();
 		visited.add(currentTile);
 		unvisited.remove(currentTile);
 		
@@ -57,6 +61,11 @@ public class CleanSweep {
 				unvisited.add(tile);
 			}
 		}
+		
+		/* TODO: Push to/pop from stack when needed.
+		 * 	Note: This might have to be in the algorithm class.
+		 * */
+		
 	}
 	
 	public void followPath(char[] path) throws DataValidationException {
