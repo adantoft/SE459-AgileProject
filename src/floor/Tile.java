@@ -2,9 +2,13 @@ package floor;
 
 import general.DataValidationException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Tile {
 	
 	private Tile north, south, east, west;
+	private Tile[] tiles = {north, south, east, west};
 	private int visited;
 	
 	public enum Floor {
@@ -110,14 +114,46 @@ public class Tile {
 			throw new DataValidationException("ERROR: Invalid direction");
 		}
 	}
-	
-	public Tile[] getAdjacentTiles() {
-		Tile[] adjacents = { north, south, east, west };
+
+	/**
+	 * Gets list of adjacent tiles that exist.
+	 *
+	 * @return List of tiles.
+	 */
+	public List<Tile> getAdjacentTiles() {
+		List<Tile> adjacents = new ArrayList<>();
+
+		for (Tile x : tiles) {
+			if (x != null) {
+				adjacents.add(x);
+			}
+		}
+
 		return adjacents;
 	}
 	
 	public void visit() {
 		visited ++;
 	}
-	
+
+	/**
+	 * Provides char direction to get to an adjacent tile.
+	 * @param that Tile in which the direction to should be retrieved.
+	 * @return Char of direction.
+	 * @throws DataValidationException
+	 */
+	public char getDirectionTo(Tile that) throws DataValidationException  {
+		if (this.getAdjacent('n') == that) {
+			return 'n';
+		} else if (this.getAdjacent('e') == that) {
+			return 'e';
+		} else if (this.getAdjacent('s') == that) {
+			return 's';
+		} else if (this.getAdjacent('w') == that) {
+			return 'w';
+		} else {
+			throw new DataValidationException("ERROR: Direction unknown");
+		}
+	}
+
 }
