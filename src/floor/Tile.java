@@ -86,7 +86,34 @@ public class Tile {
 
 		case 'w':
 			this.west = tile;
-			tile.west = this;
+			tile.east = this;
+			break;
+
+		default:
+			throw new DataValidationException("ERROR: Invalid direction");
+		}
+	}
+	
+	public void detachTile(Tile tile, char direction) throws DataValidationException {
+		switch (direction) {
+		case 'n':
+			this.north = null;
+			tile.south = null;
+			break;
+
+		case 's':
+			this.south = null;
+			tile.north = null;
+			break;
+
+		case 'e':
+			this.east = null;
+			tile.west = null;
+			break;
+
+		case 'w':
+			this.west = null;
+			tile.east = null;
 			break;
 
 		default:
