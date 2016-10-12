@@ -1,6 +1,6 @@
 /bin/
 .settings
-.class
+*.class
 /.idea/
 .settings/
 .classpath
