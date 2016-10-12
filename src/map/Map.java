@@ -13,8 +13,8 @@ public class Map {
 	}
 
 	public void printMap() {
-		for (int i = 0; i < this.map.length; i++) {
-			for (int j = 0; j < this.map[0].length; j++) {
+		for (int i = 0; i < this.map.length; i ++) {
+			for (int j = 0; j < this.map[0].length; j ++) {
 
 				System.out.printf("(%d, %d) ", i, j);
 				System.out.println(this.map[i][j]);
@@ -37,19 +37,17 @@ public class Map {
 		try {
 			for (int x = space.getBottomLeft().getX(); x < space.getTopRight().getX(); x ++) {
 				for (int y = space.getBottomLeft().getY(); y < space.getTopRight().getY(); y ++) {
-					int yIncr = y + 1;
 					
-					this.map[x][y].attachTile(this.map[x][yIncr], 'n');
-					System.out.printf("(%d, %d) attached north to (%d, %d).\n", x, yIncr, x, y);
+					this.map[x][y + 1].attachTile(this.map[x][y + 1], 'n');
+					System.out.printf("(%d, %d) attached north to (%d, %d).\n", x, y + 1, x, y);
 				}
 			}
 
 			for (int x = space.getBottomLeft().getX(); x < space.getTopRight().getX(); x ++) {
 				for (int y = space.getBottomLeft().getY(); y < space.getTopRight().getY(); y ++) {
-					int xIncr = x + 1;
 
-					this.map[x][y].attachTile(this.map[xIncr][y], 'w');
-					System.out.printf("(%d, %d) attached east to (%d, %d).\n", xIncr, y, x, y);
+					this.map[x][y].attachTile(this.map[x + 1][y], 'e');
+					System.out.printf("(%d, %d) attached east to (%d, %d).\n", x + 1, y, x, y);
 				}
 			}
 
