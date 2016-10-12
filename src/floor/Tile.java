@@ -123,9 +123,9 @@ public class Tile {
 	public List<Tile> getAdjacentTiles() {
 		List<Tile> adjacents = new ArrayList<>();
 
-		for (Tile x : tiles) {
-			if (x != null) {
-				adjacents.add(x);
+		for (Tile tile : tiles) {
+			if (tile != null) {
+				adjacents.add(tile);
 			}
 		}
 

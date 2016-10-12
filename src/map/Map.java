@@ -6,75 +6,62 @@ import floor.Tile;
 import floor.Tile.Floor;
 
 public class Map {
-  public final Tile[][] map;
-  public Map(int x, int y) {
-    this.map = new Tile[x][y];
-  }
 
-  public void printMap() {
-    for (int i = 0; i < this.map.length; i++) {
-        for (int j = 0; j < this.map[0].length; j++) {
+	public final Tile[][] map;
+	public Map(int x, int y) {
+		this.map = new Tile[x][y];
+	}
 
-           System.out.print("(" + i + ", " + j + ") ");
+	public void printMap() {
+		for (int i = 0; i < this.map.length; i++) {
+			for (int j = 0; j < this.map[0].length; j++) {
 
-            System.out.println(this.map[i][j]);
+				System.out.printf("(%d, %d) ", i, j);
+				System.out.println(this.map[i][j]);
 
-        }
-    }
-  }
+			}
+		}
+	}
 
-  public void setFloor(Space space, Floor floor) {
-    for (int x = space.getBottomLeft().getX(); x <= space.getTopRight().getX(); x++) {
-      for (int y = space.getBottomLeft().getY(); y <= space.getTopRight().getY(); y++) {
+	public void setFloor(Space space, Floor floor) {
+		for (int x = space.getBottomLeft().getX(); x <= space.getTopRight().getX(); x ++) {
+			for (int y = space.getBottomLeft().getY(); y <= space.getTopRight().getY(); y ++) {
 
-          this.map[x][y] = new Tile(1, floor);
+				this.map[x][y] = new Tile(1, floor);
 
-      }
-    }
-  }
+			}
+		}
+	}
 
-  public void attachSpace(Space space) {
-    try {
-      for (int x = space.getBottomLeft().getX(); x < space.getTopRight().getX(); x++) {
-        for (int y = space.getBottomLeft().getY(); y < space.getTopRight().getY(); y++) {
-          int y_incr = y + 1;
+	public void attachSpace(Space space) {
+		try {
+			for (int x = space.getBottomLeft().getX(); x < space.getTopRight().getX(); x ++) {
+				for (int y = space.getBottomLeft().getY(); y < space.getTopRight().getY(); y ++) {
+					int yIncr = y + 1;
+					
+					this.map[x][y].attachTile(this.map[x][yIncr], 'n');
+					System.out.printf("(%d, %d) attached north to (%d, %d).\n", x, yIncr, x, y);
+				}
+			}
 
-          System.out.println("(" + x + ", " + y_incr + ") attached north to (" + x + ", " + y + ")");
+			for (int x = space.getBottomLeft().getX(); x < space.getTopRight().getX(); x ++) {
+				for (int y = space.getBottomLeft().getY(); y < space.getTopRight().getY(); y ++) {
+					int xIncr = x + 1;
 
-          this.map[x][y].attachTile(this.map[x][y+1], 'n');
-
-          System.out.println("(" + x + ", " + y + ") attached south to (" + x + ", " + y_incr + ")");
-
-          this.map[x][y+1].attachTile(this.map[x][y], 'n');
-        }
-      }
-
-      for (int x = space.getBottomLeft().getX(); x < space.getTopRight().getX(); x++) {
-        for (int y = space.getBottomLeft().getY(); y < space.getTopRight().getY(); y++) {
-          int x_incr = x + 1;
-
-          System.out.println("(" + x_incr + ", " + y + ") attached west to (" + x + ", " + y + ")");
-
-          this.map[x][y].attachTile(this.map[x+1][y], 'w');
-
-          System.out.println("(" + x + ", " + y + ") attached east to (" + x_incr + ", " + y + ")");
-
-          this.map[x+1][y].attachTile(this.map[x][y], 'w');
-        }
-      }
-      
-      
-    } catch (DataValidationException e) {
-      e.printStackTrace();
-    }
-  }
+					this.map[x][y].attachTile(this.map[xIncr][y], 'w');
+					System.out.printf("(%d, %d) attached east to (%d, %d).\n", xIncr, y, x, y);
+				}
+			}
 
 
-  public void setSpace(Space space, Floor floor) {
+		} catch (DataValidationException e) {
+			e.printStackTrace();
+		}
+	}
 
-    setFloor(space, floor);
-    attachSpace(space);
-    
 
-  }
+	public void setSpace(Space space, Floor floor) {
+		setFloor(space, floor);
+		attachSpace(space);
+	}
 }

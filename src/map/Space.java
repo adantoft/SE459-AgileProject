@@ -15,5 +15,12 @@ public class Space {
   public Point getTopRight() {
     return this.topRight;
   }
-
+  
+  public int getWidth() {
+	  return topRight.getX() - bottomLeft.getX();
+  }
+  
+  public int getHeight() {
+	  return topRight.getY() - bottomLeft.getY();
+  }
 }
