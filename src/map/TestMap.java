@@ -7,7 +7,7 @@ import map.Space;
 import floor.Tile.Floor;
 
 public class TestMap {
-	
+
 	public static void main(String[] args) {
 		CleanSweep cs = CleanSweep.getInstance();
 
@@ -39,7 +39,7 @@ public class TestMap {
 		Space masterBedroomB = new Space(new Point(6, 7), new Point(7, 8));
 		map.setSpace(masterBedroomB, Floor.BARE);
 		Space combineMasterAB = new Space(new Point(6, 6), new Point(7, 7));
-		map.attachSpace(combineMasterAB);
+		map.attachTiles(combineMasterAB);
 		Space masterHighPile = new Space(new Point(7, 1), new Point(8, 5));
 		map.setFloor(masterHighPile, Floor.HIGH);
 
@@ -50,16 +50,16 @@ public class TestMap {
 		map.setSpace(masterBedroomCloset, Floor.BARE);
 
 		map.printMap();
-	
+
 		// // char[] path = { 'n', 'n' };
-		
+
 		// try {
-			
+
 		// 	// cs.setTile(t);
 		// 	// cs.followPath(path);
 		// 	// System.out.println(cs.getTile().toString());
-			
-			
+
+
 		// } catch (DataValidationException e) {
 		// 	e.printStackTrace();
 		// }

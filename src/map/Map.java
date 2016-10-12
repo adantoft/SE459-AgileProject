@@ -27,25 +27,28 @@ public class Map {
 		for (int x = space.getBottomLeft().getX(); x <= space.getTopRight().getX(); x ++) {
 			for (int y = space.getBottomLeft().getY(); y <= space.getTopRight().getY(); y ++) {
 
-				this.map[x][y] = new Tile(1, floor);
-
+				this.map[x][y] = new Tile(floor);
 			}
 		}
 	}
 
-	public void attachSpace(Space space) {
+	public void attachTiles(Space space) {
 		try {
+			// Moves along the x axis
 			for (int x = space.getBottomLeft().getX(); x < space.getTopRight().getX(); x ++) {
 				for (int y = space.getBottomLeft().getY(); y < space.getTopRight().getY(); y ++) {
 					
+					// Connects tiles upwards
 					this.map[x][y + 1].attachTile(this.map[x][y + 1], 'n');
 					System.out.printf("(%d, %d) attached north to (%d, %d).\n", x, y + 1, x, y);
 				}
 			}
 
-			for (int x = space.getBottomLeft().getX(); x < space.getTopRight().getX(); x ++) {
-				for (int y = space.getBottomLeft().getY(); y < space.getTopRight().getY(); y ++) {
+			// Moves along the y axis
+			for (int y = space.getBottomLeft().getY(); y < space.getTopRight().getY(); y ++) {
+				for (int x = space.getBottomLeft().getX(); x < space.getTopRight().getX(); x ++) {
 
+					// Connects tiles rightwards
 					this.map[x][y].attachTile(this.map[x + 1][y], 'e');
 					System.out.printf("(%d, %d) attached east to (%d, %d).\n", x + 1, y, x, y);
 				}
@@ -60,6 +63,6 @@ public class Map {
 
 	public void setSpace(Space space, Floor floor) {
 		setFloor(space, floor);
-		attachSpace(space);
+		attachTiles(space);
 	}
 }
