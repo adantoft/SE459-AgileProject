@@ -1,35 +1,30 @@
 package map;
 
-
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.Assert;
-import java.awt.geom.RectangularShape;
 import static org.junit.Assert.*;
-import junit.framework.TestCase;
-
-
-/**
- * Created by phili_000 on 10/12/2016.
- */
-public class PointTest extends TestCase {
 
 
 
-    protected void setUp() throws Exception {
+public class PointTest {
+    
 
-    }
+        @Test
+        public void PointBuilderTest() throws Exception {
+            Point p1;
+            Point p2;
+            p1 = new Point(2, 3);
+            p2 = new Point(4, 5);
 
+            //checking point x and y are filled correctly.
+            assertEquals(2, p1.getX());
+            assertEquals(3, p1.getY());
 
-    @Test
-    public void TestGetX() throws Exception {
+            //checking point is not null
+            assertNotNull(p1);
+            assertNotNull(p2);
 
-    }
-
-    @Test
-    public void TestGetY() throws Exception {
-
-
-    }
-
+            //check not same
+            assertFalse(p1 == p2);
 }
+
+    }
