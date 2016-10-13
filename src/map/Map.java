@@ -3,6 +3,7 @@ package map;
 import map.Space;
 import general.DataValidationException;
 import floor.Tile;
+import floor.Tile.Direction;
 import floor.Tile.Floor;
 
 public class Map {
@@ -39,7 +40,7 @@ public class Map {
 				for (int y = space.getBottomLeft().getY(); y < space.getTopRight().getY(); y ++) {
 					
 					// Connects tiles upwards
-					this.map[x][y + 1].attachTile(this.map[x][y + 1], 'n');
+					this.map[x][y + 1].attachTile(this.map[x][y + 1], Direction.NORTH);
 					System.out.printf("(%d, %d) attached north to (%d, %d).\n", x, y + 1, x, y);
 				}
 			}
@@ -49,7 +50,7 @@ public class Map {
 				for (int x = space.getBottomLeft().getX(); x < space.getTopRight().getX(); x ++) {
 
 					// Connects tiles rightwards
-					this.map[x][y].attachTile(this.map[x + 1][y], 'e');
+					this.map[x][y].attachTile(this.map[x + 1][y], Direction.EAST);
 					System.out.printf("(%d, %d) attached east to (%d, %d).\n", x + 1, y, x, y);
 				}
 			}

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Stack;
 
 import floor.Tile;
+import floor.Tile.Direction;
 import general.DataValidationException;
 
 public class CleanSweep {
@@ -32,19 +33,19 @@ public class CleanSweep {
 	public void move(char direction) throws DataValidationException {
 		switch (direction) {
 		case 'n':
-			currentTile = currentTile.getAdjacent('n');
+			currentTile = currentTile.getAdjacent(Direction.NORTH);
 			break;
 
 		case 's':
-			currentTile = currentTile.getAdjacent('s');
+			currentTile = currentTile.getAdjacent(Direction.SOUTH);
 			break;
 
 		case 'e':
-			currentTile = currentTile.getAdjacent('e');
+			currentTile = currentTile.getAdjacent(Direction.EAST);
 			break;
 
 		case 'w':
-			currentTile = currentTile.getAdjacent('w');
+			currentTile = currentTile.getAdjacent(Direction.WEST);
 			break;
 
 		default:

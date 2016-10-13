@@ -10,7 +10,30 @@ public class Tile {
 	private Tile north, south, east, west;
 	private Tile[] tiles = {north, south, east, west};
 	private int visited;
-
+	
+	public enum Direction {
+		NORTH,
+		SOUTH,
+		EAST,
+		WEST;
+		
+		public Direction getOpposite(Direction direction) throws DataValidationException {
+			switch (direction) {
+			case NORTH:
+				return Direction.SOUTH;
+			case SOUTH:
+				return Direction.NORTH;
+			case EAST:
+				return Direction.WEST;
+			case WEST:
+				return Direction.EAST;
+				
+			default:
+				throw new DataValidationException("ERROR: Invalid direction");
+			}
+		}
+	}
+	
 	public enum Floor {
 		BARE(1),
 		LOW(2),
@@ -67,24 +90,24 @@ public class Tile {
 		return sb.toString();
 	}
 
-	public void attachTile(Tile tile, char direction) throws DataValidationException {
+	public void attachTile(Tile tile, Direction direction) throws DataValidationException {
 		switch (direction) {
-		case 'n':
+		case NORTH:
 			this.north = tile;
 			tile.south = this;
 			break;
 
-		case 's':
+		case SOUTH:
 			this.south = tile;
 			tile.north = this;
 			break;
 
-		case 'e':
+		case EAST:
 			this.east = tile;
 			tile.west = this;
 			break;
 
-		case 'w':
+		case WEST:
 			this.west = tile;
 			tile.east = this;
 			break;
@@ -94,24 +117,24 @@ public class Tile {
 		}
 	}
 	
-	public void detachTile(Tile tile, char direction) throws DataValidationException {
+	public void detachTile(Tile tile, Direction direction) throws DataValidationException {
 		switch (direction) {
-		case 'n':
+		case NORTH:
 			this.north = null;
 			tile.south = null;
 			break;
 
-		case 's':
+		case SOUTH:
 			this.south = null;
 			tile.north = null;
 			break;
 
-		case 'e':
+		case EAST:
 			this.east = null;
 			tile.west = null;
 			break;
 
-		case 'w':
+		case WEST:
 			this.west = null;
 			tile.east = null;
 			break;
@@ -129,18 +152,18 @@ public class Tile {
 		return dirt;
 	}
 
-	public Tile getAdjacent(char direction) throws DataValidationException {
+	public Tile getAdjacent(Direction direction) throws DataValidationException {
 		switch (direction) {
-		case 'n':
+		case NORTH:
 			return north;
 
-		case 's':
+		case SOUTH:
 			return south;
 
-		case 'e':
+		case EAST:
 			return east;
 
-		case 'w':
+		case WEST:
 			return west;
 
 		default:
@@ -171,18 +194,18 @@ public class Tile {
 
 	/**
 	 * Provides char direction to get to an adjacent tile.
-	 * @param that Tile in which the direction to should be retrieved.
+	 * @param tile Tile in which the direction to should be retrieved.
 	 * @return Char of direction.
 	 * @throws DataValidationException
 	 */
-	public char getDirectionTo(Tile that) throws DataValidationException  {
-		if (this.getAdjacent('n') == that) {
+	public char getDirectionTo(Tile tile) throws DataValidationException  {
+		if (this.getAdjacent(Direction.NORTH) == tile) {
 			return 'n';
-		} else if (this.getAdjacent('e') == that) {
+		} else if (this.getAdjacent(Direction.EAST) == tile) {
 			return 'e';
-		} else if (this.getAdjacent('s') == that) {
+		} else if (this.getAdjacent(Direction.SOUTH) == tile) {
 			return 's';
-		} else if (this.getAdjacent('w') == that) {
+		} else if (this.getAdjacent(Direction.WEST) == tile) {
 			return 'w';
 		} else {
 			throw new DataValidationException("ERROR: Direction unknown");
