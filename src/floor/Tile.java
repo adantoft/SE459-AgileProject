@@ -53,10 +53,8 @@ public class Tile {
 			switch (floorCode) {
 			case 1:
 				return "Bare floor";
-
 			case 2:
 				return "Low pile";
-
 			case 3:
 				return "High pile";
 
@@ -156,13 +154,10 @@ public class Tile {
 		switch (direction) {
 		case NORTH:
 			return north;
-
 		case SOUTH:
 			return south;
-
 		case EAST:
 			return east;
-
 		case WEST:
 			return west;
 
