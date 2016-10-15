@@ -1,12 +1,17 @@
 package floor;
 
 
+import map.Map;
 import map.Point;
 import map.Space;
+
 import org.junit.Test;
 
 
 
+
+
+import floor.Tile;
 import static floor.Tile.*;
 import static floor.Tile.Direction.*;
 import static floor.Tile.Floor.*;
@@ -16,7 +21,7 @@ import static org.junit.Assert.*;
 public class TileTest {
 
 
-    map.Map testMap = new map.Map(10, 10);
+    Map testMap = new Map(10, 10);
     Point p1 = new Point(0, 0);
     Space testRoom1HighCarp = new Space(new Point(0, 0), new Point(3, 4));
     Space testRoom2LowCarp = new Space(new Point(0, 5), new Point(3, 5));
@@ -95,7 +100,7 @@ public class TileTest {
     }
 
     @Test
-    public void TileTest() throws Exception {
+    public void TileCreateTest() throws Exception {
 
         Tile testTile1 = new Tile(BARE);
         Tile testTile2 = new Tile(LOW);
@@ -120,20 +125,30 @@ public class TileTest {
 
     @Test
     public void attachTileTest() throws Exception {
-
-
-        map.Map testMap = new map.Map(10, 10);
         Tile testTile1 = new Tile(BARE);
         Tile testTile2 = new Tile(LOW);
         Tile testTile3 = new Tile(HIGH);
 
-        testTile2.attachTile(testTile1, NORTH);
-
+        testTile1.attachTile(testTile2, NORTH);
+        testTile2.attachTile(testTile3, EAST);
+        
+        assertEquals(testTile1.getAdjacent(NORTH), testTile2);
+        assertEquals(testTile3.getAdjacent(WEST), testTile2);
+        assertNotEquals(testTile3.getAdjacent(EAST), testTile1);
     }
 
     @Test
     public void detachTile() throws Exception {
-
+    	Tile testTile1 = new Tile(BARE);
+    	Tile testTile2 = new Tile(LOW);
+    	Tile testTile3 = new Tile(HIGH);
+    	
+    	testTile1.attachTile(testTile2, NORTH);
+    	testTile1.attachTile(testTile3, EAST);
+    	
+    	testTile1.detachTile(NORTH);
+    	assertNull(testTile1.getAdjacent(NORTH));
+    	assertNotNull(testTile1.getAdjacent(EAST));
     }
 
     @Test
@@ -141,7 +156,6 @@ public class TileTest {
         Tile testTile1 = new Tile(BARE);
         assertNotNull(testTile1.getVisited());
         assertEquals(0, testTile1.getVisited());
-
     }
 
 

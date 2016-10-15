@@ -117,26 +117,32 @@ public class Tile {
 		}
 	}
 	
-	public void detachTile(Tile tile, Direction direction) throws DataValidationException {
+	public void detachTile(Direction direction) throws DataValidationException {
+		Tile other;
+		
 		switch (direction) {
 		case NORTH:
+			other = getAdjacent(NORTH);
 			this.north = null;
-			tile.south = null;
+			other.south = null;
 			break;
 
 		case SOUTH:
+			other = getAdjacent(SOUTH);
 			this.south = null;
-			tile.north = null;
+			other.north = null;
 			break;
 
 		case EAST:
+			other = getAdjacent(EAST);
 			this.east = null;
-			tile.west = null;
+			other.west = null;
 			break;
 
 		case WEST:
+			other = getAdjacent(WEST);
 			this.west = null;
-			tile.east = null;
+			other.east = null;
 			break;
 
 		default:
