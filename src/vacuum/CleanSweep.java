@@ -8,6 +8,8 @@ import floor.Tile;
 import floor.Tile.Direction;
 import general.DataValidationException;
 
+import static floor.Tile.Direction.*;
+
 public class CleanSweep {
 
 	private static CleanSweep instance;
@@ -30,26 +32,26 @@ public class CleanSweep {
 		return instance;
 	}
 
-	public void move(char direction) throws DataValidationException {
+	public void move(Direction direction) throws DataValidationException {
 		switch (direction) {
-		case 'n':
-			currentTile = currentTile.getAdjacent(Direction.NORTH);
-			break;
+			case NORTH:
+				currentTile = currentTile.getAdjacent(NORTH);
+				break;
 
-		case 's':
-			currentTile = currentTile.getAdjacent(Direction.SOUTH);
-			break;
+			case SOUTH:
+				currentTile = currentTile.getAdjacent(SOUTH);
+				break;
 
-		case 'e':
-			currentTile = currentTile.getAdjacent(Direction.EAST);
-			break;
+			case EAST:
+				currentTile = currentTile.getAdjacent(EAST);
+				break;
 
-		case 'w':
-			currentTile = currentTile.getAdjacent(Direction.WEST);
-			break;
+			case WEST:
+				currentTile = currentTile.getAdjacent(WEST);
+				break;
 
-		default:
-			throw new DataValidationException("ERROR: Invalid direction");
+			default:
+				throw new DataValidationException("ERROR: Invalid direction");
 		}
 
 		// Re-categorizes the current tile from unvisited to visited
@@ -100,9 +102,9 @@ public class CleanSweep {
 		}
 	}
 
-	public void followPath(char[] path) throws DataValidationException {
-		for (char c : path) {
-			move(c);
+	public void followPath(Direction[] path) throws DataValidationException {
+		for (Direction d : path) {
+			move(d);
 			// TODO: Vacuum when necessary (?)
 		}
 	}
@@ -113,5 +115,6 @@ public class CleanSweep {
 
 	public void setTile(Tile tile) {
 		currentTile = tile;
+		currentTile.visit();
 	}
 }

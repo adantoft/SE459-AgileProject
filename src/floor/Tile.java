@@ -5,6 +5,8 @@ import general.DataValidationException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static floor.Tile.Direction.*;
+
 public class Tile {
 
 	private Tile north, south, east, west;
@@ -22,7 +24,7 @@ public class Tile {
 			case NORTH:
 				return Direction.SOUTH;
 			case SOUTH:
-				return Direction.NORTH;
+				return NORTH;
 			case EAST:
 				return Direction.WEST;
 			case WEST:
@@ -193,15 +195,15 @@ public class Tile {
 	 * @return Char of direction.
 	 * @throws DataValidationException
 	 */
-	public char getDirectionTo(Tile tile) throws DataValidationException  {
-		if (this.getAdjacent(Direction.NORTH) == tile) {
-			return 'n';
-		} else if (this.getAdjacent(Direction.EAST) == tile) {
-			return 'e';
-		} else if (this.getAdjacent(Direction.SOUTH) == tile) {
-			return 's';
-		} else if (this.getAdjacent(Direction.WEST) == tile) {
-			return 'w';
+	public Direction getDirectionTo(Tile tile) throws DataValidationException  {
+		if (this.getAdjacent(NORTH) == tile) {
+			return NORTH;
+		} else if (this.getAdjacent(EAST) == tile) {
+			return EAST;
+		} else if (this.getAdjacent(SOUTH) == tile) {
+			return SOUTH;
+		} else if (this.getAdjacent(WEST) == tile) {
+			return WEST;
 		} else {
 			throw new DataValidationException("ERROR: Direction unknown");
 		}
