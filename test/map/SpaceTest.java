@@ -1,6 +1,5 @@
 package map;
 
-import org.apache.commons.lang.builder.EqualsBuilder;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
