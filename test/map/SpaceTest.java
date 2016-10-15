@@ -19,9 +19,11 @@ public class SpaceTest {
         Point p2 = new Point(3, 4);
 
         //checking bottomLeft and bottomRight are filled correctly.
-        assertTrue(EqualsBuilder.reflectionEquals(p1, s1.getBottomLeft()));
-        assertTrue(EqualsBuilder.reflectionEquals(p2, s1.getTopRight()));
 
+        assertEquals(p1.getX(), s1.getBottomLeft().getX());
+        assertEquals(p1.getY(), s1.getBottomLeft().getY());
+        assertEquals(p2.getX(), s1.getTopRight().getX());
+        assertEquals(p2.getY(), s1.getTopRight().getY());
 
         //checking point is not null
         assertNotNull(s1);
