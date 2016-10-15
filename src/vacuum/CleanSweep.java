@@ -85,11 +85,12 @@ public class CleanSweep {
 			// TODO call clean code here
 
 			List<Tile> successorTiles = new ArrayList<>();
-			for (Tile x : currentTile.getAdjacentTiles()) {
-				if (x.getVisited() == 0){
-					successorTiles.add(x);
+			for (Tile tile : currentTile.getAdjacentTiles()) {
+				if (tile.getVisited() == 0){
+					successorTiles.add(tile);
 				}
 			}
+
 			if (!successorTiles.isEmpty()) {
 				try {
 					move(currentTile.getDirectionTo(successorTiles.get(0)));
@@ -116,5 +117,16 @@ public class CleanSweep {
 	public void setTile(Tile tile) {
 		currentTile = tile;
 		currentTile.visit();
+	}
+	
+	/**
+	 * Resets all relevant values of the CleanSweep singleton.
+	 */
+	public void reset() {
+		currentTile = null;
+		visited.clear();
+		unvisited.clear();
+		visitHistory.clear();
+		
 	}
 }
