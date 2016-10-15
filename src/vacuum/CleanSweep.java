@@ -28,25 +28,33 @@ public class CleanSweep {
 			instance.unvisited = new ArrayList<>(); // TODO don't think we need this since visit is tracked in tile [Alex]
 			instance.visitHistory = new Stack<>();
 		}
-
 		return instance;
 	}
 
+	/**
+	 * Move the Clean Sweep to a different tile in the north, south, east, west direction
+	 * @param direction
+	 * @throws DataValidationException
+	 */
 	public void move(Direction direction) throws DataValidationException {
 		switch (direction) {
 			case NORTH:
+				visitHistory.add(currentTile); //moving away from the current tile so adding it to the visited stack before moving
 				currentTile = currentTile.getAdjacent(NORTH);
 				break;
 
 			case SOUTH:
+				visitHistory.add(currentTile); //moving away from the current tile so adding it to the visited stack before moving
 				currentTile = currentTile.getAdjacent(SOUTH);
 				break;
 
 			case EAST:
+				visitHistory.add(currentTile); //moving away from the current tile so adding it to the visited stack before moving
 				currentTile = currentTile.getAdjacent(EAST);
 				break;
 
 			case WEST:
+				visitHistory.add(currentTile); //moving away from the current tile so adding it to the visited stack before moving
 				currentTile = currentTile.getAdjacent(WEST);
 				break;
 
@@ -65,9 +73,6 @@ public class CleanSweep {
 				unvisited.add(tile);
 			}
 		}
-
-		//Add to visit history of tiles visited
-		visitHistory.add(currentTile);
 	}
 
 	/**
@@ -79,18 +84,14 @@ public class CleanSweep {
 	}
 
 	public void runVacuum() {
-		visitHistory.add(currentTile); //once we reach power management, this should not be allowed if there is not enough power to move
-
 		while (!visitHistory.empty()) {
-			// TODO call clean code here
-
+			// call clean code here
 			List<Tile> successorTiles = new ArrayList<>();
 			for (Tile tile : currentTile.getAdjacentTiles()) {
 				if (tile.getVisited() == 0){
 					successorTiles.add(tile);
 				}
 			}
-
 			if (!successorTiles.isEmpty()) {
 				try {
 					move(currentTile.getDirectionTo(successorTiles.get(0)));
