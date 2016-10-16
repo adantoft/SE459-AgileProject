@@ -75,12 +75,21 @@ public class CleanSweep {
 		}
 	}
 
-	/**
-	 * Moves CS to the tile it visited before the current tile.
-	 */
-	public void moveBack() {
-		currentTile = visitHistory.pop(); // TODO this should use the move method instead to limit code redundancy
-		// TODO need to handle if there are no items on stack
+    /**
+     * Moves CS to the tile it visited before the current tile.
+     * @return true if move back success, fail if move back failed (CS has to previous tile)
+     */
+	public boolean moveBack() {
+        if (!visitHistory.empty()) { //prevents popping and empty stack
+            try {
+                move(currentTile.getDirectionTo(visitHistory.pop()));
+                visitHistory.pop(); //removes original tile (before move) from stack as move puts it on the stack
+            } catch (DataValidationException e) {
+                e.printStackTrace();
+            }
+            return true;
+        }
+        return false;
 	}
 
 	public void runVacuum() {
