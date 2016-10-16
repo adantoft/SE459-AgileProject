@@ -182,6 +182,12 @@ public class Tile {
 	public List<Tile> getAdjacentTiles() {
 		List<Tile> adjacents = new ArrayList<>();
 
+		//TODO remove debug code
+		System.err.println("NORTH: " + this.north); //debug code
+		System.err.println("SOUTH: " + this.south); //debug code
+		System.err.println("EAST: " + this.east); //debug code
+		System.err.println("WEST: " + this.west); //debug code
+
 		for (Tile tile : tiles) {
 			if (tile != null) {
 				adjacents.add(tile);
@@ -201,17 +207,22 @@ public class Tile {
 	 * @return Char of direction.
 	 * @throws DataValidationException
 	 */
-	public Direction getDirectionTo(Tile tile) throws DataValidationException  {
-		if (this.getAdjacent(NORTH) == tile) {
-			return NORTH;
-		} else if (this.getAdjacent(EAST) == tile) {
-			return EAST;
-		} else if (this.getAdjacent(SOUTH) == tile) {
-			return SOUTH;
-		} else if (this.getAdjacent(WEST) == tile) {
-			return WEST;
-		} else {
-			throw new DataValidationException("ERROR: Direction unknown");
+	public Direction getDirectionTo(Tile tile)  {
+		try {
+			if (this.getAdjacent(NORTH) == tile) {
+                return NORTH;
+            } else if (this.getAdjacent(EAST) == tile) {
+                return EAST;
+            } else if (this.getAdjacent(SOUTH) == tile) {
+                return SOUTH;
+            } else if (this.getAdjacent(WEST) == tile) {
+                return WEST;
+            } else {
+                throw new DataValidationException("ERROR: Direction unknown");
+            }
+		} catch (DataValidationException e) {
+			e.printStackTrace();
+			return null;
 		}
 	}
 
