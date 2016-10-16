@@ -92,27 +92,6 @@ public class CleanSweep {
         return false;
 	}
 
-	public void runVacuum() {
-		while (!visitHistory.empty()) {
-			// call clean code here
-			List<Tile> successorTiles = new ArrayList<>();
-			for (Tile tile : currentTile.getAdjacentTiles()) {
-				if (tile.getVisited() == 0){
-					successorTiles.add(tile);
-				}
-			}
-			if (!successorTiles.isEmpty()) {
-				try {
-					move(currentTile.getDirectionTo(successorTiles.get(0)));
-				} catch (DataValidationException e) {
-					e.printStackTrace();
-				}
-			} else {
-				moveBack();
-			}
-		}
-	}
-
 	public void followPath(Direction[] path) throws DataValidationException {
 		for (Direction d : path) {
 			move(d);
@@ -128,6 +107,33 @@ public class CleanSweep {
 		currentTile = tile;
 		currentTile.visit();
 	}
+
+    /**
+     * Adds a tile to Clean Sweep's visit history
+     * @param tile
+     */
+	void addToHistory(Tile tile){
+        visitHistory.add(tile);
+    }
+
+    /**
+     * Returns most recently visited tile without removing it from visit history
+     * @return previous visited tile
+     */
+    Tile visitHistoryPeek() {
+        return visitHistory.peek();
+    }
+
+    /**
+     * Returns most recently visited tile and removes it from visit history
+     * @return previous visited tile
+     */
+    Tile visitHistoryPop() {
+        return visitHistory.pop();
+    }
+    boolean isVisitHistoryEmpty(){
+        return visitHistory.empty();
+    }
 	
 	/**
 	 * Resets all relevant values of the CleanSweep singleton.
