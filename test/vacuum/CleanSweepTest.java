@@ -1,8 +1,6 @@
 package vacuum;
 
 import floor.Tile;
-import map.Point;
-import map.Space;
 
 import org.junit.After;
 import org.junit.Before;
@@ -102,10 +100,7 @@ public class CleanSweepTest {
         assertNotEquals(t2, cs.getTile());
     }
 
-    @Test
-    public void runVacuum() throws Exception {
 
-    }
 
     @Test
     public void followPath() throws Exception {
