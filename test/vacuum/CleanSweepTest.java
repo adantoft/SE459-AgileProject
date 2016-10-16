@@ -66,8 +66,6 @@ public class CleanSweepTest {
 
         assertNull(cs.getTile());
 
-
-
         //set to t1, try to move back
         cs.setTile(t1);
         assertNotEquals(t2, cs.getTile());
@@ -75,7 +73,6 @@ public class CleanSweepTest {
         assertFalse(cs.moveBack());  //CS should remain on same tile since it cannot move back
         assertNotEquals(t2, cs.getTile());
         assertEquals(t1, cs.getTile());
-
 
         //set to t1, move north, then move back
         cs.move(NORTH);
@@ -103,7 +100,6 @@ public class CleanSweepTest {
         assertTrue(cs.moveBack()); //move back south
         assertEquals(t1, cs.getTile());
         assertNotEquals(t2, cs.getTile());
-
     }
 
     @Test
