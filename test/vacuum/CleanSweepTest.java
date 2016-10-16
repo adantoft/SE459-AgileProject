@@ -58,7 +58,51 @@ public class CleanSweepTest {
     }
 
     @Test
-    public void moveBack() throws Exception {
+    public void moveBackTest() throws Exception {
+        Tile t1 = new Tile(0, BARE);
+        Tile t2 = new Tile(0, BARE);
+
+        t1.attachTile(t2, NORTH);
+
+        assertNull(cs.getTile());
+
+
+
+        //set to t1, try to move back
+        cs.setTile(t1);
+        assertNotEquals(t2, cs.getTile());
+        assertEquals(t1, cs.getTile());
+        assertFalse(cs.moveBack());  //CS should remain on same tile since it cannot move back
+        assertNotEquals(t2, cs.getTile());
+        assertEquals(t1, cs.getTile());
+
+
+        //set to t1, move north, then move back
+        cs.move(NORTH);
+        assertNotEquals(t1, cs.getTile());
+        assertEquals(t2, cs.getTile());
+        assertTrue(cs.moveBack());
+        assertEquals(t1, cs.getTile());
+        assertNotEquals(t2, cs.getTile());
+
+        // the below is testing if the visit history stack is properly implemented
+        assertFalse(cs.moveBack());  //CS should remain on same tile since it cannot move back
+
+        // try moving north, south, and north again
+        cs.move(NORTH);
+        cs.move(SOUTH);
+        cs.move(NORTH);
+        assertNotEquals(t1, cs.getTile());
+        assertEquals(t2, cs.getTile());
+        assertTrue(cs.moveBack()); //move back south
+        assertEquals(t1, cs.getTile());
+        assertNotEquals(t2, cs.getTile());
+        assertTrue(cs.moveBack()); //move back north
+        assertEquals(t2, cs.getTile());
+        assertNotEquals(t1, cs.getTile());
+        assertTrue(cs.moveBack()); //move back south
+        assertEquals(t1, cs.getTile());
+        assertNotEquals(t2, cs.getTile());
 
     }
 
@@ -81,19 +125,19 @@ public class CleanSweepTest {
         assertEquals(t2.getVisited(), 0);
         assertNull(cs.getTile());
 
-        //go to t1 and test
+        //set to t1 and test
         cs.setTile(t1);
         assertEquals(t1, cs.getTile());
         assertEquals(t1.getVisited(), 1);
 
-        //go to t2 and test
+        //set to t2 and test
         assertNotEquals(t1, t2);
         cs.setTile(t2);
         assertNotEquals(t1, cs.getTile());
         assertEquals(t2, cs.getTile());
         assertEquals(t2.getVisited(), 1);
 
-        //go back to t1 and test
+        //set back to t1 and test
         cs.setTile(t1);
         assertNotEquals(t2, cs.getTile());
         assertEquals(t1, cs.getTile());
