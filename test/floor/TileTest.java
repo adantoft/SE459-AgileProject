@@ -1,17 +1,16 @@
 package floor;
 
 
+
+import com.intellij.ui.components.panels.Wrapper;
 import map.Map;
 import map.Point;
 import map.Space;
-
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
 
-
-
-
-import floor.Tile;
 import static floor.Tile.*;
 import static floor.Tile.Direction.*;
 import static floor.Tile.Floor.*;
@@ -20,12 +19,6 @@ import static org.junit.Assert.*;
 
 public class TileTest {
 
-
-    Map testMap = new Map(10, 10);
-    Point p1 = new Point(0, 0);
-    Space testRoom1HighCarp = new Space(new Point(0, 0), new Point(3, 4));
-    Space testRoom2LowCarp = new Space(new Point(0, 5), new Point(3, 5));
-    Space testRoom3Bare = new Space(new Point(0, 7), new Point(3, 9));
 
     @Test
     public void getOppositeTest() throws Exception {
@@ -138,10 +131,10 @@ public class TileTest {
     }
 
     @Test
-    public void detachTile() throws Exception {
+    public void detachTileTest() throws Exception {
     	Tile testTile1 = new Tile(BARE);
-    	Tile testTile2 = new Tile(LOW);
-    	Tile testTile3 = new Tile(HIGH);
+        Tile testTile2 = new Tile(LOW);
+        Tile testTile3 = new Tile(HIGH);
     	
     	testTile1.attachTile(testTile2, NORTH);
     	testTile1.attachTile(testTile3, EAST);
@@ -152,7 +145,7 @@ public class TileTest {
     }
 
     @Test
-    public void getVisited() throws Exception {
+    public void getVisitedTest() throws Exception {
         Tile testTile1 = new Tile(BARE);
         assertNotNull(testTile1.getVisited());
         assertEquals(0, testTile1.getVisited());
@@ -160,7 +153,7 @@ public class TileTest {
 
 
     @Test
-    public void getDirt() throws Exception {
+    public void getDirtTest() throws Exception {
         int dirtInt = 0;
         int dirtInt2 = 1;
         Tile testTileTwoInput = new Tile(dirtInt, BARE);
@@ -180,45 +173,53 @@ public class TileTest {
 
     @Test
     public void getAdjacentTest() throws Exception {
-        int dirtInt = 1;
-        Tile testTileTwoInput = new Tile(dirtInt, BARE);
 
-       // testTileTwoInput.getAdjacent(NORTH);
-       // assertNotNull(testTileTwoInput.getAdjacent(NORTH));
-       // assertNotNull(testTileTwoInput.getAdjacent(SOUTH));
 
-        //assertEquals("north", testTileTwoInput.getAdjacent(NORTH));
+        Tile testTile1 = new Tile(BARE);
+        Tile testTile2 = new Tile(LOW);
+        Tile testTile3 = new Tile(HIGH);
 
+        List<Tile> adjacents = new ArrayList<>();
+
+        testTile1.attachTile(testTile2, NORTH);
+        testTile1.attachTile(testTile3, EAST);
+        adjacents.add(testTile1.getAdjacent(NORTH));
+
+
+        assertNotNull(adjacents);
+        assertEquals("[" + testTile2 + "]", adjacents.toString());
+        assertNotEquals("[" + testTile3 + "]", adjacents.toString());
+        assertEquals("Dirt: 0"
+                +"\nFloor type: Low pile", testTile1.getAdjacent(NORTH).toString());
 
     }
 
 
-    @Test
-    public void getAdjacentTiles() throws Exception {
-
-    }
-
-    @Test
-    public void visit() throws Exception {
-        int dirtInt = 0;
-        int dirtInt2 = 1;
-        Tile testTileTwoInput = new Tile(dirtInt, BARE);
-        Tile testTileTwoDirtInput = new Tile(dirtInt2, LOW);
-
-        testTileTwoInput.visit();
+    @Test(timeout = 10000)
+    public void getAdjacentTilesTest() throws Exception {
 
 
+        Tile testTile1 = new Tile(BARE);
+        Tile testTile2 = new Tile(LOW);
+
+        assertTrue(testTile1.getAdjacentTiles().add(testTile2));
+        assertNotNull(testTile1.getAdjacentTiles().add(testTile2));
 
     }
 
 
     @Test
     public void getDirectionTo() throws Exception {
-        int dirtInt = 0;
-        int dirtInt2 = 1;
-        Tile testTileTwoInput = new Tile(dirtInt, BARE);
-        Tile testTileTwoDirtInput = new Tile(dirtInt2, LOW);
 
+        Tile testTile1 = new Tile(BARE);
+        Tile testTile2 = new Tile(LOW);
+        Tile testTile3 = new Tile(HIGH);
+
+        testTile1.attachTile(testTile2, NORTH);
+        testTile1.attachTile(testTile3, EAST);
+
+        assertEquals("SOUTH", testTile2.getDirectionTo(testTile1).toString());
+        assertNotEquals("NORTH", testTile2.getDirectionTo(testTile1).toString());
 
     }
 
