@@ -1,16 +1,9 @@
 package floor;
 
 
-
-import com.intellij.ui.components.panels.Wrapper;
-import map.Map;
-import map.Point;
-import map.Space;
 import org.junit.Test;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import static floor.Tile.*;
 import static floor.Tile.Direction.*;
 import static floor.Tile.Floor.*;
@@ -222,6 +215,6 @@ public class TileTest {
         assertNotEquals("NORTH", testTile2.getDirectionTo(testTile1).toString());
 
     }
-
+    
 }
 
