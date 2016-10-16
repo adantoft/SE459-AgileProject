@@ -6,6 +6,9 @@ import floor.Tile;
 import floor.Tile.Direction;
 import floor.Tile.Floor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Map {
 
 	public final Tile[][] map;
@@ -65,5 +68,22 @@ public class Map {
 	public void setSpace(Space space, Floor floor) {
 		setFloor(space, floor);
 		attachTiles(space);
+	}
+
+	public List<Tile> getTiles(){
+		List<Tile> lst = new ArrayList();
+
+		for (int i = 0; i < this.map.length; i ++) {
+			for (int j = 0; j < this.map[0].length; j ++) {
+				lst.add(map[i][j]);
+
+			}
+		}
+		return lst;
+
+	}
+
+	public Tile getTile(int x, int y) {
+		return map[x][y];
 	}
 }
