@@ -32,11 +32,17 @@ public class CleanSweep {
 	}
 
 	/**
-	 * Move the Clean Sweep to a different tile in the north, south, east, west direction
+	 * Moves the Clean Sweep to a specified adjacent tile, if possible.
+	 * Returns true if the tile exists and false if not.
 	 * @param direction
+	 * @return boolean
 	 * @throws DataValidationException
 	 */
-	public void move(Direction direction) throws DataValidationException {
+	public boolean move(Direction direction) throws DataValidationException {
+		if (currentTile.getAdjacent(direction) == null) {
+			System.err.println("WARNING: Edge or wall detected.");
+			return false;
+		}
 		switch (direction) {
 			case NORTH:
 				visitHistory.add(currentTile); //moving away from the current tile so adding it to the visited stack before moving
@@ -73,6 +79,8 @@ public class CleanSweep {
 				unvisited.add(tile);
 			}
 		}
+		
+		return true;
 	}
 
     /**
