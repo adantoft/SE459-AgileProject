@@ -70,8 +70,10 @@ public class MapTest {
         map.Map testMapNew = new map.Map(2, 2);
         map.Map testMapNewCompare = new map.Map(2, 2);
         Space testRoom1HighCarpNew = new Space(new Point(0, 0), new Point(1, 1));
+        Space testRoom1HighCarpNew1 = new Space(new Point(0, 0), new Point(1, 1));
 
         testMapNew.setSpace(testRoom1HighCarpNew, Tile.Floor.BARE);
+        testMapNewCompare.setSpace(testRoom1HighCarpNew, Tile.Floor.LOW);
         assertNotEquals(testMapNew.getTile(0,0).toString(), testMapNewCompare.getTile(0,0).toString());
 
         testMapNewCompare.setSpace(testRoom1HighCarpNew, Tile.Floor.HIGH);
