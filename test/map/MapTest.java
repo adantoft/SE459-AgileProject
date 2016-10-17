@@ -94,7 +94,7 @@ public class MapTest {
 
         System.out.println(testMapNew.getTiles());
 
-        assertNotNull(testMapNew.getTiles());
+
         assertNotEquals(testMapNew.getTiles().toString(), testMapCompare.getTiles().toString());
 
         testMapCompare.setFloor(testRoom1HighCarpNew, Tile.Floor.HIGH);
