@@ -76,7 +76,7 @@ public class TileTest {
         Tile testTileTwoInput = new Tile(dirtInt, BARE);
         Tile testTileTwoDirtInput = new Tile(dirtInt2, LOW);
 
-        assertNotNull(testTileTwoInput);
+
 
         assertEquals("Dirt: 0"
                 +"\nFloor type: Bare floor", testTileTwoInput.toString());
@@ -105,8 +105,14 @@ public class TileTest {
         int dirtInt = 1;
         Tile testTile1 = new Tile(BARE);
         Tile testTileTwoInput = new Tile(dirtInt, BARE);
-        System.out.println(testTile1.toString());
-        System.out.println(testTileTwoInput.toString());
+
+        String newTestString = testTile1.toString();
+        String newTestString2 = testTileTwoInput.toString();
+
+        assertNotNull(newTestString);
+        assertNotNull(newTestString2);
+
+ 
     }
 
     @Test
@@ -194,9 +200,14 @@ public class TileTest {
 
         Tile testTile1 = new Tile(BARE);
         Tile testTile2 = new Tile(LOW);
+        Tile testTile3 = new Tile(LOW);
 
-        assertTrue(testTile1.getAdjacentTiles().add(testTile2));
-        assertNotNull(testTile1.getAdjacentTiles().add(testTile2));
+        testTile1.attachTile(testTile1, NORTH);
+        testTile1.attachTile(testTile2, EAST);
+        testTile1.attachTile(testTile3, WEST);
+
+        assertNotNull(testTile1);
+
 
     }
 
@@ -215,6 +226,6 @@ public class TileTest {
         assertNotEquals("NORTH", testTile2.getDirectionTo(testTile1).toString());
 
     }
-    
+
 }
 

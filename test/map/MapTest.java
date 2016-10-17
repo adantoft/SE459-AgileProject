@@ -26,7 +26,7 @@ public class MapTest {
     }
 
     @Test(timeout = 10000)
-    public void printMap() throws Exception {
+    public void printMapTest() throws Exception {
 
         testMap.printMap();
 
@@ -39,9 +39,6 @@ public class MapTest {
         testMap.setFloor(testRoom1HighCarp, Tile.Floor.HIGH);
         testMap.setFloor(testRoom2LowCarp, Tile.Floor.LOW);
         testMap.setFloor(testRoom3Bare, Tile.Floor.BARE);
-
-        //testMap.printMap();
-
 
     }
 
