@@ -1,6 +1,7 @@
 
 import map.JunitMapSuite;
 import floor.JunitTileSuite;
+import vacuum.JunitVacuumSuite;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
@@ -15,8 +16,7 @@ public class TestRunner {
             System.out.println(failure.toString());
         }
 
-        System.out.println("\nTile Tests completed:  " + resultTile.wasSuccessful());
-
+        System.out.println("\nTile Tests completed:  " + resultTile.wasSuccessful() + "\n\n");
 
 
         //Map Suite
@@ -26,7 +26,18 @@ public class TestRunner {
             System.out.println(failure.toString());
         }
 
-        System.out.println("\nMap Tests:  " + result.wasSuccessful());
+        System.out.println("\nMap Tests completed:  " + result.wasSuccessful() + "\n\n");
+
+
+        //Vacuum Suite
+        Result resultVacuum = JUnitCore.runClasses(JunitVacuumSuite.class);
+
+        for (Failure failure : resultVacuum.getFailures()) {
+            System.out.println(failure.toString());
+        }
+
+        System.out.println("\nVacuum Tests completed:  " + resultVacuum.wasSuccessful());
     }
+
 
 }
