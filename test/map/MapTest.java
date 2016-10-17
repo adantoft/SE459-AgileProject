@@ -2,11 +2,6 @@ package map;
 
 import floor.Tile;
 import org.junit.Test;
-
-
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.Assert.*;
 
 
@@ -14,11 +9,6 @@ public class MapTest {
 
 
     map.Map testMap = new map.Map(10, 10);
-    Point p1 = new Point(0, 0);
-    Space testRoom1HighCarp = new Space(new Point(0, 0), new Point(3, 4));
-    Space testRoom2LowCarp = new Space(new Point(0, 5), new Point(3, 5));
-    Space testRoom3Bare = new Space(new Point(0, 7), new Point(3, 9));
-
 
     @Test
     public void fillingInMap() throws Exception {
@@ -52,6 +42,24 @@ public class MapTest {
 
     @Test(timeout = 10000)
     public void attachTilesTest() throws Exception {
+
+        map.Map testMapNew = new map.Map(2, 2);
+        map.Map testMapNewCompare = new map.Map(2, 2);
+        map.Map testMapNewCompare2 = new map.Map(2, 2);
+        Space testRoom1HighCarpNew = new Space(new Point(0, 0), new Point(0, 1));
+        Space testRoomLowCarpNew = new Space(new Point(0, 0), new Point(0, 1));
+        testMapNew.setFloor(testRoom1HighCarpNew, Tile.Floor.HIGH);
+        testMapNewCompare.setFloor(testRoomLowCarpNew, Tile.Floor.LOW);
+        testMapNewCompare2.setFloor(testRoom1HighCarpNew, Tile.Floor.HIGH);
+
+        testMapNew.attachTiles(testRoom1HighCarpNew);
+        assertNotEquals(testMapNew.getTiles().toString(), testMapNewCompare.getTiles().toString());
+
+        testMapNewCompare.attachTiles(testRoomLowCarpNew);
+        assertNotEquals(testMapNew.getTiles().toString(), testMapNewCompare.getTiles().toString());
+
+        testMapNewCompare2.attachTiles(testRoom1HighCarpNew);
+        assertEquals(testMapNew.getTiles().toString(), testMapNewCompare2.getTiles().toString());
 
     }
 
