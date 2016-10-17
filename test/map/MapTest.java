@@ -77,24 +77,18 @@ public class MapTest {
     @Test(timeout = 10000)
     public void getTilesTest() throws Exception {
 
+        map.Map testMapNew = new map.Map(2, 2);
+        map.Map testMapCompare = new map.Map(2, 2);
+        Space testRoom1HighCarpNew = new Space(new Point(0, 0), new Point(1, 1));
+        testMapNew.setFloor(testRoom1HighCarpNew, Tile.Floor.HIGH);
 
-    /*
-            public List<Tile> getTiles(){
-        List<Tile> lst = new ArrayList();
+        System.out.println(testMapNew.getTiles());
 
-        for (int i = 0; i < this.map.length; i ++) {
-            for (int j = 0; j < this.map[0].length; j ++) {
-                lst.add(map[i][j]);
+        assertNotNull(testMapNew.getTiles());
+        assertNotEquals(testMapNew.getTiles().toString(), testMapCompare.getTiles().toString());
 
-            }
-        }
-        return lst;
-
-    }
-         */
-
-
-
+        testMapCompare.setFloor(testRoom1HighCarpNew, Tile.Floor.HIGH);
+        assertEquals(testMapNew.getTiles().toString(), testMapCompare.getTiles().toString());
 
     }
 
