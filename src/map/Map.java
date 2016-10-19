@@ -70,15 +70,15 @@ public class Map {
 	}
 
 	public List<Tile> getTiles(){
-		List<Tile> lst = new ArrayList<>();
-
-		for (int i = 0; i < this.map.length; i ++) {
-			for (int j = 0; j < this.map[0].length; j ++) {
-				lst.add(map[i][j]);
+		List<Tile> tiles = new ArrayList<>();
+		
+		for (Tile[] tileArray : map) {
+			for (int i = 0; i < tileArray.length; i ++) {
+				tiles.add(tileArray[i]);
 			}
 		}
 
-		return lst;
+		return tiles;
 
 	}
 
