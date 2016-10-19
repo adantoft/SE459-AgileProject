@@ -71,7 +71,7 @@ public class Map {
 	}
 
 	public List<Tile> getTiles(){
-		List<Tile> lst = new ArrayList();
+		List<Tile> lst = new ArrayList<Tile>();
 
 		for (int i = 0; i < this.map.length; i ++) {
 			for (int j = 0; j < this.map[0].length; j ++) {
