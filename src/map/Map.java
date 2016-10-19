@@ -77,8 +77,8 @@ public class Map {
 		List<Tile> tiles = new ArrayList<>();
 		
 		for (Tile[] tileArray : map) {
-			for (int i = 0; i < tileArray.length; i ++) {
-				tiles.add(tileArray[i]);
+			for (Tile tile : tileArray) {
+				tiles.add(tile);
 			}
 		}
 
