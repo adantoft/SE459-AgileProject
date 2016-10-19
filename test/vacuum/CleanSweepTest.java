@@ -72,6 +72,7 @@ public class CleanSweepTest {
     	tile1.detachTile(NORTH);
     	
     	// Verify that the CS cannot return to the previous tile.
+    	assertNull(cs.getTile().getAdjacent(SOUTH));	// Detecting a nearby wall/edge
     	assertFalse(cs.move(SOUTH));
     	assertNotEquals(cs.getTile(), tile1);
     }
