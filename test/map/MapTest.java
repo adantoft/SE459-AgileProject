@@ -114,7 +114,13 @@ public class MapTest {
 
 
         assertNotNull(testMapNewTest.getTile(0,0));
-      //  assertEquals("Dirt: 0\n" + "Floor type: High pile", testMapNew.getTile(0,0).toString());
+
+
+        //This assertEquals is failing as Dirt: 4 not 0 , not sure why this
+        //is happening now.
+
+        assertEquals("Dirt: 0\n" + "Floor type: High pile", testMapNewTest.getTile(0,0).toString());
+
         assertNotEquals("Dirt: 1\n" + "Floor type: High pile", testMapNewTest.getTile(0,0).toString());
 
     }
