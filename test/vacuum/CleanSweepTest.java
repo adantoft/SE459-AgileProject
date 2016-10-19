@@ -54,6 +54,27 @@ public class CleanSweepTest {
         assertEquals(downLeft, cs.getTile());
 
     }
+    
+    @Test
+    public void obstacleTest() throws Exception {
+    	
+    	// Connect two tiles.
+    	Tile tile1 = new Tile(0, BARE);
+    	Tile tile2 = new Tile(0, BARE);
+    	tile1.attachTile(tile2, NORTH);
+    	
+    	// Verify that the CS has moved to the adjacent tile.
+    	cs.setTile(tile1);
+    	cs.move(NORTH);
+    	assertEquals(cs.getTile(), tile2);
+    	
+    	// Introduce a wall or edge by detaching the tiles.
+    	tile1.detachTile(NORTH);
+    	
+    	// Verify that the CS cannot return to the previous tile.
+    	assertFalse(cs.move(SOUTH));
+    	assertNotEquals(cs.getTile(), tile1);
+    }
 
     @Test
     public void moveBackTest() throws Exception {
