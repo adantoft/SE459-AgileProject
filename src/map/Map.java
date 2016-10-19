@@ -31,32 +31,38 @@ public class Map {
 		for (int x = space.getBottomLeft().getX(); x <= space.getTopRight().getX(); x ++) {
 			for (int y = space.getBottomLeft().getY(); y <= space.getTopRight().getY(); y ++) {
 
-				this.map[x][y] = new Tile(floor);
+				if (x < 2 || y < 2) {
+					this.map[x][y] = new Tile(4, floor);
+				} else {
+					this.map[x][y] = new Tile(1, floor);
+				}
 			}
 		}
 	}
 
 	public void attachTiles(Space space) {
 		try {
+
 			// Moves along the x axis
-			for (int x = space.getBottomLeft().getX(); x < space.getTopRight().getX(); x ++) {
-				for (int y = space.getBottomLeft().getY(); y < space.getTopRight().getY(); y ++) {
-					
-					// Connects tiles upwards
-					this.map[x][y + 1].attachTile(this.map[x][y + 1], Direction.NORTH);
-					// System.out.printf("(%d, %d) attached north to (%d, %d).\n", x, y + 1, x, y);
-				}
-			}
+      for (int x = space.getBottomLeft().getX(); x < space.getTopRight().getX(); x++) {
+      		// Moves along the y axis
+          for (int y = space.getBottomLeft().getY(); y < space.getTopRight().getY(); y++) {
 
-			// Moves along the y axis
-			for (int y = space.getBottomLeft().getY(); y < space.getTopRight().getY(); y ++) {
-				for (int x = space.getBottomLeft().getX(); x < space.getTopRight().getX(); x ++) {
+          	// Connects tiles upwards
+            this.map[x][y].attachTile(this.map[x][y+1], Direction.NORTH);
 
-					// Connects tiles rightwards
-					this.map[x][y].attachTile(this.map[x + 1][y], Direction.EAST);
-					// System.out.printf("(%d, %d) attached east to (%d, %d).\n", x + 1, y, x, y);
-				}
-			}
+          }
+      }
+			// Moves along the x axis
+      for (int x = space.getBottomLeft().getX(); x < space.getTopRight().getX(); x++) {
+					// Moves along the y axis
+          for (int y = space.getBottomLeft().getY(); y < space.getTopRight().getY(); y++) {
+
+            // Connects tiles leftwards
+            this.map[x][y].attachTile(this.map[x+1][y], Direction.WEST);
+
+          }
+      }
 
 
 		} catch (DataValidationException e) {
@@ -76,9 +82,9 @@ public class Map {
 		for (int i = 0; i < this.map.length; i ++) {
 			for (int j = 0; j < this.map[0].length; j ++) {
 				lst.add(map[i][j]);
-
 			}
 		}
+
 		return lst;
 
 	}
@@ -86,5 +92,5 @@ public class Map {
 	public Tile getTile(int x, int y) {
 		return map[x][y];
 	}
-	
+
 }
