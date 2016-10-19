@@ -69,7 +69,7 @@ public class TileTest {
         }
 
     @Test
-    public void TileTestTwoInput() throws Exception {
+    public void tileTestTwoInput() throws Exception {
         int dirtInt = 0;
         int dirtInt2 = 1;
 

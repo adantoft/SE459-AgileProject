@@ -69,6 +69,10 @@ public class Map {
 		attachTiles(space);
 	}
 
+	/**
+	 * Returns all the tiles in the map.
+	 * @return
+	 */
 	public List<Tile> getTiles(){
 		List<Tile> tiles = new ArrayList<>();
 		
