@@ -20,8 +20,8 @@ public class Map {
 		for (int i = 0; i < this.map.length; i ++) {
 			for (int j = 0; j < this.map[0].length; j ++) {
 
-				System.out.printf("(%d, %d) ", i, j);
-				System.out.println(this.map[i][j]);
+				// System.out.printf("(%d, %d) ", i, j);
+				// System.out.println(this.map[i][j]);
 
 			}
 		}
@@ -44,7 +44,7 @@ public class Map {
 					
 					// Connects tiles upwards
 					this.map[x][y + 1].attachTile(this.map[x][y + 1], Direction.NORTH);
-					System.out.printf("(%d, %d) attached north to (%d, %d).\n", x, y + 1, x, y);
+					// System.out.printf("(%d, %d) attached north to (%d, %d).\n", x, y + 1, x, y);
 				}
 			}
 
@@ -54,7 +54,7 @@ public class Map {
 
 					// Connects tiles rightwards
 					this.map[x][y].attachTile(this.map[x + 1][y], Direction.EAST);
-					System.out.printf("(%d, %d) attached east to (%d, %d).\n", x + 1, y, x, y);
+					// System.out.printf("(%d, %d) attached east to (%d, %d).\n", x + 1, y, x, y);
 				}
 			}
 
@@ -71,7 +71,7 @@ public class Map {
 	}
 
 	public List<Tile> getTiles(){
-		List<Tile> lst = new ArrayList<Tile>();
+		List<Tile> lst = new ArrayList<>();
 
 		for (int i = 0; i < this.map.length; i ++) {
 			for (int j = 0; j < this.map[0].length; j ++) {
@@ -86,4 +86,5 @@ public class Map {
 	public Tile getTile(int x, int y) {
 		return map[x][y];
 	}
+	
 }

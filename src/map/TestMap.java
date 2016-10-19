@@ -5,6 +5,9 @@ import map.Point;
 import map.Map;
 import map.Space;
 import floor.Tile.Floor;
+import floor.Tile.Direction;
+
+import general.DataValidationException;
 
 public class TestMap {
 
@@ -51,17 +54,17 @@ public class TestMap {
 
 		map.printMap();
 
-		// // char[] path = { 'n', 'n' };
+		Direction[] path = { Direction.NORTH, Direction.NORTH };
 
-		// try {
+		try {
 
-		// 	// cs.setTile(t);
-		// 	// cs.followPath(path);
-		// 	// System.out.println(cs.getTile().toString());
+			cs.setTile(map.getTile(1, 1));
+			cs.followPath(path);
+			System.out.println(cs.getTile().toString());
 
 
-		// } catch (DataValidationException e) {
-		// 	e.printStackTrace();
-		// }
+		} catch (DataValidationException e) {
+			e.printStackTrace();
+		}
 	}
 }
