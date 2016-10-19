@@ -10,9 +10,8 @@ import static floor.Tile.Direction.*;
 public class Tile {
 
 	private Tile north, south, east, west;
-	private Tile[] tiles = {north, south, east, west};
 	private int visited;
-	
+
 	public enum Direction {
 		NORTH,
 		SOUTH,
@@ -182,17 +181,10 @@ public class Tile {
 	public List<Tile> getAdjacentTiles() {
 		List<Tile> adjacents = new ArrayList<>();
 
-		//TODO remove debug code
-		System.err.println("NORTH: " + this.north); //debug code
-		System.err.println("SOUTH: " + this.south); //debug code
-		System.err.println("EAST: " + this.east); //debug code
-		System.err.println("WEST: " + this.west); //debug code
-
-		for (Tile tile : tiles) {
-			if (tile != null) {
-				adjacents.add(tile);
-			}
-		}
+        if (north != null) adjacents.add(north);
+        if (south != null) adjacents.add(south);
+        if (east != null) adjacents.add(east);
+        if (west != null) adjacents.add(west);
 
 		return adjacents;
 	}

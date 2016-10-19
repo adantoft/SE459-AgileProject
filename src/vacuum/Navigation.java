@@ -44,10 +44,9 @@ public class Navigation {
 		do {
 			// call clean code here
 			successorTiles.clear();
-            System.err.println(cs.getTile().getAdjacentTiles());
 			for (Tile tile : cs.getTile().getAdjacentTiles()) {
 				if (tile.getVisited() == 0){
-                    System.err.println("Adding Successor tile" + cs.getTile().getDirectionTo(tile));
+                    System.err.println("Adding Successor tile " + cs.getTile().getDirectionTo(tile));
 					successorTiles.add(tile);
 				}
 			}
