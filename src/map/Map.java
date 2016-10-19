@@ -45,25 +45,18 @@ public class Map {
 
 			// Moves along the x axis
       for (int x = space.getBottomLeft().getX(); x < space.getTopRight().getX(); x++) {
+
       		// Moves along the y axis
           for (int y = space.getBottomLeft().getY(); y < space.getTopRight().getY(); y++) {
 
           	// Connects tiles upwards
             this.map[x][y].attachTile(this.map[x][y+1], Direction.NORTH);
 
-          }
-      }
-			// Moves along the x axis
-      for (int x = space.getBottomLeft().getX(); x < space.getTopRight().getX(); x++) {
-					// Moves along the y axis
-          for (int y = space.getBottomLeft().getY(); y < space.getTopRight().getY(); y++) {
-
             // Connects tiles leftwards
             this.map[x][y].attachTile(this.map[x+1][y], Direction.WEST);
 
           }
       }
-
 
 		} catch (DataValidationException e) {
 			e.printStackTrace();
