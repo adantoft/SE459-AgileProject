@@ -39,29 +39,26 @@ public class Navigation {
 
 	public void traverseWholeFloor() {
 		List<Tile> successorTiles = new ArrayList<>();
-        //TODO remove debug code
 
 		do {
 			// call clean code here
 			successorTiles.clear();
 			for (Tile tile : cs.getTile().getAdjacentTiles()) {
 				if (tile.getVisited() == 0){
-                    System.err.println("Adding Successor tile " + cs.getTile().getDirectionTo(tile));
 					successorTiles.add(tile);
 				}
 			}
 			if (!successorTiles.isEmpty()) {
 				try {
-                    System.err.println("CS moving to " + cs.getTile().getDirectionTo(successorTiles.get(0)));
 					cs.move(cs.getTile().getDirectionTo(successorTiles.get(0))); //picks direction (first added) - random?
 				} catch (DataValidationException e) {
 					e.printStackTrace();
 				}
 			} else {
-                System.err.println("CS moving back");
 				cs.moveBack();
 			}
 		} while (!cs.isVisitHistoryEmpty());
+
 	}
 
 
