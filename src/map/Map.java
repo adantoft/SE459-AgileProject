@@ -9,6 +9,8 @@ import floor.Tile.Floor;
 import java.util.ArrayList;
 import java.util.List;
 
+import static floor.Tile.Direction.*;
+
 public class Map {
 
 	public final Tile[][] map;
@@ -30,12 +32,7 @@ public class Map {
 	public void setFloor(Space space, Floor floor) {
 		for (int x = space.getBottomLeft().getX(); x <= space.getTopRight().getX(); x ++) {
 			for (int y = space.getBottomLeft().getY(); y <= space.getTopRight().getY(); y ++) {
-
-				if (x < 2 || y < 2) {
-					this.map[x][y] = new Tile(4, floor);
-				} else {
-					this.map[x][y] = new Tile(1, floor);
-				}
+                this.map[x][y] = new Tile(floor);
 			}
 		}
 	}
@@ -44,17 +41,19 @@ public class Map {
 		try {
 
 			// Moves along the x axis
-      for (int x = space.getBottomLeft().getX(); x < space.getTopRight().getX(); x++) {
+      for (int x = space.getBottomLeft().getX(); x <= space.getTopRight().getX(); x++) {
 
       		// Moves along the y axis
-          for (int y = space.getBottomLeft().getY(); y < space.getTopRight().getY(); y++) {
+          for (int y = space.getBottomLeft().getY(); y <= space.getTopRight().getY(); y++) {
 
-          	// Connects tiles upwards
-            this.map[x][y].attachTile(this.map[x][y+1], Direction.NORTH);
-
-            // Connects tiles leftwards
-            this.map[x][y].attachTile(this.map[x+1][y], Direction.WEST);
-
+              // Connects tiles upwards; if not all the way to the top
+              if (y != space.getTopRight().getY()){
+                  this.map[x][y].attachTile(this.map[x][y+1], NORTH);
+              }
+              // Connects tiles leftwards; if not all the way to the right
+              if (x != space.getTopRight().getX()){
+                  this.map[x][y].attachTile(this.map[x+1][y], EAST);
+              }
           }
       }
 
@@ -85,6 +84,24 @@ public class Map {
 		return tiles;
 
 	}
+
+    /**
+     * Returns all the tiles that have been assigned a space.
+     * @return
+     */
+    public List<Tile> getActiveTiles(){
+        List<Tile> tiles = new ArrayList<>();
+
+        for (Tile[] tileArray : map) {
+            for (Tile tile : tileArray) {
+                if (tile != null)
+                tiles.add(tile);
+            }
+        }
+
+        return tiles;
+
+    }
 
 	public Tile getTile(int x, int y) {
 		return map[x][y];

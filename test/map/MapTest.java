@@ -2,6 +2,8 @@ package map;
 
 import floor.Tile;
 import org.junit.Test;
+
+import static floor.Tile.Floor.BARE;
 import static org.junit.Assert.*;
 
 
@@ -123,4 +125,19 @@ public class MapTest {
         assertNotEquals("Dirt: 1\n" + "Floor type: High pile", testMapNewTest.getTile(0,0).toString());
 
     }
+    @Test
+    public void tileLinkingTest() throws Exception {
+
+        //create 2x2 grid
+        Map map = new Map(2, 2);
+        Space testRoomBare = new Space(new Point(0, 0), new Point(1,1));
+        map.setSpace(testRoomBare, BARE);
+
+        // since this is 2x2, all tile should have 2 adjacent tiles
+        for (Tile tile : map.getTiles()) {
+            assertTrue(tile.getAdjacentTiles().size() == 2);
+        }
+
+    }
+
 }
