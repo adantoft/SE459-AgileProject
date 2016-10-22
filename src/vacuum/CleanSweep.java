@@ -45,7 +45,6 @@ public class CleanSweep {
 	 */
 	public boolean move(Direction direction) throws DataValidationException {
 		if (currentTile.getAdjacent(direction) == null) {
-			System.err.println("WARNING: Edge or wall detected.");
 			return false;
 		}
 		
