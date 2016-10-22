@@ -56,6 +56,47 @@ public class CleanSweepTest {
     }
     
     @Test
+    public void depleteChargeTest() throws Exception {
+    	Tile tileBare = new Tile(BARE);
+    	Tile tileLow = new Tile(LOW);
+    	Tile tileHigh = new Tile(HIGH);
+    	Tile tileBare2 = new Tile(BARE);
+    	Tile tileLow2 = new Tile(LOW);
+    	Tile tileHigh2 = new Tile(HIGH);
+    	
+    	tileBare.attachTile(tileLow, EAST);
+    	tileLow.attachTile(tileHigh, EAST);
+    	
+    	tileBare.attachTile(tileBare2, NORTH);
+    	tileLow.attachTile(tileLow2, NORTH);
+    	tileHigh.attachTile(tileHigh2, NORTH);
+    	
+    	tileHigh2.attachTile(tileBare2, NORTH);
+    	
+    	cs.setTile(tileBare);
+    	assertTrue(cs.getCharge() == 100);
+    	cs.move(EAST);
+    	assertTrue(cs.getCharge() == 98.5);
+    	cs.move(EAST);
+    	assertTrue(cs.getCharge() == 96);
+    	
+    	cs.setTile(tileBare);
+    	cs.move(NORTH);
+    	assertTrue(cs.getCharge() == 95);
+    	
+    	cs.setTile(tileLow);
+    	cs.move(NORTH);
+    	assertTrue(cs.getCharge() == 93);
+    	
+    	cs.setTile(tileHigh);
+    	cs.move(NORTH);
+    	assertTrue(cs.getCharge() == 90);
+    	
+    	cs.move(NORTH);
+    	assertTrue(cs.getCharge() == 88);
+    }
+    
+    @Test
     public void obstacleTest() throws Exception {
     	
     	// Connect two tiles.
