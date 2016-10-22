@@ -10,7 +10,12 @@ import static floor.Tile.Direction.*;
 public class Tile {
 
 	private Tile north, south, east, west;
+	
 	private int visited;
+	private int dirt;
+	
+	Floor floor;
+	Role role;
 
 	public enum Direction {
 		NORTH,
@@ -64,9 +69,11 @@ public class Tile {
 			}
 		}
 	}
-
-	private int dirt;
-	Floor floor;
+	
+	public enum Role {
+		CHARGE,
+		BASE;
+	}
 
 	public Tile(int dirtIn, Floor floorIn) {
 		dirt = dirtIn;
@@ -149,6 +156,18 @@ public class Tile {
 		}
 	}
 
+	public void visit() {
+		visited ++;
+	}
+	
+	public boolean isChargingStation() {
+		if (role == Role.BASE || role == Role.CHARGE) {
+			return true;
+		}
+		
+		return false;
+	}
+	
 	public int getVisited() {
 		return visited;
 	}
@@ -189,10 +208,6 @@ public class Tile {
 		return adjacents;
 	}
 
-	public void visit() {
-		visited ++;
-	}
-
 	/**
 	 * Provides char direction to get to an adjacent tile.
 	 * @param tile Tile in which the direction to should be retrieved.
@@ -217,5 +232,12 @@ public class Tile {
 			return null;
 		}
 	}
-
+	
+	public void setFloor(Floor floorIn) {
+		floor = floorIn;
+	}
+	
+	public void setRole(Role roleIn) {
+		role = roleIn;
+	}
 }

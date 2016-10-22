@@ -5,6 +5,7 @@ import general.DataValidationException;
 import floor.Tile;
 import floor.Tile.Direction;
 import floor.Tile.Floor;
+import floor.Tile.Role;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,5 +107,8 @@ public class Map {
 	public Tile getTile(int x, int y) {
 		return map[x][y];
 	}
-
+	
+	public static void main(String[] args) {
+		Tile tile = new Tile(Floor.BARE);
+	}
 }
