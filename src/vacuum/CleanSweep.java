@@ -18,6 +18,7 @@ public class CleanSweep {
 	private ArrayList<Tile> visited;	// Visited tiles
 	private ArrayList<Tile> unvisited;	// Tiles seen but not visited
 	private Stack<Tile> visitHistory;
+	private int charge;
 
 	private CleanSweep() {}
 
@@ -27,6 +28,7 @@ public class CleanSweep {
 			instance.visited = new ArrayList<>();  // TODO don't think we need this since visit is tracked in tile [Alex]
 			instance.unvisited = new ArrayList<>(); // TODO don't think we need this since visit is tracked in tile [Alex]
 			instance.visitHistory = new Stack<>();
+			instance.charge = 100;
 		}
 		return instance;
 	}
@@ -43,6 +45,10 @@ public class CleanSweep {
 			System.err.println("WARNING: Edge or wall detected.");
 			return false;
 		}
+		
+		// Previous tile
+		Tile previousTile = currentTile;
+		
 		switch (direction) {
 			case NORTH:
 				visitHistory.add(currentTile); //moving away from the current tile so adding it to the visited stack before moving
@@ -67,7 +73,12 @@ public class CleanSweep {
 			default:
 				throw new DataValidationException("ERROR: Invalid direction");
 		}
-
+		
+		// Next tile
+		Tile nextTile = currentTile;
+		
+		depleteCharge(previousTile, nextTile);
+		
 		// Re-categorizes the current tile from unvisited to visited
 		currentTile.visit();
 		visited.add(currentTile); // TODO don't think we need this since visit is tracked in tile [Alex]
@@ -81,6 +92,14 @@ public class CleanSweep {
 		}
 		
 		return true;
+	}
+	
+	public void depleteCharge(Tile previous, Tile next) {
+		int floor1 = previous.getFloor().getFloorCode();
+		int floor2 = next.getFloor().getFloorCode();
+		
+		int chargeUsed = (floor1 + floor2) / 2;
+		charge -= chargeUsed;
 	}
 
     /**

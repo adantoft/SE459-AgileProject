@@ -176,6 +176,10 @@ public class Tile {
 		return dirt;
 	}
 
+	public Floor getFloor() {
+		return floor;
+	}
+	
 	public Tile getAdjacent(Direction direction) throws DataValidationException {
 		switch (direction) {
 		case NORTH:
