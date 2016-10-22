@@ -10,8 +10,11 @@ import floor.Tile.Floor;
 import general.DataValidationException;
 import static floor.Tile.Direction.*;
 
-public class CleanSweep {
 
+public class CleanSweep {
+	
+	private static final double MAX_CHARGE = 100;
+	
 	private static CleanSweep instance;
 
 	private Tile currentTile;
@@ -172,6 +175,6 @@ public class CleanSweep {
 		visited.clear();
 		unvisited.clear();
 		visitHistory.clear();
-		
+		charge = MAX_CHARGE;
 	}
 }
