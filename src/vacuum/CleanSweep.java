@@ -129,7 +129,11 @@ public class CleanSweep {
 	public Tile getTile() {
 		return currentTile;
 	}
-
+	
+	public int getCharge() {
+		return charge;
+	}
+	
 	public void setTile(Tile tile) {
 		currentTile = tile;
 		currentTile.visit();
