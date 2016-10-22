@@ -6,8 +6,8 @@ import java.util.Stack;
 
 import floor.Tile;
 import floor.Tile.Direction;
+import floor.Tile.Floor;
 import general.DataValidationException;
-
 import static floor.Tile.Direction.*;
 
 public class CleanSweep {
@@ -18,7 +18,7 @@ public class CleanSweep {
 	private ArrayList<Tile> visited;	// Visited tiles
 	private ArrayList<Tile> unvisited;	// Tiles seen but not visited
 	private Stack<Tile> visitHistory;
-	private int charge;
+	private double charge;
 
 	private CleanSweep() {}
 
@@ -47,7 +47,7 @@ public class CleanSweep {
 		}
 		
 		// Previous tile
-		Tile previousTile = currentTile;
+		double previousFloorCode = currentTile.getFloor().getFloorCode();
 		
 		switch (direction) {
 			case NORTH:
@@ -75,9 +75,9 @@ public class CleanSweep {
 		}
 		
 		// Next tile
-		Tile nextTile = currentTile;
+		double nextFloorCode = currentTile.getFloor().getFloorCode();
 		
-		depleteCharge(previousTile, nextTile);
+		depleteCharge(previousFloorCode, nextFloorCode);
 		
 		// Re-categorizes the current tile from unvisited to visited
 		currentTile.visit();
@@ -94,11 +94,9 @@ public class CleanSweep {
 		return true;
 	}
 	
-	public void depleteCharge(Tile previous, Tile next) {
-		int floor1 = previous.getFloor().getFloorCode();
-		int floor2 = next.getFloor().getFloorCode();
+	public void depleteCharge(double previous, double next) {
 		
-		int chargeUsed = (floor1 + floor2) / 2;
+		double chargeUsed = (previous + next) / 2;
 		charge -= chargeUsed;
 	}
 
@@ -130,7 +128,7 @@ public class CleanSweep {
 		return currentTile;
 	}
 	
-	public int getCharge() {
+	public double getCharge() {
 		return charge;
 	}
 	
