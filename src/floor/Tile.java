@@ -172,8 +172,8 @@ public class Tile {
 		return visited;
 	}
 
-	public int getDirt() {
-		return dirt;
+	public boolean hasDirt() {
+		return (dirt > 0);
 	}
 
 	public Floor getFloor() {
@@ -235,6 +235,10 @@ public class Tile {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public void clean() {
+		dirt --;
 	}
 	
 	public void setFloor(Floor floorIn) {

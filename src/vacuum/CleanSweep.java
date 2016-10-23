@@ -22,6 +22,7 @@ public class CleanSweep {
 	private ArrayList<Tile> unvisited;	// Tiles seen but not visited
 	private Stack<Tile> visitHistory;
 	private double charge;
+	private int dirtBag;
 
 	private CleanSweep() {}
 
@@ -32,6 +33,7 @@ public class CleanSweep {
 			instance.unvisited = new ArrayList<>(); // TODO don't think we need this since visit is tracked in tile [Alex]
 			instance.visitHistory = new Stack<>();
 			instance.charge = 100;
+			instance.dirtBag = 0;
 		}
 		return instance;
 	}
@@ -45,6 +47,10 @@ public class CleanSweep {
 	 */
 	public boolean move(Direction direction) throws DataValidationException {
 		if (currentTile.getAdjacent(direction) == null) {
+			return false;
+		}
+		
+		if (charge <= 0) {
 			return false;
 		}
 		
@@ -79,7 +85,13 @@ public class CleanSweep {
 		// Next tile
 		double nextFloorCode = currentTile.getFloor().getFloorCode();
 		
+		// Depletes charge
 		depleteCharge(previousFloorCode, nextFloorCode);
+		
+		// Checks for dirt and cleans the Tile
+		if (currentTile.hasDirt()) {
+			cleanTile();
+		}
 		
 		// Re-categorizes the current tile from unvisited to visited
 		currentTile.visit();
@@ -103,6 +115,20 @@ public class CleanSweep {
 	
 	public void recharge() {
 		charge = MAX_CHARGE;
+	}
+	
+	public void cleanTile() {
+		
+		while (currentTile.hasDirt()) {
+			
+			// Stops cleaning when the bag is full
+			if (dirtBag >= 50) {
+				return;
+			}
+			
+			currentTile.clean();
+			dirtBag ++;
+		}
 	}
 
     /**
@@ -135,6 +161,10 @@ public class CleanSweep {
 	
 	public double getCharge() {
 		return charge;
+	}
+	
+	public int getDirtBag() {
+		return dirtBag;
 	}
 	
 	public void setTile(Tile tile) {
@@ -178,5 +208,6 @@ public class CleanSweep {
 		unvisited.clear();
 		visitHistory.clear();
 		charge = MAX_CHARGE;
+		dirtBag = 0;
 	}
 }

@@ -110,6 +110,24 @@ public class CleanSweepTest {
     }
     
     @Test
+    public void cleanTest() throws Exception {
+    	Tile tile1 = new Tile(0, BARE);
+    	Tile tile2 = new Tile(32, BARE);
+    	Tile tile3 = new Tile(32, BARE);
+    	tile1.attachTile(tile2, NORTH);
+    	tile2.attachTile(tile3, EAST);
+    	cs.setTile(tile1);
+    	
+    	cs.move(NORTH);
+    	assertFalse(cs.getTile().hasDirt());
+    	assertTrue(cs.getDirtBag() == 32);
+    	
+    	cs.move(EAST);
+    	assertTrue(cs.getTile().hasDirt());
+    	assertTrue(cs.getDirtBag() == 50);
+    }
+    
+    @Test
     public void obstacleTest() throws Exception {
     	
     	// Connect two tiles.
