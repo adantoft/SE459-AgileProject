@@ -97,6 +97,19 @@ public class CleanSweepTest {
     }
     
     @Test
+    public void rechargeTest() throws Exception {
+    	cs.recharge();
+    	assertTrue(cs.getCharge() == 100);
+    	Tile tile1 = new Tile(BARE);
+    	Tile tile2 = new Tile(BARE);
+    	tile1.attachTile(tile2, NORTH);
+    	
+    	cs.setTile(tile1);
+    	cs.move(NORTH);
+    	assertTrue(cs.getCharge() < 100);
+    }
+    
+    @Test
     public void obstacleTest() throws Exception {
     	
     	// Connect two tiles.

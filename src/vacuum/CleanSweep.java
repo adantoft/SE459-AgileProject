@@ -96,10 +96,13 @@ public class CleanSweep {
 		return true;
 	}
 	
-	public void depleteCharge(double previous, double next) {
-		
+	public void depleteCharge(double previous, double next) {	
 		double chargeUsed = (previous + next) / 2;
 		charge -= chargeUsed;
+	}
+	
+	public void recharge() {
+		charge = MAX_CHARGE;
 	}
 
     /**
