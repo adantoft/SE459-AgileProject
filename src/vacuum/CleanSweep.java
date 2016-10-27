@@ -148,7 +148,7 @@ public class CleanSweep {
         return false;
 	}
 
-	public void followPath(Direction[] path) throws DataValidationException {
+	public void followPath(ArrayList<Direction> path) throws DataValidationException {
 		for (Direction d : path) {
 			move(d);
 			// TODO: Vacuum when necessary (?)

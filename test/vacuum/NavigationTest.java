@@ -142,11 +142,22 @@ public class NavigationTest {
     @Test
     public void calculatePath() throws Exception {
 
+        Map map = new Map(3, 3);
+        Space testRoomBare = new Space(new Point(0, 0), new Point(2,2));
+        map.setSpace(testRoomBare, BARE);
+
+        Tile startTile = map.getTile(0,0);
+        Tile endTile = map.getTile(2,0);
+
+        for (Tile tile : map.getTiles()) { // tests that all tiles are not visited
+            assertEquals(tile.getVisited(), 0);
+        }
+
+        cs.setTile(startTile);
+        assertNotEquals(cs.getTile().getAdjacentTiles().size(), 0);
+        cs.followPath(Navigation.calculatePath(cs.getTile(), endTile));
+
+        assertTrue(cs.getTile()==endTile);
+
     }
-
-    @Test
-    public void getEfficientPath() throws Exception {
-
-    }
-
 }

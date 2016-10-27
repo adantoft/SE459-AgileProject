@@ -54,17 +54,5 @@ public class TestMap {
 
 		map.printMap();
 
-		Direction[] path = { Direction.NORTH, Direction.NORTH, Direction.NORTH };
-
-		try {
-
-			cs.setTile(map.getTile(0, 0));
-			cs.followPath(path);
-			// System.out.println(cs.getTile().toString());
-
-
-		} catch (DataValidationException e) {
-			e.printStackTrace();
-		}
 	}
 }
