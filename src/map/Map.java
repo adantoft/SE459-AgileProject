@@ -109,8 +109,31 @@ public class Map {
 	public Tile getTile(int x, int y) {
 		return map[x][y];
 	}
+
+  public void setDoorway(Point tile1, Point tile2) {
+
+    try {
+      if (tile1.getX() == tile2.getX()) {
+        if (tile1.getY() > tile2.getY()) {
+          this.map[tile1.getX()][tile1.getY()].attachTile(this.map[tile2.getX()][tile2.getY()], SOUTH);
+        } else if (tile1.getY() < tile2.getY()) {
+          this.map[tile1.getX()][tile1.getY()].attachTile(this.map[tile2.getX()][tile2.getY()], NORTH);
+        }
+      } else if (tile1.getY() == tile2.getY()) {
+        if (tile1.getX() > tile2.getX()) {
+          this.map[tile1.getX()][tile1.getY()].attachTile(this.map[tile2.getX()][tile2.getY()], WEST);
+        } else if (tile1.getX() < tile2.getX()) {
+          this.map[tile1.getX()][tile1.getY()].attachTile(this.map[tile2.getX()][tile2.getY()], EAST);
+        }
+      }
+    } catch (DataValidationException e) {
+      e.printStackTrace();
+    }
+
+  }
 	
 	public static void main(String[] args) {
 		Tile tile = new Tile(Floor.BARE);
 	}
+
 }

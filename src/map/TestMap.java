@@ -56,5 +56,26 @@ public class TestMap {
 
 		System.out.println(map.getTile(1, 1).getCoordinates());
 
+		// Adding Doorways
+		// map.getTile(1, 4).attachTile(map.getTile(1, 5), NORTH)
+		
+		map.setDoorway(new Point(1, 4), new Point(1, 5));
+
+		map.setDoorway(new Point(0, 6), new Point(0, 7));
+
+		map.setDoorway(new Point(3, 3), new Point(4, 3));
+
+		map.setDoorway(new Point(3, 6), new Point(4, 6));
+
+		map.setDoorway(new Point(3, 7), new Point(4, 7));
+
+		map.setDoorway(new Point(4, 7), new Point(4, 8));
+
+		map.setDoorway(new Point(6, 7), new Point(5, 7));
+
+		map.setDoorway(new Point(6, 7), new Point(5, 7));
+
+		map.setDoorway(new Point(6, 8), new Point(6, 9));
+
 	}
 }
