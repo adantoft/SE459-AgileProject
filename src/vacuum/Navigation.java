@@ -12,7 +12,7 @@ import static floor.Tile.Direction.*;
 public class Navigation {
 
     private static ArrayList<Tile.Direction> successPath = new ArrayList<>();
-    private static HashSet<Node> stateSpace = new HashSet();
+    private static HashSet<Tile> stateSpace = new HashSet();
 	private static Navigation instance;
 
 	private Navigation() {}
@@ -25,7 +25,7 @@ public class Navigation {
 	}
 	CleanSweep cs = CleanSweep.getInstance();
 
-    public HashSet<Node> getStateSpace(){
+    public HashSet<Tile> getStateSpace(){
         return stateSpace;
     }
 
@@ -69,17 +69,14 @@ public class Navigation {
 
         while (!history.isEmpty()) {
             Node currentNode = history.poll();//grab next item on queue and remove
-
-            System.err.print("Testing if correct tile...");
+            System.err.print("Going Direction: " + currentNode.getAction() + "\t");
             if (currentNode.getTile() == end) { //Test the tile if it meets requirements
-                System.err.println("success");
                 calcSuccessPath(currentNode);
                 return successPath;
             }
-            System.err.println("fail");
-            System.err.print("Adding new successor nodes...");
+            System.err.print("Adding Successor States...");
             for (Node node : currentNode.getSuccessorStates()) { //only states in which have not been visited
-                history.addFirst(node); //add to begin of queue
+                history.add(node); //add to begin of queue
                 System.err.print(node.getAction() + " ");
             }
             System.err.println();
@@ -94,7 +91,9 @@ public class Navigation {
      */
 
     private static Node calcSuccessPath(Node node){  //recursive function to navigate from end node back up to start node
-        successPath.add(0,node.getAction());
+        if (node.getAction() != null) {
+            successPath.add(0,node.getAction());
+        }
         if (node.getParent() == null){
             return node;
         } else {
@@ -122,6 +121,7 @@ class Node implements Comparator<Node> {
         this.tile = tile;
         this.direction = direction;
         this.runningPathCost = runningPathCost;
+        Navigation.getInstance().getStateSpace().add(tile);
     }
     public Tile getTile(){
         return tile;
@@ -134,33 +134,33 @@ class Node implements Comparator<Node> {
     }
     public ArrayList<Node> getSuccessorStates(){ //returns list of successor states (children of this node); excludes already visited states
         ArrayList<Node> successorStates = new ArrayList<>();
+        HashSet<Tile> stateSpace = Navigation.getInstance().getStateSpace();
 
         try {
             for (Tile.Direction dir : Tile.Direction.values()){
 
                 if (tile.getAdjacent(dir)!=null && !Navigation.getInstance().getStateSpace().contains(tile.getAdjacent(dir))) {
 
+                    Node node = new Node(this, tile.getAdjacent(dir), dir, runningPathCost + 1);
+
                     switch (dir) {
 
                         case NORTH:
-                            childNodeNorth = new Node(this, tile.getAdjacent(dir), dir, runningPathCost + 1);
-                            successorStates.add(childNodeNorth);
+                            childNodeNorth = node;
                             break;
                         case SOUTH:
-                            childNodeSouth = new Node(this, tile.getAdjacent(dir), dir, runningPathCost + 1);
-                            successorStates.add(childNodeSouth);
+                            childNodeSouth = node;
                             break;
                         case EAST:
-                            childNodeEast = new Node(this, tile.getAdjacent(dir), dir, runningPathCost + 1);
-                            successorStates.add(childNodeEast);
+                            childNodeEast = node;
                             break;
                         case WEST:
-                            childNodeWest = new Node(this, tile.getAdjacent(dir), dir, runningPathCost + 1);
-                            successorStates.add(childNodeWest);
+                            childNodeWest = node;
                             break;
                         default:
                             throw new Error("Invalid Direction");
                     }
+                    successorStates.add(node);
                 }
             }
         } catch (DataValidationException e) {

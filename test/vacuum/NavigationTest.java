@@ -8,6 +8,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+
 import static floor.Tile.Direction.*;
 import static floor.Tile.Floor.*;
 import static org.junit.Assert.*;
@@ -142,12 +144,17 @@ public class NavigationTest {
     @Test
     public void calculatePath() throws Exception {
 
-        Map map = new Map(3, 3);
-        Space testRoomBare = new Space(new Point(0, 0), new Point(2,2));
+        int xSize = 50;
+        int ySize = xSize;
+        int lowerLeft = 0;
+        int upperRight = xSize - 1;
+
+        Map map = new Map(xSize, ySize);
+        Space testRoomBare = new Space(new Point(lowerLeft, lowerLeft), new Point(upperRight,upperRight));
         map.setSpace(testRoomBare, BARE);
 
         Tile startTile = map.getTile(0,0);
-        Tile endTile = map.getTile(2,0);
+        Tile endTile = map.getTile(39,29);
 
         for (Tile tile : map.getTiles()) { // tests that all tiles are not visited
             assertEquals(tile.getVisited(), 0);
@@ -155,8 +162,9 @@ public class NavigationTest {
 
         cs.setTile(startTile);
         assertNotEquals(cs.getTile().getAdjacentTiles().size(), 0);
-        cs.followPath(Navigation.calculatePath(cs.getTile(), endTile));
-
+        ArrayList<Tile.Direction> successPath = Navigation.calculatePath(cs.getTile(), endTile);
+        cs.followPath(successPath);
+        System.err.print(successPath);
         assertTrue(cs.getTile()==endTile);
 
     }
