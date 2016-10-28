@@ -7,12 +7,16 @@ import java.util.List;
 
 import static floor.Tile.Direction.*;
 
+import map.Point;
+
 public class Tile {
 
 	private Tile north, south, east, west;
 	
 	private int visited;
 	private int dirt;
+
+	private Point coordinates;
 	
 	Floor floor;
 	Role role;
@@ -248,4 +252,13 @@ public class Tile {
 	public void setRole(Role roleIn) {
 		role = roleIn;
 	}
+
+	public void setCoordinates(Point coordinatesIn) {
+		coordinates = coordinatesIn;
+	}
+
+	public Point getCoordinates() {
+		return coordinates;
+	}
+
 }
