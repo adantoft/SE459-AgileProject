@@ -54,5 +54,7 @@ public class TestMap {
 
 		map.printMap();
 
+		System.out.println(map.getTile(1, 1).getCoordinates());
+
 	}
 }

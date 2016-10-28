@@ -16,4 +16,13 @@ public class Point {
 		return this.y;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("X: " + this.x);
+		sb.append("\nY: " + this.y);
+
+		return sb.toString();
+	}
+
 } 

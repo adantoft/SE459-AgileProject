@@ -10,6 +10,8 @@ import floor.Tile.Role;
 import java.util.ArrayList;
 import java.util.List;
 
+import map.Point;
+
 import static floor.Tile.Direction.*;
 
 public class Map {
@@ -33,7 +35,7 @@ public class Map {
 	public void setFloor(Space space, Floor floor) {
 		for (int x = space.getBottomLeft().getX(); x <= space.getTopRight().getX(); x ++) {
 			for (int y = space.getBottomLeft().getY(); y <= space.getTopRight().getY(); y ++) {
-                this.map[x][y] = new Tile(floor);
+                this.map[x][y] = new Tile(0, floor, new Point(x,y));
 			}
 		}
 	}

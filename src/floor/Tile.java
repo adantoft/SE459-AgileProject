@@ -79,16 +79,25 @@ public class Tile {
 		BASE;
 	}
 
+	public Tile(int dirtIn, Floor floorIn, Point coordinatesIn) {
+		dirt = dirtIn;
+		floor = floorIn;
+		visited = 0;
+		coordinates = coordinatesIn;
+	}
+
 	public Tile(int dirtIn, Floor floorIn) {
 		dirt = dirtIn;
 		floor = floorIn;
 		visited = 0;
+		coordinates = null;
 	}
 	
 	public Tile(Floor floorIn) {
 		dirt = 0;
 		floor = floorIn;
 		visited = 0;
+		coordinates = null;
 	}
 
 	@Override
