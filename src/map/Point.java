@@ -20,7 +20,7 @@ public class Point {
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 		sb.append("X: " + this.x);
-		sb.append("\nY: " + this.y);
+		sb.append(" Y: " + this.y);
 
 		return sb.toString();
 	}
