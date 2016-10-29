@@ -47,6 +47,7 @@ public class CleanSweep {
 	 */
 	public boolean move(Direction direction) throws DataValidationException {
 		if (currentTile.getAdjacent(direction) == null) {
+            System.err.println("MOVE FAILED!!");
 			return false;
 		}
 		
@@ -81,6 +82,8 @@ public class CleanSweep {
 			default:
 				throw new DataValidationException("ERROR: Invalid direction");
 		}
+
+		System.err.println("Moved to: " + currentTile.getCoordinates());
 		
 		// Next tile
 		double nextFloorCode = currentTile.getFloor().getFloorCode();

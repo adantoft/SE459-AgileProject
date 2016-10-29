@@ -69,17 +69,13 @@ public class Navigation {
 
         while (!history.isEmpty()) {
             Node currentNode = history.poll();//grab next item on queue and remove
-            System.err.print("Going Direction: " + currentNode.getAction() + "\t");
             if (currentNode.getTile() == end) { //Test the tile if it meets requirements
                 calcSuccessPath(currentNode);
                 return successPath;
             }
-            System.err.print("Adding Successor States...");
             for (Node node : currentNode.getSuccessorStates()) { //only states in which have not been visited
                 history.add(node); //add to begin of queue
-                System.err.print(node.getAction() + " ");
             }
-            System.err.println();
         }
         return null; //path not found
     }
