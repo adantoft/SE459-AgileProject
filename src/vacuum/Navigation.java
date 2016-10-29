@@ -135,7 +135,7 @@ class Node implements Comparator<Node> {
         try {
             for (Tile.Direction dir : Tile.Direction.values()){
 
-                if (tile.getAdjacent(dir)!=null && !Navigation.getInstance().getStateSpace().contains(tile.getAdjacent(dir))) {
+                if (tile.getAdjacent(dir)!=null && !stateSpace.contains(tile.getAdjacent(dir))) {
 
                     Node node = new Node(this, tile.getAdjacent(dir), dir, runningPathCost + 1);
 
