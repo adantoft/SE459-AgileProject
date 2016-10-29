@@ -152,22 +152,14 @@ public class TileTest {
 
 
     @Test
-    public void getDirtTest() throws Exception {
+    public void hasDirtTest() throws Exception {
         int dirtInt = 0;
         int dirtInt2 = 1;
         Tile testTileTwoInput = new Tile(dirtInt, BARE);
         Tile testTileTwoDirtInput = new Tile(dirtInt2, LOW);
 
-        assertNotNull(testTileTwoInput.getDirt());
-        assertNotNull(testTileTwoDirtInput.getDirt());
-
-        assertEquals(0, testTileTwoInput.getDirt());
-        assertEquals(1, testTileTwoDirtInput.getDirt());
-
-        assertNotEquals(0, testTileTwoDirtInput.getDirt());
-        assertNotEquals(1, testTileTwoInput.getDirt());
-
-
+        assertFalse(testTileTwoInput.hasDirt());
+        assertTrue(testTileTwoDirtInput.hasDirt());
     }
 
     @Test
