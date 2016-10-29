@@ -58,7 +58,7 @@ public class NavigationTest {
 
     }
 
-    @Test
+    @Test (timeout = 15000)
     public void runVacuumBigSpaceTest() throws Exception {
 
         Map map = new Map(50, 50);
