@@ -47,7 +47,7 @@ public class CleanSweep {
 	 */
 	public boolean move(Direction direction) throws DataValidationException {
 		if (currentTile.getAdjacent(direction) == null) {
-            System.err.println("MOVE FAILED!!");
+            System.err.println("ERROR: Move failed.");
 			return false;
 		}
 		

@@ -144,6 +144,7 @@ public class NavigationTest {
 
     @Test
     public void shortestDistanceSingleRoomTest() throws Exception {
+    	System.err.println("\nshortestDistanceSingleRoomTest()");
 
         int xSize = 100;
         int ySize = xSize;
@@ -152,7 +153,7 @@ public class NavigationTest {
         int endTileX = ThreadLocalRandom.current().nextInt(99, xSize);
         int endTileY = ThreadLocalRandom.current().nextInt(99, xSize);
 
-        System.err.println("End Tile is coordinates: X:" + endTileX + " Y:" +endTileY);
+        System.err.println("End Tile is coordinates: X: " + endTileX + " Y: " +endTileY);
 
         Map map = new Map(xSize, ySize);
         Space testRoomBare = new Space(new Point(lowerLeft, lowerLeft), new Point(upperRight,upperRight));
@@ -161,28 +162,41 @@ public class NavigationTest {
         Tile startTile = map.getTile(0,0);
         Tile endTile = map.getTile(endTileX,endTileY);
 
-        for (Tile tile : map.getTiles()) { // tests that all tiles are not visited
+        // Tests that no tile is visited
+        for (Tile tile : map.getTiles()) {
             assertEquals(tile.getVisited(), 0);
+        }
+        
+        // Tests that all tiles have adjacent tiles
+        for (Tile tile : map.getTiles()) {
+        	assertFalse(tile.getAdjacentTiles().isEmpty());
         }
 
         cs.setTile(startTile);
         assertNotEquals(cs.getTile().getAdjacentTiles().size(), 0);
         ArrayList<Tile.Direction> successPath = Navigation.calculatePath(cs.getTile(), endTile);
         cs.followPath(successPath);
-        System.err.println(successPath);
+        
+        // Prints the path
+        for (Tile.Direction dir : successPath) {
+        	System.err.println(dir);
+        }
+        
+        // Prints path info
         System.err.print("Counts: ");
         for (Tile.Direction dir : Tile.Direction.values()){
-            System.err.print(dir + ":" + Collections.frequency(successPath, dir) + " ");
+            System.err.print(dir + ": " + Collections.frequency(successPath, dir) + " ");
         }
         System.err.println();
 
-        assertTrue(cs.getTile()==endTile);
+        assertEquals(cs.getTile(), endTile);
 
     }
 
 
     @Test
     public void shortestDistanceExampleMapTest() throws Exception {
+    	System.err.println("\nshortestDistanceExampleMapTest()");
         Map map = TestMap.buildExampleMap();
 
         int startTileX = 0;

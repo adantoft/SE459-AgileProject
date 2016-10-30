@@ -19,8 +19,9 @@ public class Point {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("X: " + this.x);
-		sb.append(" Y: " + this.y);
+		sb.append("(" + this.x);
+		sb.append(", " + this.y);
+		sb.append(")");
 
 		return sb.toString();
 	}
