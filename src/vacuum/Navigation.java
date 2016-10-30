@@ -14,16 +14,17 @@ public class Navigation {
     private static ArrayList<Tile.Direction> successPath = new ArrayList<>();
     private static HashSet<Tile> stateSpace = new HashSet();
 	private static Navigation instance;
+	private CleanSweep cs;
 
 	private Navigation() {}
 
 	public static Navigation getInstance() {
 		if (instance == null) {
 			instance = new Navigation();
+			instance.cs = CleanSweep.getInstance();
 		}
 		return instance;
 	}
-	CleanSweep cs = CleanSweep.getInstance();
 
     public HashSet<Tile> getStateSpace(){
         return stateSpace;
@@ -36,21 +37,20 @@ public class Navigation {
 		List<Tile> successorTiles = new ArrayList<>();
 
 		do {
-			// call clean code here
 			successorTiles.clear();
 			for (Tile tile : cs.getTile().getAdjacentTiles()) {
-				if (tile.getVisited() == 0){
+				if (tile.getVisited() == 0) {
 					successorTiles.add(tile);
 				}
 			}
 			if (!successorTiles.isEmpty()) {
 				try {
-					cs.move(cs.getTile().getDirectionTo(successorTiles.get(0))); //picks direction (first added) - random?
+					cs.move(cs.getTile().getDirectionTo(successorTiles.get(0)));	// Picks direction (first added) - random?
 				} catch (DataValidationException e) {
 					e.printStackTrace();
 				}
 			} else {
-				cs.moveBack();
+				cs.moveBack();	// If all adjacent tiles are visited, moves back a space
 			}
 		} while (!cs.isVisitHistoryEmpty());
 
@@ -85,8 +85,7 @@ public class Navigation {
      * @param node ending node
      * @return node
      */
-
-    private static Node calcSuccessPath(Node node){  //recursive function to navigate from end node back up to start node
+    private static Node calcSuccessPath(Node node) {	// Navigates from end node to start node
         if (node.getAction() != null) {
             successPath.add(0,node.getAction());
         }
@@ -112,35 +111,36 @@ class Node implements Comparator<Node> {
     private int runningPathCost;
     private Tile.Direction direction;
 
-    public Node(Node parentNode, Tile tile, Tile.Direction direction, int runningPathCost){
+    public Node(Node parentNode, Tile tile, Tile.Direction direction, int runningPathCost) {
         this.parentNode = parentNode;
         this.tile = tile;
         this.direction = direction;
         this.runningPathCost = runningPathCost;
         Navigation.getInstance().getStateSpace().add(tile);
     }
-    public Tile getTile(){
+    public Tile getTile() {
         return tile;
     }
-    public Tile.Direction getAction(){
+    public Tile.Direction getAction() {
         return direction;
     }
-    public Node getParent(){
+    public Node getParent() {
         return parentNode;
     }
-    public ArrayList<Node> getSuccessorStates(){ //returns list of successor states (children of this node); excludes already visited states
+    
+    // Returns list of successor states (children of this node); excludes already visited states
+    public ArrayList<Node> getSuccessorStates() {
         ArrayList<Node> successorStates = new ArrayList<>();
         HashSet<Tile> stateSpace = Navigation.getInstance().getStateSpace();
 
         try {
             for (Tile.Direction dir : Tile.Direction.values()){
 
-                if (tile.getAdjacent(dir)!=null && !stateSpace.contains(tile.getAdjacent(dir))) {
+                if (tile.getAdjacent(dir) != null && !stateSpace.contains(tile.getAdjacent(dir))) {
 
                     Node node = new Node(this, tile.getAdjacent(dir), dir, runningPathCost + 1);
 
                     switch (dir) {
-
                         case NORTH:
                             childNodeNorth = node;
                             break;
@@ -154,7 +154,7 @@ class Node implements Comparator<Node> {
                             childNodeWest = node;
                             break;
                         default:
-                            throw new Error("Invalid Direction");
+                            throw new DataValidationException("ERROR: Invalid direction");
                     }
                     successorStates.add(node);
                 }
@@ -166,10 +166,10 @@ class Node implements Comparator<Node> {
     }
 
     @Override
-    public int compare(Node n1, Node n2){
+    public int compare(Node n1, Node n2) {
         if (n1.runningPathCost < n2.runningPathCost){
             return -1;
-        }else if (n1.runningPathCost > n2.runningPathCost){
+        } else if (n1.runningPathCost > n2.runningPathCost){
             return 1;
         }
         return 0;
