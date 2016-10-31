@@ -7,7 +7,6 @@ import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.LinkedBlockingDeque;
-import static floor.Tile.Direction.*;
 
 public class Navigation {
 
@@ -15,6 +14,7 @@ public class Navigation {
     private static HashSet<Tile> stateSpace = new HashSet();
 	private static Navigation instance;
 	private CleanSweep cs;
+
 
 	private Navigation() {}
 
@@ -26,9 +26,15 @@ public class Navigation {
 		return instance;
 	}
 
+
     public HashSet<Tile> getStateSpace(){
         return stateSpace;
     }
+
+	public void clearShortestPath() {
+		successPath.removeAll(successPath);
+		stateSpace.clear();
+	}
 
     /**
      * Method to DFS traverse entire floor
@@ -50,7 +56,12 @@ public class Navigation {
 					e.printStackTrace();
 				}
 			} else {
-				cs.moveBack();	// If all adjacent tiles are visited, moves back a space
+				if (cs.moveBack() == true) {
+					cs.moveBack();    // If all adjacent tiles are visited, moves back a space
+
+				} else {
+					break;
+				}
 			}
 		} while (!cs.isVisitHistoryEmpty());
 
@@ -95,6 +106,24 @@ public class Navigation {
             return calcSuccessPath(node.getParent());
         }
     }
+
+
+	/**
+	 * Recursive function to build path from node tree
+	 * @param node ending node
+	 * @return node
+	 */
+	private static Node calcSuccessPathReturn(Node node) {	// Navigates from end node to start node
+		if (node.getAction() != null) {
+			successPath.add(0,node.getAction());
+		}
+		if (node.getParent() == null){
+			return node;
+		} else {
+			return calcSuccessPathReturn(node.getParent());
+		}
+	}
+
 }
 
 /**
@@ -118,6 +147,9 @@ class Node implements Comparator<Node> {
         this.runningPathCost = runningPathCost;
         Navigation.getInstance().getStateSpace().add(tile);
     }
+
+
+
     public Tile getTile() {
         return tile;
     }
@@ -175,3 +207,5 @@ class Node implements Comparator<Node> {
         return 0;
     }
 }
+
+
