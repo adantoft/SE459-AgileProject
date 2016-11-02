@@ -112,12 +112,11 @@ public class CleanSweep {
 				unvisited.add(tile);
 			}
 		}
-
 		return true;
 	}
 
-	public void depleteChargeVacuum() {
-		charge -= 1;
+	public void depleteCharge() {
+		charge -= currentTile.getFloor().getFloorCode();
 	}
 
 
