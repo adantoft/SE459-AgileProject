@@ -34,7 +34,7 @@ public class MapTest {
         map.Map testMapNew = new map.Map(2, 2);
         map.Map testMapNewCompare = new map.Map(2, 2);
         Space testRoom1HighCarpNew = new Space(new Point(0, 0), new Point(1, 1));
-        testMapNew.setFloor(testRoom1HighCarpNew, Tile.Floor.HIGH);
+        testMapNew.setFloor(0, testRoom1HighCarpNew, Tile.Floor.HIGH);
         testMapNew.printMap();
         assertNotNull(testMapNew);
         assertNotEquals(testMapNewCompare, testMapNew.toString());
@@ -50,9 +50,9 @@ public class MapTest {
         map.Map testMapNewCompare2 = new map.Map(2, 2);
         Space testRoom1HighCarpNew = new Space(new Point(0, 0), new Point(0, 1));
         Space testRoomLowCarpNew = new Space(new Point(0, 0), new Point(0, 1));
-        testMapNew.setFloor(testRoom1HighCarpNew, Tile.Floor.HIGH);
-        testMapNewCompare.setFloor(testRoomLowCarpNew, Tile.Floor.LOW);
-        testMapNewCompare2.setFloor(testRoom1HighCarpNew, Tile.Floor.HIGH);
+        testMapNew.setFloor(0, testRoom1HighCarpNew, Tile.Floor.HIGH);
+        testMapNewCompare.setFloor(0, testRoomLowCarpNew, Tile.Floor.LOW);
+        testMapNewCompare2.setFloor(0, testRoom1HighCarpNew, Tile.Floor.HIGH);
 
         testMapNew.attachTiles(testRoom1HighCarpNew);
         assertNotEquals(testMapNew.getTiles().toString(), testMapNewCompare.getTiles().toString());
@@ -74,14 +74,14 @@ public class MapTest {
         Space testRoom1HighCarpNew = new Space(new Point(0, 0), new Point(1, 1));
         Space testRoom1HighCarpNew1 = new Space(new Point(0, 0), new Point(1, 1));
 
-        testMapNew.setSpace(testRoom1HighCarpNew, Tile.Floor.BARE);
-        testMapNewCompare.setSpace(testRoom1HighCarpNew, Tile.Floor.LOW);
+        testMapNew.setSpace(0, testRoom1HighCarpNew, Tile.Floor.BARE);
+        testMapNewCompare.setSpace(0, testRoom1HighCarpNew, Tile.Floor.LOW);
         assertNotEquals(testMapNew.getTile(0,0).toString(), testMapNewCompare.getTile(0,0).toString());
 
-        testMapNewCompare.setSpace(testRoom1HighCarpNew, Tile.Floor.HIGH);
+        testMapNewCompare.setSpace(0, testRoom1HighCarpNew, Tile.Floor.HIGH);
         assertNotEquals(testMapNew.getTile(0,0).toString(), testMapNewCompare.getTile(0,0).toString());
 
-        testMapNewCompare.setSpace(testRoom1HighCarpNew, Tile.Floor.BARE);
+        testMapNewCompare.setSpace(0, testRoom1HighCarpNew, Tile.Floor.BARE);
         assertEquals(testMapNew.getTile(0,0).toString(), testMapNewCompare.getTile(0,0).toString());
 
     }
@@ -92,14 +92,14 @@ public class MapTest {
         map.Map testMapNew = new map.Map(2, 2);
         map.Map testMapCompare = new map.Map(2, 2);
         Space testRoom1HighCarpNew = new Space(new Point(0, 0), new Point(1, 1));
-        testMapNew.setFloor(testRoom1HighCarpNew, Tile.Floor.HIGH);
+        testMapNew.setFloor(0, testRoom1HighCarpNew, Tile.Floor.HIGH);
 
         System.out.println(testMapNew.getTiles());
 
 
         assertNotEquals(testMapNew.getTiles().toString(), testMapCompare.getTiles().toString());
 
-        testMapCompare.setFloor(testRoom1HighCarpNew, Tile.Floor.HIGH);
+        testMapCompare.setFloor(0, testRoom1HighCarpNew, Tile.Floor.HIGH);
         assertEquals(testMapNew.getTiles().toString(), testMapCompare.getTiles().toString());
 
     }
@@ -111,7 +111,7 @@ public class MapTest {
 
         Space testRoom1HighCarpNew = new Space(new Point(0, 0), new Point(1, 1));
 
-        testMapNewTest.setFloor(testRoom1HighCarpNew, Tile.Floor.HIGH);
+        testMapNewTest.setFloor(0, testRoom1HighCarpNew, Tile.Floor.HIGH);
 
 
 
@@ -131,7 +131,7 @@ public class MapTest {
         //create 2x2 grid
         Map map = new Map(2, 2);
         Space testRoomBare = new Space(new Point(0, 0), new Point(1,1));
-        map.setSpace(testRoomBare, BARE);
+        map.setSpace(0, testRoomBare, BARE);
 
         // since this is 2x2, all tile should have 2 adjacent tiles
         for (Tile tile : map.getTiles()) {

@@ -32,10 +32,10 @@ public class Map {
 		}
 	}
 
-	public void setFloor(Space space, Floor floor) {
+	public void setFloor(int random, Space space, Floor floor) {
 		for (int x = space.getBottomLeft().getX(); x <= space.getTopRight().getX(); x ++) {
 			for (int y = space.getBottomLeft().getY(); y <= space.getTopRight().getY(); y ++) {
-                this.map[x][y] = new Tile(0, floor, new Point(x,y));
+                this.map[x][y] = new Tile(random, floor, new Point(x,y));
 			}
 		}
 	}
@@ -66,8 +66,8 @@ public class Map {
 	}
 
 
-	public void setSpace(Space space, Floor floor) {
-		setFloor(space, floor);
+	public void setSpace(int random, Space space, Floor floor) {
+		setFloor(random, space, floor);
 		attachTiles(space);
 	}
 

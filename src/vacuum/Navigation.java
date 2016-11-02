@@ -52,11 +52,12 @@ public class Navigation {
 			if (!successorTiles.isEmpty()) {
 				try {
 					cs.move(cs.getTile().getDirectionTo(successorTiles.get(0)));	// Picks direction (first added) - random?
+
 				} catch (DataValidationException e) {
 					e.printStackTrace();
 				}
 			} else {
-				if (cs.moveBack() == true) {
+				if (!cs.moveBack()) {
 					cs.moveBack();    // If all adjacent tiles are visited, moves back a space
 
 				} else {

@@ -108,7 +108,17 @@ public class CleanSweepTest {
     	cs.move(NORTH);
     	assertTrue(cs.getCharge() < 100);
     }
-    
+    @Test
+    public void cleanTileTest() throws Exception {
+        Tile tile1 = new Tile(1, BARE);
+        cs.setTile(tile1);
+        assertTrue(tile1.hasDirt() == true);
+        tile1.clean();
+        assertFalse(tile1.hasDirt() == true);
+
+
+    }
+/*
     @Test
     public void cleanTest() throws Exception {
     	Tile tile1 = new Tile(0, BARE);
@@ -126,7 +136,8 @@ public class CleanSweepTest {
     	assertTrue(cs.getTile().hasDirt());
     	assertTrue(cs.getDirtBag() == 50);
     }
-    
+    */
+
     @Test
     public void obstacleTest() throws Exception {
     	
