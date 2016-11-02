@@ -15,7 +15,8 @@ public class CleanSweepTest {
 
     @Before
     public void setUp() throws Exception {
-    cs.reset();
+    	cs.reset();
+    	cs = CleanSweep.getInstance();
     }
 
     @After

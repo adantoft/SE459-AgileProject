@@ -241,11 +241,6 @@ public class CleanSweep {
 	 * Resets all relevant values of the CleanSweep singleton.
 	 */
 	public void reset() {
-		currentTile = null;
-		visited.clear();
-		unvisited.clear();
-		visitHistory.clear();
-		charge = MAX_CHARGE;
-		dirtBag = 0;
+		instance = null;
 	}
 }
