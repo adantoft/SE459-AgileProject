@@ -10,7 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -146,12 +145,12 @@ public class NavigationTest {
     public void shortestDistanceSingleRoomTest() throws Exception {
     	System.err.println("\nshortestDistanceSingleRoomTest()");
 
-        int xSize = 40;
+        int xSize = 50;
         int ySize = xSize;
         int lowerLeft = 0;
         int upperRight = xSize - 1;
-        int endTileX = ThreadLocalRandom.current().nextInt(39, xSize);
-        int endTileY = ThreadLocalRandom.current().nextInt(39, xSize);
+        int endTileX = 49;
+        int endTileY = 49;
 
         System.err.println("End Tile is coordinates: X: " + endTileX + " Y: " +endTileY);
 
@@ -191,7 +190,7 @@ public class NavigationTest {
         }
         System.err.println();
 
-        assertNotEquals(cs.getTile(), endTile);
+        assertEquals(cs.getTile(), endTile);
 
     }
 

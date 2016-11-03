@@ -1,13 +1,12 @@
 package vacuum;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Stack;
-
 import floor.Tile;
 import floor.Tile.Direction;
-import floor.Tile.Floor;
 import general.DataValidationException;
+
+import java.util.ArrayList;
+import java.util.Stack;
+
 import static floor.Tile.Direction.*;
 
 
@@ -32,7 +31,7 @@ public class CleanSweep {
 			instance.visited = new ArrayList<>();  // TODO don't think we need this since visit is tracked in tile [Alex]
 			instance.unvisited = new ArrayList<>(); // TODO don't think we need this since visit is tracked in tile [Alex]
 			instance.visitHistory = new Stack<>();
-			instance.charge = 100;
+			instance.charge = MAX_CHARGE;
 			instance.dirtBag = 0;
 			instance.returnChargeLow = 50;
 			instance.fullDirtBag = 50;
