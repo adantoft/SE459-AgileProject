@@ -138,9 +138,13 @@ public class CleanSweep {
 				return;
 			}
 
+			if (charge < 40) {
+				return;
+			}
+			
 			currentTile.clean();
 			dirtBag ++;
-			charge = charge - 1;
+			depleteCharge();
 		}
 	}
 
