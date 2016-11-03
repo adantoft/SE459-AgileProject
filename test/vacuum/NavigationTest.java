@@ -145,14 +145,14 @@ public class NavigationTest {
     public void shortestDistanceSingleRoomTest() throws Exception {
     	System.err.println("\nshortestDistanceSingleRoomTest()");
 
-        int xSize = 16;
+        int xSize = 10;
         int ySize = xSize;
         int lowerLeft = 0;
         int upperRight = xSize - 1;
-        int endTileX = 15;
-        int endTileY = 15;
+        int endTileX = 9;
+        int endTileY = 9;
 
-        System.err.println("End Tile is coordinates: X: " + endTileX + " Y: " +endTileY);
+        System.err.println("End tile coordinates: X: " + endTileX + " Y: " +endTileY);
 
         Map map = new Map(xSize, ySize);
         Space testRoomBare = new Space(new Point(lowerLeft, lowerLeft), new Point(upperRight,upperRight));
@@ -165,24 +165,19 @@ public class NavigationTest {
         for (Tile tile : map.getTiles()) {
             assertEquals(tile.getVisited(), 0);
         }
-        
         // Tests that all tiles have adjacent tiles
         for (Tile tile : map.getTiles()) {
         	assertFalse(tile.getAdjacentTiles().isEmpty());
         }
-
-
         cs.setTile(startTile);
         assertNotEquals(cs.getTile().getAdjacentTiles().size(), 0);
         ArrayList<Tile.Direction> successPath = Navigation.calculatePath(cs.getTile(), endTile);
         cs.followPath(successPath);
 
-
         // Prints the path
         for (Tile.Direction dir : successPath) {
         	System.err.println(dir);
         }
-        
         // Prints path info
         System.err.print("Counts: ");
         for (Tile.Direction dir : Tile.Direction.values()){
@@ -191,19 +186,21 @@ public class NavigationTest {
         System.err.println();
 
         assertEquals(cs.getTile(), endTile);
-
     }
-
 
     @Test
     public void shortestDistanceExampleMapTest() throws Exception {
     	System.err.println("\nshortestDistanceExampleMapTest()");
         Map map = TestMap.buildExampleMap();
 
-        int startTileX = 0;
+        //starting coordinates
+        int startTileX = 1;
         int startTileY = 6;
-        int endTileX = 9;
-        int endTileY = 0;
+        //ending coordinates
+        int endTileX = 3;
+        int endTileY = 5;
+        //fewest amount of moves to get from start to end
+        int shortestPathDistance = 18;
 
         Tile startTile = map.getTile(startTileX,startTileY);
         Tile endTile = map.getTile(endTileX,endTileY);
@@ -211,20 +208,22 @@ public class NavigationTest {
         for (Tile tile : map.getTiles()) { // tests that all tiles are not visited
             assertEquals(tile.getVisited(), 0);
         }
-
         cs.setTile(startTile);
         assertNotEquals(cs.getTile().getAdjacentTiles().size(), 0);
         ArrayList<Tile.Direction> successPath = Navigation.calculatePath(cs.getTile(), endTile);
         cs.followPath(successPath);
-        System.err.print(successPath);
         assertTrue(cs.getTile()==endTile);
 
+        int counter = 0;
+        for (Tile tile : map.getTiles()) { // tests that all tiles are not visited
+             counter += tile.getVisited();
+        }
+        assertTrue(counter==shortestPathDistance);
     }
 
     @Test
     public void cleanSweepReturnLowPowerTest() throws Exception {
         System.err.println("\ncleanSweepReturnLowPowerTest()");
-
 
         int xSize = 40;
         int ySize = xSize;
@@ -305,7 +304,6 @@ public class NavigationTest {
 
         map.setFloor(5, testRoomBare, HIGH);
         map.setSpace(5, testRoomBare, BARE);
-
 
         Tile startTile = map.getTile(0,0);
         Tile endTile = map.getTile(endTileX,endTileY);
