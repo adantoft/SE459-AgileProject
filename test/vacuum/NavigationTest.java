@@ -145,12 +145,12 @@ public class NavigationTest {
     public void shortestDistanceSingleRoomTest() throws Exception {
     	System.err.println("\nshortestDistanceSingleRoomTest()");
 
-        int xSize = 50;
+        int xSize = 16;
         int ySize = xSize;
         int lowerLeft = 0;
         int upperRight = xSize - 1;
-        int endTileX = 49;
-        int endTileY = 49;
+        int endTileX = 15;
+        int endTileY = 15;
 
         System.err.println("End Tile is coordinates: X: " + endTileX + " Y: " +endTileY);
 

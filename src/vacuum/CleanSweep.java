@@ -13,6 +13,7 @@ import static floor.Tile.Direction.*;
 public class CleanSweep {
 
 	private static final double MAX_CHARGE = 100;
+	private static final int MAX_DIRT = 50;
 	private static CleanSweep instance;
 	private Tile currentTile;
 	private ArrayList<Tile> visited;	// Visited tiles
@@ -21,7 +22,6 @@ public class CleanSweep {
 	private double charge;
 	private int dirtBag;
 	private double returnChargeLow;
-	private int fullDirtBag;
 
 	private CleanSweep() {}
 
@@ -34,7 +34,6 @@ public class CleanSweep {
 			instance.charge = MAX_CHARGE;
 			instance.dirtBag = 0;
 			instance.returnChargeLow = 50;
-			instance.fullDirtBag = 50;
 		}
 		return instance;
 	}
@@ -172,7 +171,7 @@ public class CleanSweep {
 				Navigation.getInstance().clearShortestPath();
 				break;
 			}
-			if (dirtBag == fullDirtBag) {
+			if (dirtBag == MAX_DIRT) {
 				Navigation.getInstance().clearShortestPath();
 				break;
 			}
@@ -182,7 +181,6 @@ public class CleanSweep {
 	public void followPathReturnAndGo(ArrayList<Direction> path) throws DataValidationException {
 		for (Direction d : path) {
 			move(d);
-
 		}
 		recharge();
 		Navigation.getInstance().clearShortestPath();
