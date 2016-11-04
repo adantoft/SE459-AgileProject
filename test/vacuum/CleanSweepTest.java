@@ -241,4 +241,36 @@ public class CleanSweepTest {
         assertEquals(t1.getVisited(), 2);
     }
 
+    @Test
+    public void getTileFloorCostTest() throws Exception {
+        int floorCostBare = BARE.getFloorCost();
+        int floorCostLow = LOW.getFloorCost();
+        int floorCostHigh = HIGH.getFloorCost();
+
+        Tile t1 = new Tile(0, BARE);
+        Tile t2 = new Tile(0, LOW);
+        Tile t3 = new Tile(0, HIGH);
+
+        cs.setTile(t1);
+
+        assertEquals(floorCostBare, cs.getTileFloorCost());
+        assertNotEquals(floorCostLow, cs.getTileFloorCost());
+        assertNotEquals(floorCostHigh, cs.getTileFloorCost());
+
+        cs.setTile(t2);
+
+        assertEquals(floorCostLow, cs.getTileFloorCost());
+        assertNotEquals(floorCostBare, cs.getTileFloorCost());
+        assertNotEquals(floorCostHigh, cs.getTileFloorCost());
+
+        cs.setTile(t3);
+
+        assertEquals(floorCostHigh, cs.getTileFloorCost());
+        assertNotEquals(floorCostLow, cs.getTileFloorCost());
+        assertNotEquals(floorCostBare, cs.getTileFloorCost());
+
+
+
+    }
+
 }

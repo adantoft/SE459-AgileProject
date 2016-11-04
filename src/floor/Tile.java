@@ -1,13 +1,12 @@
 package floor;
 
 import general.DataValidationException;
+import map.Point;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static floor.Tile.Direction.*;
-
-import map.Point;
 
 public class Tile {
 
@@ -45,14 +44,16 @@ public class Tile {
 	}
 	
 	public enum Floor {
-		BARE(1),
-		LOW(2),
-		HIGH(3);
+		BARE(1, 1),
+		LOW(2, 2),
+		HIGH(3, 3);
 
 		private final int floorCode;
+		private final int floorCost;
 
-		Floor(int floorCodeIn) {
+		Floor(int floorCodeIn, int floorCostIn) {
 			floorCode = floorCodeIn;
+			floorCost = floorCostIn;
 		}
 
 		public int getFloorCode() {
@@ -61,17 +62,21 @@ public class Tile {
 
 		public String getFloorCodeAsString() {
 			switch (floorCode) {
-			case 1:
-				return "Bare floor";
-			case 2:
-				return "Low pile";
-			case 3:
-				return "High pile";
-
-			default:
-				return null;	// TODO: Throw exception?
+				case 1:
+					return "Bare floor";
+				case 2:
+					return "Low pile";
+				case 3:
+					return "High pile";
+				default:
+					return null;	// TODO: Throw exception?
 			}
 		}
+
+		public int getFloorCost() {
+			return floorCost;
+		}
+
 	}
 	
 	public enum Role {

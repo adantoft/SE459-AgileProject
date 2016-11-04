@@ -201,6 +201,10 @@ public class CleanSweep {
 		return charge;
 	}
 
+	public int getTileFloorCost() {
+        return currentTile.getFloor().getFloorCost();
+	}
+
 	public int getDirtBag() {
 		return dirtBag;
 	}
@@ -243,4 +247,6 @@ public class CleanSweep {
 	public void reset() {
 		instance = null;
 	}
+
+
 }
