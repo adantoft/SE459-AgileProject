@@ -22,6 +22,7 @@ public class CleanSweep {
 	private double charge;
 	private int dirtBag;
 	private double returnChargeLow;
+	private boolean bagFull = false;
 
 	private CleanSweep() {}
 
@@ -34,6 +35,7 @@ public class CleanSweep {
 			instance.charge = MAX_CHARGE;
 			instance.dirtBag = 0;
 			instance.returnChargeLow = 50;
+			instance.bagFull = false;
 		}
 		return instance;
 	}
@@ -55,6 +57,8 @@ public class CleanSweep {
 		if (charge <= 0) {
 			return false;
 		}
+
+
 
 		// Previous tile
 		double previousFloorCode = currentTile.getFloor().getFloorCode();
@@ -95,6 +99,10 @@ public class CleanSweep {
 		// Checks for dirt and cleans the Tile
 		if (currentTile.hasDirt()) {
 			while (currentTile.hasDirt() == true) {
+				if (bagFull == true) {
+
+					break;
+				}
 				cleanTile();
 
 			}
@@ -133,16 +141,15 @@ public class CleanSweep {
 
 			// Stops cleaning when the bag is full
 			if (dirtBag >= 50) {
-				return;
-			}
+				bagFull = true;
+				break;
+			}  else {
+				currentTile.clean();
+				dirtBag++;
 
-			if (charge < 40) {
-				return;
+				depleteCharge();
+
 			}
-			
-			currentTile.clean();
-			dirtBag ++;
-			depleteCharge();
 		}
 	}
 
@@ -163,15 +170,18 @@ public class CleanSweep {
 		return false;
 	}
 
+
+
 	public void followPath(ArrayList<Direction> path) throws DataValidationException {
 		for (Direction d : path) {
 			move(d);
-			// TODO: Vacuum when necessary (?)
+
 			if (getCharge() <= returnChargeLow) {
 				Navigation.getInstance().clearShortestPath();
 				break;
 			}
-			if (dirtBag == MAX_DIRT) {
+			System.out.println(dirtBag >=  MAX_DIRT);
+			if (dirtBag >=  MAX_DIRT) {
 				Navigation.getInstance().clearShortestPath();
 				break;
 			}
@@ -191,6 +201,7 @@ public class CleanSweep {
 			move(d);
 		}
 		Navigation.getInstance().clearShortestPath();
+
 	}
 
 	public Tile getTile() {

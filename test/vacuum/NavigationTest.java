@@ -281,9 +281,9 @@ public class NavigationTest {
         assertTrue(cs.getCharge() == 100);
     }
 
-    @Test
+    @Test (timeout = 10000)
     public void cleanSweepReturnFullDirtTest() throws Exception {
-        System.err.println("\ncleanSweepReturnLowPowerTest()");
+        System.err.println("\ncleanSweepReturnFullDirtTest()");
 
 
         int xSize = 40;
@@ -302,8 +302,8 @@ public class NavigationTest {
 
         //Space testRoom1HighCarpNew = new Space(new Point(0, 0), new Point(1, 1));
 
-        map.setFloor(5, testRoomBare, HIGH);
-        map.setSpace(5, testRoomBare, BARE);
+        map.setFloor(4, testRoomBare, BARE);
+        map.setSpace(4, testRoomBare, BARE);
 
         Tile startTile = map.getTile(0,0);
         Tile endTile = map.getTile(endTileX,endTileY);
@@ -325,12 +325,33 @@ public class NavigationTest {
 
         assertFalse(cs.getTile() == startTile);
         //System.out.println(cs.getDirtBag());
-
+        System.out.println("First followpath");
+        System.out.println("charge leve: " + cs.getCharge());
+        System.out.println("dirtbag level: "+ cs.getDirtBag());
 
         cs.setTile(cs.getTile());
         assertNotEquals(cs.getTile().getAdjacentTiles().size(), 0);
+        System.out.println("did i get here?");
         ArrayList<Tile.Direction> successPath1 = Navigation.calculatePath(cs.getTile(), startTile);
-        cs.followPathReturnAndStop(successPath1);
+        cs.followPathReturnAndGo(successPath1);
+
+        System.out.println("First Going back");
+        System.out.println("charge leve: " + cs.getCharge());
+        System.out.println("dirtbag level: "+ cs.getDirtBag());
+
+        cs.setTile(cs.getTile());
+        assertNotEquals(cs.getTile().getAdjacentTiles().size(), 0);
+        ArrayList<Tile.Direction> successPath2 = Navigation.calculatePath(cs.getTile(), endTile);
+        cs.followPath(successPath2);
+
+        System.out.println("2nd follow path");
+        System.out.println("charge leve: " + cs.getCharge());
+        System.out.println("dirtbag level: "+ cs.getDirtBag());
+
+        cs.setTile(cs.getTile());
+        assertNotEquals(cs.getTile().getAdjacentTiles().size(), 0);
+        ArrayList<Tile.Direction> successPath3 = Navigation.calculatePath(cs.getTile(), startTile);
+        cs.followPathReturnAndStop(successPath3);
 
         // Prints the path
         for (Tile.Direction dir : successPath) {
@@ -346,7 +367,7 @@ public class NavigationTest {
 
         assertTrue(cs.getTile() == startTile);
         System.out.println(cs.getDirtBag());
-//        assertFalse(cs.getDirtBag() == 50);
+        assertTrue(cs.getDirtBag() == 50);
 
 
     }
