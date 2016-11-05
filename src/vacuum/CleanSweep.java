@@ -22,6 +22,8 @@ public class CleanSweep {
 	private double charge;
 	private int dirtBag;
 	private double returnChargeLow;
+    private Tile chargingStationTile;
+    private boolean needsCharge;
 
 	private CleanSweep() {}
 
@@ -34,6 +36,8 @@ public class CleanSweep {
 			instance.charge = MAX_CHARGE;
 			instance.dirtBag = 0;
 			instance.returnChargeLow = 50;
+            instance.chargingStationTile = null;
+            instance.needsCharge = false;
 		}
 		return instance;
 	}
@@ -47,6 +51,7 @@ public class CleanSweep {
 	 * @throws DataValidationException
 	 */
 	public boolean move(Direction direction) throws DataValidationException {
+
 		if (currentTile.getAdjacent(direction) == null) {
 			System.err.println("ERROR: Move failed.");
 			return false;
@@ -57,7 +62,7 @@ public class CleanSweep {
 		}
 
 		// Previous tile
-		double previousFloorCode = currentTile.getFloor().getFloorCode();
+		double previousFloorCost = currentTile.getFloor().getFloorCost();
 
 		switch (direction) {
 			case NORTH:
@@ -87,18 +92,17 @@ public class CleanSweep {
 		System.err.println("Moved to: " + currentTile.getCoordinates());
 
 		// Next tile
-		double nextFloorCode = currentTile.getFloor().getFloorCode();
+		double nextFloorCost = currentTile.getFloor().getFloorCost();
+
 
 		// Depletes charge
-		depleteCharge(previousFloorCode, nextFloorCode);
+		depleteCharge(previousFloorCost, nextFloorCost);
+
+        checkCharge();
 
 		// Checks for dirt and cleans the Tile
-		if (currentTile.hasDirt()) {
-			while (currentTile.hasDirt() == true) {
-				cleanTile();
+		cleanTile();
 
-			}
-		}
 		// Re-categorizes the current tile from unvisited to visited
 		currentTile.visit();
 		visited.add(currentTile); // TODO don't think we need this since visit is tracked in tile [Alex]
@@ -110,6 +114,9 @@ public class CleanSweep {
 				unvisited.add(tile);
 			}
 		}
+
+
+
 		return true;
 	}
 
@@ -127,6 +134,27 @@ public class CleanSweep {
 		charge = MAX_CHARGE;
 	}
 
+	private boolean checkCharge() {
+        if (getCharge() == returnChargeLow && !needsCharge) {
+            System.out.print("Charge");
+            Navigation.getInstance().clearShortestPath();
+            needsCharge = true;
+            ArrayList<Tile.Direction> successPath = Navigation.calculatePath(getTile(), chargingStationTile);
+            followPath(successPath);
+            recharge();
+            return true;
+        } else if (dirtBag == MAX_DIRT && !needsCharge) {
+            System.out.print("Dirt");
+            Navigation.getInstance().clearShortestPath();
+            needsCharge = true;
+            ArrayList<Tile.Direction> successPath = Navigation.calculatePath(getTile(), chargingStationTile);
+            followPath(successPath);
+            return true;
+        }
+
+        return true;
+    }
+
 	public void cleanTile() {
 
 		while (currentTile.hasDirt()) {
@@ -135,11 +163,11 @@ public class CleanSweep {
 			if (dirtBag >= 50) {
 				return;
 			}
-
-			if (charge < 40) {
-				return;
-			}
-			
+//
+//			if (charge < 40) {
+//				return;
+//			}
+//
 			currentTile.clean();
 			dirtBag ++;
 			depleteCharge();
@@ -167,14 +195,6 @@ public class CleanSweep {
 		for (Direction d : path) {
 			move(d);
 			// TODO: Vacuum when necessary (?)
-			if (getCharge() <= returnChargeLow) {
-				Navigation.getInstance().clearShortestPath();
-				break;
-			}
-			if (dirtBag == MAX_DIRT) {
-				Navigation.getInstance().clearShortestPath();
-				break;
-			}
 		}
 	}
 
@@ -212,7 +232,18 @@ public class CleanSweep {
 	public void setTile(Tile tile) {
 		currentTile = tile;
 		currentTile.visit();
+        checkChargingStationTile();
 	}
+
+	public void checkChargingStationTile() {
+        if (currentTile.isChargingStation()) {
+            chargingStationTile = currentTile;
+        }
+    }
+
+	public Tile getChargingStationTile() {
+        return chargingStationTile;
+    }
 
 	/**
 	 * Adds a tile to Clean Sweep's visit history

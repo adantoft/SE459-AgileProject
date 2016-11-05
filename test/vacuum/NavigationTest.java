@@ -239,7 +239,11 @@ public class NavigationTest {
         map.setSpace(0, testRoomBare, BARE);
 
         Tile startTile = map.getTile(0,0);
+        map.getTile(0,0).setChargingStation();
+        assertTrue(map.getTile(0,0).isChargingStation());
+
         Tile endTile = map.getTile(endTileX,endTileY);
+
 
         // Tests that no tile is visited
         for (Tile tile : map.getTiles()) {
@@ -252,18 +256,14 @@ public class NavigationTest {
         }
         //shortest path forward
         cs.setTile(startTile);
+        assertTrue(cs.getChargingStationTile().isChargingStation());
+
         assertNotEquals(cs.getTile().getAdjacentTiles().size(), 0);
         ArrayList<Tile.Direction> successPath = Navigation.calculatePath(cs.getTile(), endTile);
         cs.followPath(successPath);
 
-        assertFalse(cs.getTile() == startTile);
-        assertFalse(cs.getCharge() == 100);
-
-        //return to chargiassertTrueng station
-        cs.setTile(cs.getTile());
-        assertNotEquals(cs.getTile().getAdjacentTiles().size(), 0);
-        ArrayList<Tile.Direction> successPath1 = Navigation.calculatePath(cs.getTile(), startTile);
-        cs.followPathReturnAndGo(successPath1);
+        assertTrue(cs.getTile() == startTile);
+        assertTrue(cs.getCharge() == 100);
 
         // Prints the path
         for (Tile.Direction dir : successPath) {
@@ -275,10 +275,9 @@ public class NavigationTest {
         for (Tile.Direction dir : Tile.Direction.values()){
             System.err.print(dir + ": " + Collections.frequency(successPath, dir) + " ");
         }
-        System.err.println();
-
-        assertTrue(cs.getTile() == startTile);
-        assertTrue(cs.getCharge() == 100);
+//
+//        assertTrue(cs.getTile() == startTile);
+//        assertTrue(cs.getCharge() == 100);
     }
 
     @Test
@@ -302,11 +301,14 @@ public class NavigationTest {
 
         //Space testRoom1HighCarpNew = new Space(new Point(0, 0), new Point(1, 1));
 
-        map.setFloor(5, testRoomBare, HIGH);
-        map.setSpace(5, testRoomBare, BARE);
+        map.setFloor(4, testRoomBare, HIGH);
+        map.setSpace(4, testRoomBare, BARE);
 
         Tile startTile = map.getTile(0,0);
         Tile endTile = map.getTile(endTileX,endTileY);
+
+        map.getTile(0,0).setChargingStation();
+        assertTrue(map.getTile(0,0).isChargingStation());
 
         // Tests that no tile is visited
         for (Tile tile : map.getTiles()) {
@@ -322,31 +324,31 @@ public class NavigationTest {
         assertNotEquals(cs.getTile().getAdjacentTiles().size(), 0);
         ArrayList<Tile.Direction> successPath = Navigation.calculatePath(cs.getTile(), endTile);
         cs.followPath(successPath);
-
-        assertFalse(cs.getTile() == startTile);
-        //System.out.println(cs.getDirtBag());
-
-
-        cs.setTile(cs.getTile());
-        assertNotEquals(cs.getTile().getAdjacentTiles().size(), 0);
-        ArrayList<Tile.Direction> successPath1 = Navigation.calculatePath(cs.getTile(), startTile);
-        cs.followPathReturnAndStop(successPath1);
-
-        // Prints the path
-        for (Tile.Direction dir : successPath) {
-            System.err.println(dir);
-        }
-
-        // Prints path info
-        System.err.print("Counts: ");
-        for (Tile.Direction dir : Tile.Direction.values()){
-            System.err.print(dir + ": " + Collections.frequency(successPath, dir) + " ");
-        }
-        System.err.println();
-
-        assertTrue(cs.getTile() == startTile);
-        System.out.println(cs.getDirtBag());
-//        assertFalse(cs.getDirtBag() == 50);
+//
+//        assertFalse(cs.getTile() == startTile);
+//        //System.out.println(cs.getDirtBag());
+//
+//
+//        cs.setTile(cs.getTile());
+//        assertNotEquals(cs.getTile().getAdjacentTiles().size(), 0);
+//        ArrayList<Tile.Direction> successPath1 = Navigation.calculatePath(cs.getTile(), startTile);
+//        cs.followPathReturnAndStop(successPath1);
+//
+//        // Prints the path
+//        for (Tile.Direction dir : successPath) {
+//            System.err.println(dir);
+//        }
+//
+//        // Prints path info
+//        System.err.print("Counts: ");
+//        for (Tile.Direction dir : Tile.Direction.values()){
+//            System.err.print(dir + ": " + Collections.frequency(successPath, dir) + " ");
+//        }
+//        System.err.println();
+//
+//        assertTrue(cs.getTile() == startTile);
+//        System.out.println(cs.getDirtBag());
+////        assertFalse(cs.getDirtBag() == 50);
 
 
     }

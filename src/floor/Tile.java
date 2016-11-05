@@ -185,6 +185,8 @@ public class Tile {
 		
 		return false;
 	}
+
+	public void setChargingStation() { role = Role.CHARGE; }
 	
 	public int getVisited() {
 		return visited;
