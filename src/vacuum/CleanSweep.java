@@ -23,7 +23,7 @@ public class CleanSweep {
 	private int dirtBag;
 	private double returnChargeLow;
     private Tile chargingStationTile;
-    private boolean needsCharge;
+    private boolean isReturning;
 	private boolean bagFull = false;
 
 	private CleanSweep() {}
@@ -33,12 +33,11 @@ public class CleanSweep {
 			instance = new CleanSweep();
 			instance.visited = new ArrayList<>();  // TODO don't think we need this since visit is tracked in tile [Alex]
 			instance.unvisited = new ArrayList<>(); // TODO don't think we need this since visit is tracked in tile [Alex]
-			instance.visitHistory = new Stack<>();
+			instance.visitHistory = new Stack<Tile>();
 			instance.charge = MAX_CHARGE;
 			instance.dirtBag = 0;
 			instance.returnChargeLow = 50;
-            instance.chargingStationTile = null;
-            instance.needsCharge = false;
+            instance.isReturning = false;
 			instance.bagFull = false;
 		}
 		return instance;
@@ -102,7 +101,10 @@ public class CleanSweep {
 		// Depletes charge
 		depleteCharge(previousFloorCost, nextFloorCost);
 
-        checkCharge();
+		// Checks to see if CS needs to return to station
+        if (getCharge() <= returnChargeLow) {
+        	returnToStation();
+        }
 
 		// Checks for dirt and cleans the Tile
 		cleanTile();
@@ -137,39 +139,31 @@ public class CleanSweep {
 	public void recharge() {
 		charge = MAX_CHARGE;
 	}
+	
+	private void returnToStation() throws DataValidationException {
+		if (!isReturning) {
+			System.out.println("Returning to charging station...");
+			Navigation.getInstance().clearShortestPath();
+			isReturning = true;
+			ArrayList<Tile.Direction> successPath = Navigation.calculatePath(getTile(), chargingStationTile);
+			followPath(successPath);
+			
+			recharge();
+		}
+	}
 
-	private boolean checkCharge() {
-        if (getCharge() == returnChargeLow && !needsCharge) {
-            System.out.print("Charge");
-            Navigation.getInstance().clearShortestPath();
-            needsCharge = true;
-            ArrayList<Tile.Direction> successPath = Navigation.calculatePath(getTile(), chargingStationTile);
-            followPath(successPath);
-            recharge();
-            return true;
-        } else if (dirtBag == MAX_DIRT && !needsCharge) {
-            System.out.print("Dirt");
-            Navigation.getInstance().clearShortestPath();
-            needsCharge = true;
-            ArrayList<Tile.Direction> successPath = Navigation.calculatePath(getTile(), chargingStationTile);
-            followPath(successPath);
-            return true;
-        }
-
-        return true;
-    }
-
-	public void cleanTile() {
-
+	public void cleanTile() throws DataValidationException {
 		while (currentTile.hasDirt()) {
 
 			// Stops cleaning when the bag is full
-			if (dirtBag >= 50) {
+			if (dirtBag == MAX_DIRT) {
+				returnToStation();
 				return;
 			}
-
-			if (charge < 40) {
-				return;
+			
+			if (getCharge() <= returnChargeLow) {
+				returnToStation();
+				break;
 			}
 
 			currentTile.clean();
@@ -202,22 +196,6 @@ public class CleanSweep {
 			move(d);
 			// TODO: Vacuum when necessary (?)
 		}
-	}
-
-	public void followPathReturnAndGo(ArrayList<Direction> path) throws DataValidationException {
-		for (Direction d : path) {
-			move(d);
-		}
-		recharge();
-		Navigation.getInstance().clearShortestPath();
-	}
-
-	public void followPathReturnAndStop(ArrayList<Direction> path) throws DataValidationException {
-		for (Direction d : path) {
-			move(d);
-		}
-		Navigation.getInstance().clearShortestPath();
-
 	}
 
 	public Tile getTile() {

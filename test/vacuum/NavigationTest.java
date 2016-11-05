@@ -23,6 +23,7 @@ public class NavigationTest {
     @Before
     public void setUp() throws Exception {
         cs.reset();
+        cs = CleanSweep.getInstance();
     }
 
     @After
@@ -47,12 +48,14 @@ public class NavigationTest {
         }
 
         cs.setTile(map.getTile(0,0));
+                
         assertNotEquals(cs.getTile().getAdjacentTiles().size(), 0);
 
+        // TODO: Fix this.
         Navigation.getInstance().traverseWholeFloor();
 
         for (Tile tile : map.getTiles()) { // tests that all tiles are not visited
-            assertTrue(tile.getVisited()!=0);
+            assertTrue(tile.getVisited() != 0);
         }
 
     }
@@ -165,10 +168,12 @@ public class NavigationTest {
         for (Tile tile : map.getTiles()) {
             assertEquals(tile.getVisited(), 0);
         }
+        
         // Tests that all tiles have adjacent tiles
         for (Tile tile : map.getTiles()) {
         	assertFalse(tile.getAdjacentTiles().isEmpty());
         }
+        
         cs.setTile(startTile);
         assertNotEquals(cs.getTile().getAdjacentTiles().size(), 0);
         ArrayList<Tile.Direction> successPath = Navigation.calculatePath(cs.getTile(), endTile);
@@ -178,6 +183,7 @@ public class NavigationTest {
         for (Tile.Direction dir : successPath) {
         	System.err.println(dir);
         }
+        
         // Prints path info
         System.err.print("Counts: ");
         for (Tile.Direction dir : Tile.Direction.values()){
@@ -193,32 +199,35 @@ public class NavigationTest {
     	System.err.println("\nshortestDistanceExampleMapTest()");
         Map map = TestMap.buildExampleMap();
 
-        //starting coordinates
+        // Starting coordinates
         int startTileX = 1;
         int startTileY = 6;
-        //ending coordinates
+        
+        // Ending coordinates
         int endTileX = 3;
         int endTileY = 5;
-        //fewest amount of moves to get from start to end
+
+        // Fewest amount of moves to get from start to end
         int shortestPathDistance = 18;
 
         Tile startTile = map.getTile(startTileX,startTileY);
         Tile endTile = map.getTile(endTileX,endTileY);
 
-        for (Tile tile : map.getTiles()) { // tests that all tiles are not visited
+        for (Tile tile : map.getTiles()) { // Tests that all tiles are not visited
             assertEquals(tile.getVisited(), 0);
         }
+        
         cs.setTile(startTile);
         assertNotEquals(cs.getTile().getAdjacentTiles().size(), 0);
         ArrayList<Tile.Direction> successPath = Navigation.calculatePath(cs.getTile(), endTile);
         cs.followPath(successPath);
-        assertTrue(cs.getTile()==endTile);
+        assertTrue(cs.getTile() == endTile);
 
         int counter = 0;
         for (Tile tile : map.getTiles()) { // tests that all tiles are not visited
              counter += tile.getVisited();
         }
-        assertTrue(counter==shortestPathDistance);
+        assertEquals(counter, shortestPathDistance);
     }
 
     @Test
@@ -284,32 +293,21 @@ public class NavigationTest {
     public void cleanSweepReturnFullDirtTest() throws Exception {
         System.err.println("\ncleanSweepReturnFullDirtTest()");
 
-
         int xSize = 40;
         int ySize = xSize;
         int lowerLeft = 0;
         int upperRight = xSize - 1;
-        int endTileX = ThreadLocalRandom.current().nextInt(39, xSize);
-        int endTileY = ThreadLocalRandom.current().nextInt(39, xSize);
-
-        //System.err.println("End Tile is coordinates: X: " + endTileX + " Y: " +endTileY);
+        int endTileX = (xSize - 1);
+        int endTileY = (ySize - 1);
 
         Map map = new Map(xSize, ySize);
         Space testRoomBare = new Space(new Point(lowerLeft, lowerLeft), new Point(upperRight,upperRight));
 
-        //map.Map testMapNewTest = new map.Map(2,2);
-
-        //Space testRoom1HighCarpNew = new Space(new Point(0, 0), new Point(1, 1));
-
-<<<<<<< HEAD
-        map.setFloor(4, testRoomBare, HIGH);
-=======
-        map.setFloor(4, testRoomBare, BARE);
->>>>>>> 3d1a8781975eab1c6ae57d6d76c62dff796ebf82
-        map.setSpace(4, testRoomBare, BARE);
+        map.setFloor(20, testRoomBare, BARE);
+        map.setSpace(20, testRoomBare, BARE);
 
         Tile startTile = map.getTile(0,0);
-        Tile endTile = map.getTile(endTileX,endTileY);
+        Tile endTile = map.getTile(endTileX, endTileY);
 
         map.getTile(0,0).setChargingStation();
         assertTrue(map.getTile(0,0).isChargingStation());
@@ -323,68 +321,14 @@ public class NavigationTest {
         for (Tile tile : map.getTiles()) {
             assertFalse(tile.getAdjacentTiles().isEmpty());
         }
-        //shortest path forward
+        
+        // Shortest path forward
         cs.setTile(startTile);
         assertNotEquals(cs.getTile().getAdjacentTiles().size(), 0);
         ArrayList<Tile.Direction> successPath = Navigation.calculatePath(cs.getTile(), endTile);
         cs.followPath(successPath);
-<<<<<<< HEAD
-//
-//        assertFalse(cs.getTile() == startTile);
-//        //System.out.println(cs.getDirtBag());
-//
-//
-//        cs.setTile(cs.getTile());
-//        assertNotEquals(cs.getTile().getAdjacentTiles().size(), 0);
-//        ArrayList<Tile.Direction> successPath1 = Navigation.calculatePath(cs.getTile(), startTile);
-//        cs.followPathReturnAndStop(successPath1);
-//
-//        // Prints the path
-//        for (Tile.Direction dir : successPath) {
-//            System.err.println(dir);
-//        }
-//
-//        // Prints path info
-//        System.err.print("Counts: ");
-//        for (Tile.Direction dir : Tile.Direction.values()){
-//            System.err.print(dir + ": " + Collections.frequency(successPath, dir) + " ");
-//        }
-//        System.err.println();
-//
-//        assertTrue(cs.getTile() == startTile);
-//        System.out.println(cs.getDirtBag());
-////        assertFalse(cs.getDirtBag() == 50);
-=======
 
-        assertFalse(cs.getTile() == startTile);
-        //System.out.println(cs.getDirtBag());
-        System.out.println("First followpath");
-        System.out.println("charge leve: " + cs.getCharge());
-        System.out.println("dirtbag level: "+ cs.getDirtBag());
-
-        cs.setTile(cs.getTile());
-        assertNotEquals(cs.getTile().getAdjacentTiles().size(), 0);
-        System.out.println("did i get here?");
-        ArrayList<Tile.Direction> successPath1 = Navigation.calculatePath(cs.getTile(), startTile);
-        cs.followPathReturnAndGo(successPath1);
-
-        System.out.println("First Going back");
-        System.out.println("charge leve: " + cs.getCharge());
-        System.out.println("dirtbag level: "+ cs.getDirtBag());
-
-        cs.setTile(cs.getTile());
-        assertNotEquals(cs.getTile().getAdjacentTiles().size(), 0);
-        ArrayList<Tile.Direction> successPath2 = Navigation.calculatePath(cs.getTile(), endTile);
-        cs.followPath(successPath2);
-
-        System.out.println("2nd follow path");
-        System.out.println("charge leve: " + cs.getCharge());
-        System.out.println("dirtbag level: "+ cs.getDirtBag());
-
-        cs.setTile(cs.getTile());
-        assertNotEquals(cs.getTile().getAdjacentTiles().size(), 0);
-        ArrayList<Tile.Direction> successPath3 = Navigation.calculatePath(cs.getTile(), startTile);
-        cs.followPathReturnAndStop(successPath3);
+        assertTrue(cs.getTile() == startTile);
 
         // Prints the path
         for (Tile.Direction dir : successPath) {
@@ -398,13 +342,8 @@ public class NavigationTest {
         }
         System.err.println();
 
-        assertTrue(cs.getTile() == startTile);
         System.out.println(cs.getDirtBag());
-        assertTrue(cs.getDirtBag() == 50);
->>>>>>> 3d1a8781975eab1c6ae57d6d76c62dff796ebf82
-
+        assertNotEquals(cs.getDirtBag(), 0);
 
     }
-
-
 }
