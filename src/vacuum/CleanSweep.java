@@ -24,6 +24,7 @@ public class CleanSweep {
 	private double returnChargeLow;
     private Tile chargingStationTile;
     private boolean needsCharge;
+	private boolean bagFull = false;
 
 	private CleanSweep() {}
 
@@ -38,6 +39,7 @@ public class CleanSweep {
 			instance.returnChargeLow = 50;
             instance.chargingStationTile = null;
             instance.needsCharge = false;
+			instance.bagFull = false;
 		}
 		return instance;
 	}
@@ -60,6 +62,8 @@ public class CleanSweep {
 		if (charge <= 0) {
 			return false;
 		}
+
+
 
 		// Previous tile
 		double previousFloorCost = currentTile.getFloor().getFloorCost();
@@ -163,11 +167,11 @@ public class CleanSweep {
 			if (dirtBag >= 50) {
 				return;
 			}
-//
-//			if (charge < 40) {
-//				return;
-//			}
-//
+
+			if (charge < 40) {
+				return;
+			}
+
 			currentTile.clean();
 			dirtBag ++;
 			depleteCharge();
@@ -191,6 +195,8 @@ public class CleanSweep {
 		return false;
 	}
 
+
+
 	public void followPath(ArrayList<Direction> path) throws DataValidationException {
 		for (Direction d : path) {
 			move(d);
@@ -211,6 +217,7 @@ public class CleanSweep {
 			move(d);
 		}
 		Navigation.getInstance().clearShortestPath();
+
 	}
 
 	public Tile getTile() {
