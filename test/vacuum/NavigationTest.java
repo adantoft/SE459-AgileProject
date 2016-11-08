@@ -359,6 +359,7 @@ public class NavigationTest {
 
 		cs.setTile(map.getTile(0, 0));
 		assertEquals(cs.getTile(), cs.getNearestChargingStation());
+		assertNotEquals(chargingStationTile, cs.getNearestChargingStation());
 
 		ArrayList<Tile.Direction> successPath = Navigation.calculatePath(cs.getTile(), map.getTile(3, 7));
 		cs.followPath(successPath);
