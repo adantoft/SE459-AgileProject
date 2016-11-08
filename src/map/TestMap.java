@@ -22,7 +22,7 @@ public class TestMap {
         return instance;
     }
 
-    public static Map buildExampleMap(){
+    public static Map buildExampleMap() {
         Map map = new Map(10, 10);
 
         Space guestBedroomA = new Space(new Point(0, 0), new Point(3, 4));
@@ -91,6 +91,11 @@ public class TestMap {
         map.printMap();
 
         System.out.println(map.getTile(1, 1).getCoordinates());
+        
+        System.out.println(map.withinTwoTiles(map.getTile(1, 1), map.getTile(1, 2)));
+        System.out.println(map.withinTwoTiles(map.getTile(0, 1), map.getTile(1, 0)));
+        System.out.println(map.withinTwoTiles(map.getTile(0, 1), map.getTile(3, 0)));
+        
 
 
 	}
