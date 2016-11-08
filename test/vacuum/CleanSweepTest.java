@@ -268,9 +268,6 @@ public class CleanSweepTest {
         assertEquals(floorCostHigh, cs.getTileFloorCost());
         assertNotEquals(floorCostLow, cs.getTileFloorCost());
         assertNotEquals(floorCostBare, cs.getTileFloorCost());
-
-
-
     }
 
 }
