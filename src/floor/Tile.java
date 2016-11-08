@@ -276,6 +276,19 @@ public class Tile {
 
 		return adjacents;
 	}
+	
+	public ArrayList<Tile> getNextTiles() {
+		ArrayList<Tile> nextTiles = new ArrayList<Tile>();
+		Tile[] nexts = { nextN, nextS, nextE, nextW };
+		
+		for (Tile tile : nexts) {
+			if (tile != null) {
+				nextTiles.add(tile);
+			}
+		}
+		
+		return nextTiles;
+	}
 
 	/**
 	 * Provides char direction to get to an adjacent tile.

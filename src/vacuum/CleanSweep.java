@@ -102,6 +102,7 @@ public class CleanSweep {
 		depleteCharge(previousFloorCost, nextFloorCost);
 
 		// Checks to see if CS needs to return to station
+		chargingStationTile = getNearestChargingStation();
         if (getCharge() <= returnChargeLow) {
         	returnToStation();
         }
@@ -120,9 +121,7 @@ public class CleanSweep {
 				unvisited.add(tile);
 			}
 		}
-
-
-
+		
 		return true;
 	}
 
@@ -229,6 +228,23 @@ public class CleanSweep {
 	public Tile getChargingStationTile() {
         return chargingStationTile;
     }
+	
+	public Tile getNearestChargingStation() {
+		ArrayList<Tile> nextTiles = currentTile.getNextTiles();
+		ArrayList<Tile> nearbyTiles = new ArrayList<Tile>();
+		
+		for (Tile tile : nextTiles) {
+			nearbyTiles.addAll(tile.getNextTiles());
+		}
+		
+		for (Tile tile : nearbyTiles) {
+			if (tile.isChargingStation()) {
+				return tile;
+			}
+		}
+		
+		return chargingStationTile;
+	}
 
 	/**
 	 * Adds a tile to Clean Sweep's visit history
