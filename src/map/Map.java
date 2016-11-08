@@ -38,24 +38,26 @@ public class Map {
 				this.map[x][y] = new Tile(random, floor, new Point(x,y));
 			}
 		}
+		
+		setNextTiles();
 	}
 
 	public void attachTiles(Space space) {
 		try {
 
 			// Moves along the x axis
-			for (int x = space.getBottomLeft().getX(); x <= space.getTopRight().getX(); x++) {
+			for (int x = space.getBottomLeft().getX(); x <= space.getTopRight().getX(); x ++) {
 
 				// Moves along the y axis
-				for (int y = space.getBottomLeft().getY(); y <= space.getTopRight().getY(); y++) {
+				for (int y = space.getBottomLeft().getY(); y <= space.getTopRight().getY(); y ++) {
 
 					// Connects tiles upwards; if not all the way to the top
 					if (y != space.getTopRight().getY()){
-						this.map[x][y].attachTile(this.map[x][y+1], NORTH);
+						this.map[x][y].attachTile(this.map[x][y + 1], NORTH);
 					}
 					// Connects tiles leftwards; if not all the way to the right
 					if (x != space.getTopRight().getX()){
-						this.map[x][y].attachTile(this.map[x+1][y], EAST);
+						this.map[x][y].attachTile(this.map[x + 1][y], EAST);
 					}
 				}
 			}
@@ -65,6 +67,34 @@ public class Map {
 		}
 	}
 
+	public void setNextTiles() {
+		try {
+			for (int y = 0; y < map[0].length; y ++) {
+				for (int x = 0; x < map.length; x ++) {
+					
+					if (map[x][y] == null) {
+						continue;
+					}
+					
+					if (x > 0) {
+						if (map[x - 1][y] == null) {
+							continue;
+						}
+						map[x][y].setNext(map[x - 1][y], WEST);
+					}
+					
+					if (y > 0) {
+						if (map[x][y - 1] == null) {
+							continue;
+						}
+						map[x][y].setNext(map[x][y - 1], SOUTH);
+					}
+				}
+			}
+		} catch (DataValidationException e) {
+			e.printStackTrace();
+		}
+	}
 
 	public void setSpace(int random, Space space, Floor floor) {
 		setFloor(random, space, floor);
@@ -130,20 +160,6 @@ public class Map {
 			e.printStackTrace();
 		}
 
-	}
-	
-	public boolean withinTwoTiles(Tile tile1, Tile tile2) {
-		int x1 = tile1.getCoordinates().getX();
-		int y1 = tile1.getCoordinates().getY();
-		int x2 = tile2.getCoordinates().getX();
-		int y2 = tile2.getCoordinates().getY();
-		
-		int distance = (int) Math.floor(Math.sqrt(Math.pow((x2 - x1), 2) + Math.pow((y2 - y1), 2)));
-		if (distance <= 2) {
-			return true;
-		}
-		
-		return false;
 	}
 
 	public static void main(String[] args) {

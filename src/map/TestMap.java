@@ -4,9 +4,9 @@ import vacuum.CleanSweep;
 import map.Point;
 import map.Map;
 import map.Space;
+import floor.Tile;
 import floor.Tile.Floor;
 import floor.Tile.Direction;
-
 import general.DataValidationException;
 
 public class TestMap {
@@ -92,11 +92,18 @@ public class TestMap {
 
         System.out.println(map.getTile(1, 1).getCoordinates());
         
-        System.out.println(map.withinTwoTiles(map.getTile(1, 1), map.getTile(1, 2)));
-        System.out.println(map.withinTwoTiles(map.getTile(0, 1), map.getTile(1, 0)));
-        System.out.println(map.withinTwoTiles(map.getTile(0, 1), map.getTile(3, 0)));
-        
-
+        for (Tile tile : map.getTiles()) {
+        	try {
+				if (tile.getNext(Direction.SOUTH) != null) {
+					System.out.println("OKAY!");
+				} else {
+					System.out.println("NULL TILE");
+				}
+				
+			} catch (DataValidationException e) {
+				e.printStackTrace();
+			}
+        }
 
 	}
 }

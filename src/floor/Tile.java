@@ -11,12 +11,14 @@ import static floor.Tile.Direction.*;
 public class Tile {
 
 	private Tile north, south, east, west;
-	
+
+	private Tile nextN, nextS, nextE, nextW;
+
 	private int visited;
 	private int dirt;
 
 	private Point coordinates;
-	
+
 	Floor floor;
 	Role role;
 
@@ -25,7 +27,7 @@ public class Tile {
 		SOUTH,
 		EAST,
 		WEST;
-		
+
 		public Direction getOpposite(Direction direction) throws DataValidationException {
 			switch (direction) {
 			case NORTH:
@@ -36,13 +38,13 @@ public class Tile {
 				return Direction.WEST;
 			case WEST:
 				return Direction.EAST;
-				
+
 			default:
 				throw new DataValidationException("ERROR: Invalid direction");
 			}
 		}
 	}
-	
+
 	public enum Floor {
 		BARE(1, 1),
 		LOW(2, 2),
@@ -62,14 +64,14 @@ public class Tile {
 
 		public String getFloorCodeAsString() {
 			switch (floorCode) {
-				case 1:
-					return "Bare floor";
-				case 2:
-					return "Low pile";
-				case 3:
-					return "High pile";
-				default:
-					return null;	// TODO: Throw exception?
+			case 1:
+				return "Bare floor";
+			case 2:
+				return "Low pile";
+			case 3:
+				return "High pile";
+			default:
+				return null;	// TODO: Throw exception?
 			}
 		}
 
@@ -78,7 +80,7 @@ public class Tile {
 		}
 
 	}
-	
+
 	public enum Role {
 		CHARGE,
 		BASE;
@@ -97,7 +99,7 @@ public class Tile {
 		visited = 0;
 		coordinates = null;
 	}
-	
+
 	public Tile(Floor floorIn) {
 		dirt = 0;
 		floor = floorIn;
@@ -140,10 +142,37 @@ public class Tile {
 			throw new DataValidationException("ERROR: Invalid direction");
 		}
 	}
-	
+
+	public void setNext(Tile tile, Direction direction) throws DataValidationException {
+		switch (direction) {
+		case NORTH:
+			this.nextN = tile;
+			tile.nextS = this;
+			break;
+
+		case SOUTH:
+			this.nextS = tile;
+			tile.nextN = this;
+			break;
+
+		case EAST:
+			this.nextE = tile;
+			tile.nextW = this;
+			break;
+
+		case WEST:
+			this.nextW = tile;
+			tile.nextE = this;
+			break;
+
+		default:
+			throw new DataValidationException("ERROR: Invalid direction");
+		}
+	}
+
 	public void detachTile(Direction direction) throws DataValidationException {
 		Tile other;
-		
+
 		switch (direction) {
 		case NORTH:
 			other = getAdjacent(NORTH);
@@ -177,17 +206,17 @@ public class Tile {
 	public void visit() {
 		visited ++;
 	}
-	
+
 	public boolean isChargingStation() {
 		if (role == Role.BASE || role == Role.CHARGE) {
 			return true;
 		}
-		
+
 		return false;
 	}
 
 	public void setChargingStation() { role = Role.CHARGE; }
-	
+
 	public int getVisited() {
 		return visited;
 	}
@@ -199,7 +228,7 @@ public class Tile {
 	public Floor getFloor() {
 		return floor;
 	}
-	
+
 	public Tile getAdjacent(Direction direction) throws DataValidationException {
 		switch (direction) {
 		case NORTH:
@@ -216,6 +245,22 @@ public class Tile {
 		}
 	}
 
+	public Tile getNext(Direction direction) throws DataValidationException {
+		switch (direction) {
+		case NORTH:
+			return nextN;
+		case SOUTH:
+			return nextS;
+		case EAST:
+			return nextE;
+		case WEST:
+			return nextW;
+
+		default:
+			throw new DataValidationException("ERROR: Invalid direction");
+		}
+	}
+
 	/**
 	 * Gets list of adjacent tiles that exist.
 	 *
@@ -224,10 +269,10 @@ public class Tile {
 	public List<Tile> getAdjacentTiles() {
 		List<Tile> adjacents = new ArrayList<>();
 
-        if (north != null) adjacents.add(north);
-        if (south != null) adjacents.add(south);
-        if (east != null) adjacents.add(east);
-        if (west != null) adjacents.add(west);
+		if (north != null) adjacents.add(north);
+		if (south != null) adjacents.add(south);
+		if (east != null) adjacents.add(east);
+		if (west != null) adjacents.add(west);
 
 		return adjacents;
 	}
@@ -241,30 +286,30 @@ public class Tile {
 	public Direction getDirectionTo(Tile tile)  {
 		try {
 			if (this.getAdjacent(NORTH) == tile) {
-                return NORTH;
-            } else if (this.getAdjacent(EAST) == tile) {
-                return EAST;
-            } else if (this.getAdjacent(SOUTH) == tile) {
-                return SOUTH;
-            } else if (this.getAdjacent(WEST) == tile) {
-                return WEST;
-            } else {
-                throw new DataValidationException("ERROR: Direction unknown");
-            }
+				return NORTH;
+			} else if (this.getAdjacent(EAST) == tile) {
+				return EAST;
+			} else if (this.getAdjacent(SOUTH) == tile) {
+				return SOUTH;
+			} else if (this.getAdjacent(WEST) == tile) {
+				return WEST;
+			} else {
+				throw new DataValidationException("ERROR: Direction unknown");
+			}
 		} catch (DataValidationException e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
-	
+
 	public void clean() {
 		dirt --;
 	}
-	
+
 	public void setFloor(Floor floorIn) {
 		floor = floorIn;
 	}
-	
+
 	public void setRole(Role roleIn) {
 		role = roleIn;
 	}
