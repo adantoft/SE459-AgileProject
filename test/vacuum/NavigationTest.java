@@ -6,7 +6,6 @@ import map.Map;
 import map.Point;
 import map.Space;
 import map.TestMap;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,8 +14,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.ThreadLocalRandom;
 
-import static floor.Tile.Direction.*;
-import static floor.Tile.Floor.*;
+import static floor.Tile.Floor.BARE;
 import static org.junit.Assert.*;
 
 public class NavigationTest {
@@ -87,51 +85,61 @@ public class NavigationTest {
 	@Test
 	public void runVacuumExampleFloorTest() throws Exception {
 
-		Map map = new Map(10, 10);
+        Map map = new Map(10, 10);
 
-		Space hallway = new Space(new Point(4, 0), new Point(5, 7));
-		map.setSpace(0, hallway, BARE);
+        Space guestBedroomA = new Space(new Point(0, 0), new Point(3, 4));
+        map.setSpace(0, guestBedroomA, Tile.Floor.LOW);
 
-		Space guestBedroomA = new Space(new Point(0, 0), new Point(3, 4));
-		map.setSpace(0, guestBedroomA, LOW);
-		map.getTile(3,3).attachTile(map.getTile(4,3), EAST);
+        Space guestBedroomACloset = new Space(new Point(0, 5), new Point(3, 5));
+        map.setSpace(0, guestBedroomACloset, Tile.Floor.BARE);
 
-		Space guestBedroomACloset = new Space(new Point(0, 5), new Point(3, 5));
-		map.setSpace(0, guestBedroomACloset, BARE);
-		map.getTile(1,4).attachTile(map.getTile(1,5), NORTH);
+        Space guestBedroomB = new Space(new Point(0, 7), new Point(3, 9));
+        map.setSpace(0, guestBedroomB, Tile.Floor.LOW);
 
-		Space guestBedroomB = new Space(new Point(0, 7), new Point(3, 9));
-		map.setSpace(0, guestBedroomB, LOW);
-		map.getTile(3,7).attachTile(map.getTile(4,7), EAST);
+        Space guestBedroomBCloset = new Space(new Point(0, 6), new Point(1, 6));
+        map.setSpace(0, guestBedroomBCloset, Tile.Floor.BARE);
 
-		Space guestBedroomBCloset = new Space(new Point(0, 6), new Point(1, 6));
-		map.setSpace(0, guestBedroomBCloset, BARE);
-		map.getTile(0,7).attachTile(map.getTile(0,6), SOUTH);
+        Space hallway = new Space(new Point(4, 0), new Point(5, 7));
+        map.setSpace(0, hallway, Tile.Floor.BARE);
 
-		Space hallwayCloset = new Space(new Point(2, 6), new Point(3, 6));
-		map.setSpace(0, hallwayCloset, BARE);
-		map.getTile(3,6).attachTile(map.getTile(4,6), EAST);
+        Space hallwayCloset = new Space(new Point(2, 6), new Point(3, 6));
+        map.setSpace(0, hallwayCloset, Tile.Floor.BARE);
 
+        Space hallwayBathroom = new Space(new Point(4, 8), new Point(5, 8));
+        map.setSpace(0, hallwayBathroom, Tile.Floor.BARE);
 
-		Space hallwayBathroom = new Space(new Point(4, 8), new Point(5, 8));
-		map.setSpace(0, hallwayBathroom, BARE);
-		map.getTile(4,7).attachTile(map.getTile(4,8), NORTH);
+//        Space masterBedroomA = new Space(new Point(6, 0), new Point(9, 6));
+//        map.setSpace(0, masterBedroomA, Tile.Floor.BARE);
+//        Space masterBedroomB = new Space(new Point(6, 7), new Point(7, 8));
+//        map.setSpace(0, masterBedroomB, Tile.Floor.BARE);
+//        Space combineMasterAB = new Space(new Point(6, 6), new Point(7, 7));
+//        map.attachTiles(combineMasterAB);
+//        Space masterHighPile = new Space(new Point(7, 1), new Point(8, 5));
+//        map.setFloor(0, masterHighPile, Tile.Floor.HIGH);
+//
+//        Space masterBedroomBathroom = new Space(new Point(4, 9), new Point(7, 9));
+//        map.setSpace(0, masterBedroomBathroom, Tile.Floor.BARE);
+//
+//        Space masterBedroomCloset = new Space(new Point(8, 7), new Point(9, 9));
+//        map.setSpace(0, masterBedroomCloset, Tile.Floor.BARE);
 
-		//Below is for the Master bedroom - currently not tested as it's not linked together
-		//        Space masterBedroomA = new Space(new Point(6, 0), new Point(9, 6));
-		//        map.setSpace(masterBedroomA, BARE);
-		//        Space masterBedroomB = new Space(new Point(6, 7), new Point(7, 8));
-		//        map.setSpace(masterBedroomB, BARE);
-		//        Space combineMasterAB = new Space(new Point(6, 6), new Point(7, 7));
-		//        map.attachTiles(combineMasterAB);
-		//        Space masterHighPile = new Space(new Point(7, 1), new Point(8, 5));
-		//        map.setFloor(masterHighPile, HIGH);
-		//
-		//        Space masterBedroomBathroom = new Space(new Point(4, 9), new Point(7, 9));
-		//        map.setSpace(masterBedroomBathroom, BARE);
-		//
-		//        Space masterBedroomCloset = new Space(new Point(8, 7), new Point(9, 9));
-		//        map.setSpace(masterBedroomCloset, BARE);
+        map.setDoorway(new Point(1, 4), new Point(1, 5));
+
+        map.setDoorway(new Point(0, 6), new Point(0, 7));
+
+        map.setDoorway(new Point(3, 3), new Point(4, 3));
+
+        map.setDoorway(new Point(3, 6), new Point(4, 6));
+
+        map.setDoorway(new Point(3, 7), new Point(4, 7));
+
+        map.setDoorway(new Point(4, 7), new Point(4, 8));
+
+//        map.setDoorway(new Point(6, 7), new Point(5, 7));
+//
+//        map.setDoorway(new Point(6, 7), new Point(5, 7));
+//
+//        map.setDoorway(new Point(6, 8), new Point(6, 9));
 
 		for (Tile tile : map.getActiveTiles()) { // tests that all tiles are not visited
 			assertEquals(tile.getVisited(), 0);
