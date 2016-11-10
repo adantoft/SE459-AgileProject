@@ -1,26 +1,12 @@
 package map;
 
-import vacuum.CleanSweep;
-import map.Point;
-import map.Map;
-import map.Space;
 import floor.Tile;
-import floor.Tile.Floor;
 import floor.Tile.Direction;
+import floor.Tile.Floor;
 import general.DataValidationException;
+import vacuum.CleanSweep;
 
 public class TestMap {
-
-    private static TestMap instance;
-
-    private TestMap() {}
-
-    public static TestMap getInstance() {
-        if (instance == null) {
-            instance = new TestMap();
-        }
-        return instance;
-    }
 
     public static Map buildExampleMap() {
         Map map = new Map(10, 10);
@@ -61,9 +47,6 @@ public class TestMap {
         Space masterBedroomCloset = new Space(new Point(8, 7), new Point(9, 9));
         map.setSpace(0, masterBedroomCloset, Floor.BARE);
 
-        // Adding Doorways
-        // map.getTile(1, 4).attachTile(map.getTile(1, 5), NORTH)
-
         map.setDoorway(new Point(1, 4), new Point(1, 5));
 
         map.setDoorway(new Point(0, 6), new Point(0, 7));
@@ -75,19 +58,19 @@ public class TestMap {
         map.setDoorway(new Point(3, 7), new Point(4, 7));
 
         map.setDoorway(new Point(4, 7), new Point(4, 8));
-
-        map.setDoorway(new Point(6, 7), new Point(5, 7));
-
-        map.setDoorway(new Point(6, 7), new Point(5, 7));
-
-        map.setDoorway(new Point(6, 8), new Point(6, 9));
+//
+//        map.setDoorway(new Point(6, 7), new Point(5, 7));
+//
+//        map.setDoorway(new Point(6, 7), new Point(5, 7));
+//
+//        map.setDoorway(new Point(6, 8), new Point(6, 9));
 
         return map;
     }
 
 	public static void main(String[] args) {
 		CleanSweep cs = CleanSweep.getInstance();
-        Map map = getInstance().buildExampleMap();
+        Map map = buildExampleMap();
         map.printMap();
 
         System.out.println(map.getTile(1, 1).getCoordinates());

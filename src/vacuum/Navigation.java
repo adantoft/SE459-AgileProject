@@ -56,15 +56,10 @@ public class Navigation {
 				} catch (DataValidationException e) {
 					e.printStackTrace();
 				}
-			} else {
-				if (!cs.moveBack()) {
-					cs.moveBack();    // If all adjacent tiles are visited, moves back a space
-
-				} else {
-					break;
-				}
-			}
+			} else { cs.moveBack(); }
 		} while (!cs.isVisitHistoryEmpty());
+
+        // Recursive
 
 	}
 

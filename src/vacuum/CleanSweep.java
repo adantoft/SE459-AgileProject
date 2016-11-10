@@ -137,6 +137,7 @@ public class CleanSweep {
 
 	public void recharge() {
 		charge = MAX_CHARGE;
+        isReturning = false;
 	}
 	
 	private void returnToStation() throws DataValidationException {
@@ -146,7 +147,6 @@ public class CleanSweep {
 			isReturning = true;
 			ArrayList<Tile.Direction> successPath = Navigation.calculatePath(getTile(), chargingStationTile);
 			followPath(successPath);
-			
 			recharge();
 		}
 	}

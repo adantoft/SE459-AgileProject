@@ -36,6 +36,9 @@ public class NavigationTest {
 
 	}
 
+	// Fails when running NavigationTest
+	// Passes when running individual test
+
 	@Test
 	public void runVacuumSmallSpaceTest() throws Exception {
 
@@ -60,6 +63,9 @@ public class NavigationTest {
 
 	}
 
+	// Fails when running NavigationTest
+	// Falls when running individual test
+
 	@Test (timeout = 150000)
 	public void runVacuumBigSpaceTest() throws Exception {
 
@@ -82,70 +88,21 @@ public class NavigationTest {
 
 	}
 
+	// Fails when running NavigationTest
+	// Fails when running individual test
+
 	@Test
 	public void runVacuumExampleFloorTest() throws Exception {
-
-        Map map = new Map(10, 10);
-
-        Space guestBedroomA = new Space(new Point(0, 0), new Point(3, 4));
-        map.setSpace(0, guestBedroomA, Tile.Floor.LOW);
-
-        Space guestBedroomACloset = new Space(new Point(0, 5), new Point(3, 5));
-        map.setSpace(0, guestBedroomACloset, Tile.Floor.BARE);
-
-        Space guestBedroomB = new Space(new Point(0, 7), new Point(3, 9));
-        map.setSpace(0, guestBedroomB, Tile.Floor.LOW);
-
-        Space guestBedroomBCloset = new Space(new Point(0, 6), new Point(1, 6));
-        map.setSpace(0, guestBedroomBCloset, Tile.Floor.BARE);
-
-        Space hallway = new Space(new Point(4, 0), new Point(5, 7));
-        map.setSpace(0, hallway, Tile.Floor.BARE);
-
-        Space hallwayCloset = new Space(new Point(2, 6), new Point(3, 6));
-        map.setSpace(0, hallwayCloset, Tile.Floor.BARE);
-
-        Space hallwayBathroom = new Space(new Point(4, 8), new Point(5, 8));
-        map.setSpace(0, hallwayBathroom, Tile.Floor.BARE);
-
-//        Space masterBedroomA = new Space(new Point(6, 0), new Point(9, 6));
-//        map.setSpace(0, masterBedroomA, Tile.Floor.BARE);
-//        Space masterBedroomB = new Space(new Point(6, 7), new Point(7, 8));
-//        map.setSpace(0, masterBedroomB, Tile.Floor.BARE);
-//        Space combineMasterAB = new Space(new Point(6, 6), new Point(7, 7));
-//        map.attachTiles(combineMasterAB);
-//        Space masterHighPile = new Space(new Point(7, 1), new Point(8, 5));
-//        map.setFloor(0, masterHighPile, Tile.Floor.HIGH);
-//
-//        Space masterBedroomBathroom = new Space(new Point(4, 9), new Point(7, 9));
-//        map.setSpace(0, masterBedroomBathroom, Tile.Floor.BARE);
-//
-//        Space masterBedroomCloset = new Space(new Point(8, 7), new Point(9, 9));
-//        map.setSpace(0, masterBedroomCloset, Tile.Floor.BARE);
-
-        map.setDoorway(new Point(1, 4), new Point(1, 5));
-
-        map.setDoorway(new Point(0, 6), new Point(0, 7));
-
-        map.setDoorway(new Point(3, 3), new Point(4, 3));
-
-        map.setDoorway(new Point(3, 6), new Point(4, 6));
-
-        map.setDoorway(new Point(3, 7), new Point(4, 7));
-
-        map.setDoorway(new Point(4, 7), new Point(4, 8));
-
-//        map.setDoorway(new Point(6, 7), new Point(5, 7));
-//
-//        map.setDoorway(new Point(6, 7), new Point(5, 7));
-//
-//        map.setDoorway(new Point(6, 8), new Point(6, 9));
+		Map map = TestMap.buildExampleMap();
 
 		for (Tile tile : map.getActiveTiles()) { // tests that all tiles are not visited
 			assertEquals(tile.getVisited(), 0);
 		}
 
 		cs.setTile(map.getTile(0,0));
+        cs.getTile().setChargingStation();
+
+
 		Navigation.getInstance().traverseWholeFloor();
 
 		for (Tile tile : map.getActiveTiles()) { // tests that all tiles are not visited
@@ -154,6 +111,8 @@ public class NavigationTest {
 
 	}
 
+	// Fails when running NavigationTest
+	// Passes when running individual test
 	@Test
 	public void shortestDistanceSingleRoomTest() throws Exception {
 		System.err.println("\nshortestDistanceSingleRoomTest()");
@@ -203,6 +162,10 @@ public class NavigationTest {
 
 		assertEquals(cs.getTile(), endTile);
 	}
+
+
+	// Fails when running NavigationTest
+	// Passes when running individual test
 
 	@Test
 	public void shortestDistanceExampleMapTest() throws Exception {
@@ -355,6 +318,9 @@ public class NavigationTest {
 		System.out.println(cs.getDirtBag());
 		assertNotEquals(cs.getDirtBag(), 0);
 	}
+
+	// Fails when running NavigationTest
+	// Passes when running individual test
 
 	@Test
 	public void getNearestChargingStationTest() throws Exception {
