@@ -35,10 +35,15 @@ public class TestMap {
         Space masterBedroomA = new Space(new Point(6, 7), new Point(7, 8));
         map.setSpace(0, masterBedroomA, Floor.BARE);
 
-//        Space masterBedroomB = new Space(new Point(6, 0), new Point(9, 6));
-//        map.setSpace(0, masterBedroomB, Floor.BARE);
-//        Space combineMasterAB = new Space(new Point(6, 6), new Point(7, 7));
-//        map.attachTiles(combineMasterAB);
+
+        Point point = new Point(6, 6); // ToDo: Tests fail here because CS fails at points is (6, 5)
+        Space masterBedroomB = new Space(point, new Point(9, 6));
+        map.setSpace(0, masterBedroomB, Floor.BARE);
+//
+        map.setDoorway(new Point(6, 6), new Point(6, 7));
+        map.setDoorway(new Point(7, 6), new Point(7, 7));
+
+        // This code will work once we figure out issue above.
 //        Space masterHighPile = new Space(new Point(7, 1), new Point(8, 5));
 //        map.setFloor(0, masterHighPile, Floor.HIGH);
 
@@ -61,9 +66,9 @@ public class TestMap {
         map.setDoorway(new Point(4, 7), new Point(4, 8));
 
         map.setDoorway(new Point(6, 7), new Point(5, 7));
-//
+
         map.setDoorway(new Point(7, 8), new Point(8, 8));
-//
+
         map.setDoorway(new Point(7, 8), new Point(7, 9));
 
         return map;
