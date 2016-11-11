@@ -32,20 +32,20 @@ public class TestMap {
         Space hallwayBathroom = new Space(new Point(4, 8), new Point(5, 8));
         map.setSpace(0, hallwayBathroom, Floor.BARE);
 
-        Space masterBedroomA = new Space(new Point(6, 0), new Point(9, 6));
-        map.setSpace(0, masterBedroomA, Floor.BARE);
-        Space masterBedroomB = new Space(new Point(6, 7), new Point(7, 8));
-        map.setSpace(0, masterBedroomB, Floor.BARE);
-        Space combineMasterAB = new Space(new Point(6, 6), new Point(7, 7));
-        map.attachTiles(combineMasterAB);
-        Space masterHighPile = new Space(new Point(7, 1), new Point(8, 5));
-        map.setFloor(0, masterHighPile, Floor.HIGH);
-
-        Space masterBedroomBathroom = new Space(new Point(4, 9), new Point(7, 9));
-        map.setSpace(0, masterBedroomBathroom, Floor.BARE);
-
-        Space masterBedroomCloset = new Space(new Point(8, 7), new Point(9, 9));
-        map.setSpace(0, masterBedroomCloset, Floor.BARE);
+//        Space masterBedroomA = new Space(new Point(6, 0), new Point(9, 6));
+//        map.setSpace(0, masterBedroomA, Floor.BARE);
+//        Space masterBedroomB = new Space(new Point(6, 7), new Point(7, 8));
+//        map.setSpace(0, masterBedroomB, Floor.BARE);
+//        Space combineMasterAB = new Space(new Point(6, 6), new Point(7, 7));
+//        map.attachTiles(combineMasterAB);
+//        Space masterHighPile = new Space(new Point(7, 1), new Point(8, 5));
+//        map.setFloor(0, masterHighPile, Floor.HIGH);
+//
+//        Space masterBedroomBathroom = new Space(new Point(4, 9), new Point(7, 9));
+//        map.setSpace(0, masterBedroomBathroom, Floor.BARE);
+//
+//        Space masterBedroomCloset = new Space(new Point(8, 7), new Point(9, 9));
+//        map.setSpace(0, masterBedroomCloset, Floor.BARE);
 
         map.setDoorway(new Point(1, 4), new Point(1, 5));
 

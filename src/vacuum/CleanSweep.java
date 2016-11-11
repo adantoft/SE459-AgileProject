@@ -19,12 +19,15 @@ public class CleanSweep {
 	private ArrayList<Tile> visited;	// Visited tiles
 	private ArrayList<Tile> unvisited;	// Tiles seen but not visited
 	private Stack<Tile> visitHistory;
+    private Stack<Tile> visitHistoryToStation;
 	private double charge;
 	private int dirtBag;
 	private double returnChargeLow;
     private Tile chargingStationTile;
-    private boolean isReturning;
-	private boolean bagFull = false;
+    private boolean isReturningToStation;
+	private boolean isReturningToLastTile;
+	private boolean bagFull;
+    private Tile lastTile;
 
 	private CleanSweep() {}
 
@@ -34,11 +37,14 @@ public class CleanSweep {
 			instance.visited = new ArrayList<>();  // TODO don't think we need this since visit is tracked in tile [Alex]
 			instance.unvisited = new ArrayList<>(); // TODO don't think we need this since visit is tracked in tile [Alex]
 			instance.visitHistory = new Stack<Tile>();
+            instance.visitHistoryToStation = new Stack<Tile>();
 			instance.charge = MAX_CHARGE;
 			instance.dirtBag = 0;
 			instance.returnChargeLow = 50;
-            instance.isReturning = false;
+            instance.isReturningToStation = false;
+			instance.isReturningToLastTile = false;
 			instance.bagFull = false;
+            instance.lastTile = null;
 		}
 		return instance;
 	}
@@ -52,6 +58,10 @@ public class CleanSweep {
 	 * @throws DataValidationException
 	 */
 	public boolean move(Direction direction) throws DataValidationException {
+
+        if (direction == null) {
+            return false;
+        }
 
 		if (currentTile.getAdjacent(direction) == null) {
 			System.err.println("ERROR: Move failed.");
@@ -105,6 +115,7 @@ public class CleanSweep {
 		chargingStationTile = getNearestChargingStation();
         if (getCharge() <= returnChargeLow) {
         	returnToStation();
+            returnToLastTile();
         }
 
 		// Checks for dirt and cleans the Tile
@@ -137,17 +148,29 @@ public class CleanSweep {
 
 	public void recharge() {
 		charge = MAX_CHARGE;
-        isReturning = false;
+        isReturningToStation = false;
 	}
 	
 	private void returnToStation() throws DataValidationException {
-		if (!isReturning) {
+		if (!isReturningToStation) {
+            visitHistoryToStation = visitHistory;
+            lastTile = currentTile;
 			System.out.println("Returning to charging station...");
 			Navigation.getInstance().clearShortestPath();
-			isReturning = true;
+			isReturningToStation = true;
 			ArrayList<Tile.Direction> successPath = Navigation.calculatePath(getTile(), chargingStationTile);
 			followPath(successPath);
 			recharge();
+		}
+	}
+
+	private void returnToLastTile() throws DataValidationException {
+		if (!isReturningToLastTile) {
+			System.out.println("Returning to last tile...");
+			Navigation.getInstance().clearShortestPath();
+			isReturningToLastTile = true;
+			ArrayList<Tile.Direction> successPath = Navigation.calculatePath(getTile(), lastTile);
+			followPath(successPath);
 		}
 	}
 
@@ -157,11 +180,13 @@ public class CleanSweep {
 			// Stops cleaning when the bag is full
 			if (dirtBag == MAX_DIRT) {
 				returnToStation();
+                returnToLastTile();
 				return;
 			}
 			
 			if (getCharge() <= returnChargeLow) {
 				returnToStation();
+                returnToLastTile();
 				break;
 			}
 
@@ -178,7 +203,7 @@ public class CleanSweep {
 	public boolean moveBack() {
 		if (!visitHistory.empty()) { //prevents popping and empty stack
 			try {
-				move(currentTile.getDirectionTo(visitHistory.pop()));
+                move(currentTile.getDirectionTo(visitHistory.pop()));
 				visitHistory.pop(); //removes original tile (before move) from stack as move puts it on the stack
 			} catch (DataValidationException e) {
 				e.printStackTrace();
@@ -191,10 +216,13 @@ public class CleanSweep {
 
 
 	public void followPath(ArrayList<Direction> path) throws DataValidationException {
-		for (Direction d : path) {
-			move(d);
-			// TODO: Vacuum when necessary (?)
-		}
+        if (path != null) {
+            for (Direction d : path) {
+                // System.out.println(d);
+                move(d);
+                // TODO: Vacuum when necessary (?)
+            }
+        }
 	}
 
 	public Tile getTile() {

@@ -229,6 +229,7 @@ public class Tile {
 		return floor;
 	}
 
+	// Redundant Code getNext
 	public Tile getAdjacent(Direction direction) throws DataValidationException {
 		switch (direction) {
 		case NORTH:
@@ -245,6 +246,7 @@ public class Tile {
 		}
 	}
 
+    // Redundant Code getAdjacent
 	public Tile getNext(Direction direction) throws DataValidationException {
 		switch (direction) {
 		case NORTH:
@@ -307,6 +309,8 @@ public class Tile {
 			} else if (this.getAdjacent(WEST) == tile) {
 				return WEST;
 			} else {
+                System.out.println(tile.getCoordinates());
+                System.out.println();
 				throw new DataValidationException("ERROR: Direction unknown");
 			}
 		} catch (DataValidationException e) {

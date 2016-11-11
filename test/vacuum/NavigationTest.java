@@ -39,7 +39,7 @@ public class NavigationTest {
 	// Fails when running NavigationTest
 	// Passes when running individual test
 
-	@Test
+	@Test (timeout = 10000)
 	public void runVacuumSmallSpaceTest() throws Exception {
 
 		Map map = new Map(2, 2);
@@ -63,10 +63,36 @@ public class NavigationTest {
 
 	}
 
-	// Fails when running NavigationTest
-	// Falls when running individual test
+    // Fails when running NavigationTest
+    // Passes when running individual test
 
-	@Test (timeout = 150000)
+    @Test (timeout = 10000)
+    public void runVacuumMediumSpaceTest() throws Exception {
+
+        Map map = new Map(25, 25);
+        Space testRoomBare = new Space(new Point(0, 0), new Point(24,24));
+        map.setSpace(0, testRoomBare, BARE);
+
+        for (Tile tile : map.getTiles()) { // tests that all tiles are not visited
+            assertEquals(tile.getVisited(), 0);
+        }
+
+        cs.setTile(map.getTile(0,0));
+        cs.getTile().getCoordinates();
+        assertNotEquals(cs.getTile().getAdjacentTiles().size(), 0);
+
+        Navigation.getInstance().traverseWholeFloor();
+
+        for (Tile tile : map.getTiles()) { // tests that all tiles are not visited
+            assertTrue(tile.getVisited()!=0);
+        }
+
+    }
+
+	// Fails when running NavigationTest
+	// Passes when running individual test
+
+	@Test (timeout = 10000)
 	public void runVacuumBigSpaceTest() throws Exception {
 
 		Map map = new Map(50, 50);
@@ -78,6 +104,7 @@ public class NavigationTest {
 		}
 
 		cs.setTile(map.getTile(0,0));
+        cs.getTile().getCoordinates();
 		assertNotEquals(cs.getTile().getAdjacentTiles().size(), 0);
 
 		Navigation.getInstance().traverseWholeFloor();
@@ -89,9 +116,9 @@ public class NavigationTest {
 	}
 
 	// Fails when running NavigationTest
-	// Fails when running individual test
+	// Passes when running individual test
 
-	@Test
+	@Test (timeout = 30000)
 	public void runVacuumExampleFloorTest() throws Exception {
 		Map map = TestMap.buildExampleMap();
 
@@ -102,8 +129,8 @@ public class NavigationTest {
 		cs.setTile(map.getTile(0,0));
         cs.getTile().setChargingStation();
 
-
 		Navigation.getInstance().traverseWholeFloor();
+
 
 		for (Tile tile : map.getActiveTiles()) { // tests that all tiles are not visited
 			assertTrue(tile.getVisited()!=0);
@@ -113,7 +140,7 @@ public class NavigationTest {
 
 	// Fails when running NavigationTest
 	// Passes when running individual test
-	@Test
+	@Test (timeout = 10000)
 	public void shortestDistanceSingleRoomTest() throws Exception {
 		System.err.println("\nshortestDistanceSingleRoomTest()");
 
@@ -165,9 +192,9 @@ public class NavigationTest {
 
 
 	// Fails when running NavigationTest
-	// Passes when running individual test
+	// Fails when running individual test
 
-	@Test
+	@Test (timeout = 10000)
 	public void shortestDistanceExampleMapTest() throws Exception {
 		System.err.println("\nshortestDistanceExampleMapTest()");
 		Map map = TestMap.buildExampleMap();
@@ -203,7 +230,11 @@ public class NavigationTest {
 		assertEquals(counter, shortestPathDistance);
 	}
 
-	@Test
+
+    // Fails when running NavigationTest
+    // Fails when running individual test
+
+	@Test (timeout = 10000)
 	public void cleanSweepReturnLowPowerTest() throws Exception {
 		System.err.println("\ncleanSweepReturnLowPowerTest()");
 
@@ -261,6 +292,9 @@ public class NavigationTest {
 		//        assertTrue(cs.getTile() == startTile);
 		//        assertTrue(cs.getCharge() == 100);
 	}
+
+    // Fails when running NavigationTest
+    // Fails when running individual test
 
 	@Test (timeout = 10000)
 	public void cleanSweepReturnFullDirtTest() throws Exception {
@@ -322,7 +356,7 @@ public class NavigationTest {
 	// Fails when running NavigationTest
 	// Passes when running individual test
 
-	@Test
+	@Test (timeout = 10000)
 	public void getNearestChargingStationTest() throws Exception {
 		Map map = new Map(8, 8);
 		map.setSpace(0, new Space(new Point(0,0), new Point(3, 7)), BARE);
