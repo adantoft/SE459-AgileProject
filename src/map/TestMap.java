@@ -36,7 +36,7 @@ public class TestMap {
         map.setSpace(0, masterBedroomA, Floor.BARE);
 
 
-        Point point = new Point(6, 6); // ToDo: Tests fail here because CS fails at points is (6, 5)
+        Point point = new Point(6, 6); // ToDo: Tests fail here because CS fails at point (6, 5)
         Space masterBedroomB = new Space(point, new Point(9, 6));
         map.setSpace(0, masterBedroomB, Floor.BARE);
 //
