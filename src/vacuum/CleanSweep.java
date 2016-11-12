@@ -24,6 +24,7 @@ public class CleanSweep {
 	private int dirtBag;
 	private double returnChargeLow;
     private Tile chargingStationTile;
+    private Tile baseTile;
     private boolean isReturningToStation;
 	private boolean isReturningToLastTile;
 	private Tile lastTile;
@@ -157,6 +158,9 @@ public class CleanSweep {
 			Navigation.getInstance().clearShortestPath();
 			isReturningToStation = true;
 			ArrayList<Tile.Direction> successPath = Navigation.calculatePath(getTile(), chargingStationTile);
+			if (successPath == null) {
+				successPath = Navigation.calculatePath(currentTile, baseTile);
+			}
 			followPath(successPath);
 			recharge();
 		}
@@ -242,6 +246,7 @@ public class CleanSweep {
 	public void setTile(Tile tile) {
 		currentTile = tile;
 		currentTile.visit();
+		baseTile = currentTile;
         checkChargingStationTile();
 	}
 

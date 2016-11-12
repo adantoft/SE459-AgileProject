@@ -102,24 +102,6 @@ public class Navigation {
             return calcSuccessPath(node.getParent());
         }
     }
-
-
-	/**
-	 * Recursive function to build path from node tree
-	 * @param node ending node
-	 * @return node
-	 */
-	private static Node calcSuccessPathReturn(Node node) {	// Navigates from end node to start node
-		if (node.getAction() != null) {
-			successPath.add(0,node.getAction());
-		}
-		if (node.getParent() == null){
-			return node;
-		} else {
-			return calcSuccessPathReturn(node.getParent());
-		}
-	}
-
 }
 
 /**
