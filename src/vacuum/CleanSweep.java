@@ -19,15 +19,14 @@ public class CleanSweep {
 	private ArrayList<Tile> visited;	// Visited tiles
 	private ArrayList<Tile> unvisited;	// Tiles seen but not visited
 	private Stack<Tile> visitHistory;
-    private Stack<Tile> visitHistoryToStation;
+    private Stack<Tile> visitHistoryToStation;	// TODO: What is this?
 	private double charge;
 	private int dirtBag;
 	private double returnChargeLow;
     private Tile chargingStationTile;
     private boolean isReturningToStation;
 	private boolean isReturningToLastTile;
-	private boolean bagFull;
-    private Tile lastTile;
+	private Tile lastTile;
 
 	private CleanSweep() {}
 
@@ -43,8 +42,7 @@ public class CleanSweep {
 			instance.returnChargeLow = 50;
             instance.isReturningToStation = false;
 			instance.isReturningToLastTile = false;
-			instance.bagFull = false;
-            instance.lastTile = null;
+			instance.lastTile = null;
 		}
 		return instance;
 	}
