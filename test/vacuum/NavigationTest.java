@@ -3,7 +3,6 @@ package vacuum;
 import floor.Tile;
 import floor.Tile.Role;
 import map.*;
-import map.FloorPlan;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -118,7 +117,12 @@ public class NavigationTest {
 
 	@Test (timeout = 30000)
 	public void runVacuumExampleFloorTest() throws Exception {
-		FloorPlan map = TestMap.buildExampleFloorPlan();
+//		FloorPlan map = TestMap.buildExampleFloorPlan();
+
+        UploadFloorPlan floorPlans = new UploadFloorPlan();
+        floorPlans.loadFloorPlans();
+
+        FloorPlan map = floorPlans.getFloorPlan("Sample Floor Plan");
 
 		for (Tile tile : map.getActiveTiles()) { // tests that all tiles are not visited
 			assertEquals(tile.getVisited(), 0);
