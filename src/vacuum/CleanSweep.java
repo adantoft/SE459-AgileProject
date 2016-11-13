@@ -34,6 +34,7 @@ public class CleanSweep {
 	public static CleanSweep getInstance() {
 		if (instance == null) {
 			instance = new CleanSweep();
+			instance.currentTile = null;
 			instance.visited = new ArrayList<>();  // TODO don't think we need this since visit is tracked in tile [Alex]
 			instance.unvisited = new ArrayList<>(); // TODO don't think we need this since visit is tracked in tile [Alex]
 			instance.visitHistory = new Stack<Tile>();
@@ -41,11 +42,20 @@ public class CleanSweep {
 			instance.charge = MAX_CHARGE;
 			instance.dirtBag = 0;
 			instance.returnChargeLow = 50;
+			instance.chargingStationTile = null;
+			instance.baseTile = null;
             instance.isReturningToStation = false;
 			instance.isReturningToLastTile = false;
 			instance.lastTile = null;
 		}
 		return instance;
+	}
+
+	/**
+	 * Puts Clean Sweep into Charge debug mode setting charge capacity to 1 million
+	 */
+	public void enableChargeDebugMode(){
+		instance.charge = 100000;
 	}
 
 
@@ -155,7 +165,7 @@ public class CleanSweep {
             visitHistoryToStation = visitHistory;
             lastTile = currentTile;
 			System.out.println("Returning to charging station...");
-			Navigation.getInstance().clearShortestPath();
+			Navigation.clearShortestPath();
 			isReturningToStation = true;
 			ArrayList<Tile.Direction> successPath = Navigation.calculatePath(getTile(), chargingStationTile);
 			if (successPath == null) {
@@ -169,10 +179,11 @@ public class CleanSweep {
 	private void returnToLastTile() throws DataValidationException {
 		if (!isReturningToLastTile) {
 			System.out.println("Returning to last tile...");
-			Navigation.getInstance().clearShortestPath();
+			Navigation.clearShortestPath();
 			isReturningToLastTile = true;
 			ArrayList<Tile.Direction> successPath = Navigation.calculatePath(getTile(), lastTile);
 			followPath(successPath);
+			isReturningToLastTile = false;
 		}
 	}
 

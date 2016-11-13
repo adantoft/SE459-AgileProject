@@ -12,26 +12,18 @@ public class Navigation {
 
     private static ArrayList<Tile.Direction> successPath = new ArrayList<>();
     private static HashSet<Tile> stateSpace = new HashSet();
-	private static Navigation instance;
-	private CleanSweep cs;
+	private static CleanSweep cs;
 
 
-	private Navigation() {}
+	public  Navigation() {
 
-	public static Navigation getInstance() {
-		if (instance == null) {
-			instance = new Navigation();
-			instance.cs = CleanSweep.getInstance();
-		}
-		return instance;
-	}
+    }
 
-
-    public HashSet<Tile> getStateSpace(){
+    public static HashSet<Tile> getStateSpace(){
         return stateSpace;
     }
 
-	public void clearShortestPath() {
+	public static void clearShortestPath() {
 		successPath.removeAll(successPath);
 		stateSpace.clear();
 	}
@@ -39,7 +31,8 @@ public class Navigation {
     /**
      * Method to DFS traverse entire floor
      */
-    public void traverseWholeFloor() {
+    public static void traverseWholeFloor() {
+        cs = CleanSweep.getInstance();
 		List<Tile> successorTiles = new ArrayList<>();
 
 		do {
@@ -123,7 +116,7 @@ class Node implements Comparator<Node> {
         this.tile = tile;
         this.direction = direction;
         this.runningPathCost = runningPathCost;
-        Navigation.getInstance().getStateSpace().add(tile);
+        Navigation.getStateSpace().add(tile);
     }
 
 
@@ -141,7 +134,7 @@ class Node implements Comparator<Node> {
     // Returns list of successor states (children of this node); excludes already visited states
     public ArrayList<Node> getSuccessorStates() {
         ArrayList<Node> successorStates = new ArrayList<>();
-        HashSet<Tile> stateSpace = Navigation.getInstance().getStateSpace();
+        HashSet<Tile> stateSpace = Navigation.getStateSpace();
 
         try {
             for (Tile.Direction dir : Tile.Direction.values()){
