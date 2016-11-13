@@ -7,10 +7,10 @@ import static floor.Tile.Floor.BARE;
 import static org.junit.Assert.*;
 
 
-public class MapTest {
+public class FloorPlanTest {
 
 
-    map.Map testMap = new map.Map(10, 10);
+    FloorPlan testMap = new FloorPlan(10, 10);
 
     @Test
     public void fillingInMap() throws Exception {
@@ -22,7 +22,7 @@ public class MapTest {
     @Test(timeout = 10000)
     public void printMapTest() throws Exception {
 
-        map.Map testMapNew = new map.Map(2, 2);
+        FloorPlan testMapNew = new FloorPlan(2, 2);
         testMapNew.printMap();
 
     }
@@ -31,8 +31,8 @@ public class MapTest {
     @Test(timeout = 10000)
     public void setFloorTest() throws Exception {
 
-        map.Map testMapNew = new map.Map(2, 2);
-        map.Map testMapNewCompare = new map.Map(2, 2);
+        FloorPlan testMapNew = new FloorPlan(2, 2);
+        FloorPlan testMapNewCompare = new FloorPlan(2, 2);
         Space testRoom1HighCarpNew = new Space(new Point(0, 0), new Point(1, 1));
         testMapNew.setFloor(0, testRoom1HighCarpNew, Tile.Floor.HIGH);
         testMapNew.printMap();
@@ -45,9 +45,9 @@ public class MapTest {
     @Test(timeout = 10000)
     public void attachTilesTest() throws Exception {
 
-        map.Map testMapNew = new map.Map(2, 2);
-        map.Map testMapNewCompare = new map.Map(2, 2);
-        map.Map testMapNewCompare2 = new map.Map(2, 2);
+        FloorPlan testMapNew = new FloorPlan(2, 2);
+        FloorPlan testMapNewCompare = new FloorPlan(2, 2);
+        FloorPlan testMapNewCompare2 = new FloorPlan(2, 2);
         Space testRoom1HighCarpNew = new Space(new Point(0, 0), new Point(0, 1));
         Space testRoomLowCarpNew = new Space(new Point(0, 0), new Point(0, 1));
         testMapNew.setFloor(0, testRoom1HighCarpNew, Tile.Floor.HIGH);
@@ -69,8 +69,8 @@ public class MapTest {
     @Test
     public void setSpaceTest() throws Exception {
 
-        map.Map testMapNew = new map.Map(2, 2);
-        map.Map testMapNewCompare = new map.Map(2, 2);
+        FloorPlan testMapNew = new FloorPlan(2, 2);
+        FloorPlan testMapNewCompare = new FloorPlan(2, 2);
         Space testRoom1HighCarpNew = new Space(new Point(0, 0), new Point(1, 1));
         Space testRoom1HighCarpNew1 = new Space(new Point(0, 0), new Point(1, 1));
 
@@ -89,8 +89,8 @@ public class MapTest {
     @Test(timeout = 10000)
     public void getTilesTest() throws Exception {
 
-        map.Map testMapNew = new map.Map(2, 2);
-        map.Map testMapCompare = new map.Map(2, 2);
+        FloorPlan testMapNew = new FloorPlan(2, 2);
+        FloorPlan testMapCompare = new FloorPlan(2, 2);
         Space testRoom1HighCarpNew = new Space(new Point(0, 0), new Point(1, 1));
         testMapNew.setFloor(0, testRoom1HighCarpNew, Tile.Floor.HIGH);
 
@@ -107,7 +107,7 @@ public class MapTest {
     @Test
     public void getTileTest() throws Exception {
 
-        map.Map testMapNewTest = new map.Map(2,2);
+        FloorPlan testMapNewTest = new FloorPlan(2,2);
 
         Space testRoom1HighCarpNew = new Space(new Point(0, 0), new Point(1, 1));
 
@@ -129,7 +129,7 @@ public class MapTest {
     public void tileLinkingTest() throws Exception {
 
         //create 2x2 grid
-        Map map = new Map(2, 2);
+        FloorPlan map = new FloorPlan(2, 2);
         Space testRoomBare = new Space(new Point(0, 0), new Point(1,1));
         map.setSpace(0, testRoomBare, BARE);
 

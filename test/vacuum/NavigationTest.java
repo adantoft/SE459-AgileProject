@@ -2,10 +2,8 @@ package vacuum;
 
 import floor.Tile;
 import floor.Tile.Role;
-import map.Map;
-import map.Point;
-import map.Space;
-import map.TestMap;
+import map.*;
+import map.FloorPlan;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,7 +40,7 @@ public class NavigationTest {
 	@Test (timeout = 10000)
 	public void runVacuumSmallSpaceTest() throws Exception {
 
-		Map map = new Map(2, 2);
+		FloorPlan map = new FloorPlan(2, 2);
 		Space testRoomBare = new Space(new Point(0, 0), new Point(1,1));
 		map.setSpace(0, testRoomBare, BARE);
 
@@ -69,7 +67,7 @@ public class NavigationTest {
     @Test (timeout = 10000)
     public void runVacuumMediumSpaceTest() throws Exception {
 
-        Map map = new Map(25, 25);
+        FloorPlan map = new FloorPlan(25, 25);
         Space testRoomBare = new Space(new Point(0, 0), new Point(24,24));
         map.setSpace(0, testRoomBare, BARE);
 
@@ -95,7 +93,7 @@ public class NavigationTest {
 	@Test (timeout = 10000)
 	public void runVacuumBigSpaceTest() throws Exception {
 
-		Map map = new Map(50, 50);
+		FloorPlan map = new FloorPlan(50, 50);
 		Space testRoomBare = new Space(new Point(0, 0), new Point(49,49));
 		map.setSpace(0, testRoomBare, BARE);
 
@@ -120,7 +118,7 @@ public class NavigationTest {
 
 	@Test (timeout = 30000)
 	public void runVacuumExampleFloorTest() throws Exception {
-		Map map = TestMap.buildExampleMap();
+		FloorPlan map = TestMap.buildExampleFloorPlan();
 
 		for (Tile tile : map.getActiveTiles()) { // tests that all tiles are not visited
 			assertEquals(tile.getVisited(), 0);
@@ -153,7 +151,7 @@ public class NavigationTest {
 
 		System.err.println("End tile coordinates: X: " + endTileX + " Y: " +endTileY);
 
-		Map map = new Map(xSize, ySize);
+		FloorPlan map = new FloorPlan(xSize, ySize);
 		Space testRoomBare = new Space(new Point(lowerLeft, lowerLeft), new Point(upperRight,upperRight));
 		map.setSpace(0, testRoomBare, BARE);
 
@@ -195,9 +193,9 @@ public class NavigationTest {
 	// Fails when running individual test
 
 	@Test (timeout = 10000)
-	public void shortestDistanceExampleMapTest() throws Exception {
-		System.err.println("\nshortestDistanceExampleMapTest()");
-		Map map = TestMap.buildExampleMap();
+	public void shortestDistanceExampleFloorPlanTest() throws Exception {
+		System.err.println("\nshortestDistanceExampleFloorPlanTest()");
+		FloorPlan map = TestMap.buildExampleFloorPlan();
 
 		// Starting coordinates
 		int startTileX = 1;
@@ -247,7 +245,7 @@ public class NavigationTest {
 
 		//System.err.println("End Tile is coordinates: X: " + endTileX + " Y: " +endTileY);
 
-		Map map = new Map(xSize, ySize);
+		FloorPlan map = new FloorPlan(xSize, ySize);
 		Space testRoomBare = new Space(new Point(lowerLeft, lowerLeft), new Point(upperRight,upperRight));
 		map.setSpace(0, testRoomBare, BARE);
 
@@ -307,7 +305,7 @@ public class NavigationTest {
 		int endTileX = (xSize - 1);
 		int endTileY = (ySize - 1);
 
-		Map map = new Map(xSize, ySize);
+		FloorPlan map = new FloorPlan(xSize, ySize);
 		Space testRoomBare = new Space(new Point(lowerLeft, lowerLeft), new Point(upperRight,upperRight));
 
 		map.setFloor(20, testRoomBare, BARE);
@@ -358,7 +356,7 @@ public class NavigationTest {
 
 	@Test (timeout = 10000)
 	public void getNearestChargingStationTest() throws Exception {
-		Map map = new Map(8, 8);
+		FloorPlan map = new FloorPlan(8, 8);
 		map.setSpace(0, new Space(new Point(0,0), new Point(3, 7)), BARE);
 		map.setSpace(0, new Space(new Point(4,0), new Point(7, 7)), BARE);
 		map.getTile(0, 0).setRole(Role.BASE);

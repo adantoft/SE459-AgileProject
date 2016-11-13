@@ -8,8 +8,8 @@ import vacuum.CleanSweep;
 
 public class TestMap {
 
-    public static Map buildExampleMap() {
-        Map map = new Map(10, 10);
+    public static FloorPlan buildExampleFloorPlan() {
+        FloorPlan map = new FloorPlan(10, 10);
 
         Space guestBedroomA = new Space(new Point(0, 0), new Point(3, 4));
         map.setSpace(0, guestBedroomA, Floor.LOW);
@@ -39,7 +39,7 @@ public class TestMap {
         Point point = new Point(6, 6); // ToDo: Tests fail here because CS fails at point (6, 5)
         Space masterBedroomB = new Space(point, new Point(9, 6));
         map.setSpace(0, masterBedroomB, Floor.BARE);
-//
+
         map.setDoorway(new Point(6, 6), new Point(6, 7));
         map.setDoorway(new Point(7, 6), new Point(7, 7));
 
@@ -76,7 +76,7 @@ public class TestMap {
 
 	public static void main(String[] args) {
 		CleanSweep cs = CleanSweep.getInstance();
-        Map map = buildExampleMap();
+        FloorPlan map = TestMap.buildExampleFloorPlan();
         map.printMap();
 
         System.out.println(map.getTile(1, 1).getCoordinates());

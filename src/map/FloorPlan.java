@@ -1,23 +1,18 @@
 package map;
 
-import map.Space;
-import general.DataValidationException;
 import floor.Tile;
-import floor.Tile.Direction;
 import floor.Tile.Floor;
-import floor.Tile.Role;
+import general.DataValidationException;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import map.Point;
-
 import static floor.Tile.Direction.*;
 
-public class Map {
+public class FloorPlan {
 
 	public final Tile[][] map;
-	public Map(int x, int y) {
+	public FloorPlan(int x, int y) {
 		this.map = new Tile[x][y];
 	}
 
