@@ -52,7 +52,7 @@ public class NavigationTest {
 		assertNotEquals(cs.getTile().getAdjacentTiles().size(), 0);
 
 		// TODO: Fix this.
-		Navigation.getInstance().traverseWholeFloor();
+		Navigation.traverseWholeFloor();
 
 		for (Tile tile : map.getTiles()) { // tests that all tiles are not visited
 			assertTrue(tile.getVisited() != 0);
@@ -78,7 +78,7 @@ public class NavigationTest {
         cs.getTile().getCoordinates();
         assertNotEquals(cs.getTile().getAdjacentTiles().size(), 0);
 
-        Navigation.getInstance().traverseWholeFloor();
+        Navigation.traverseWholeFloor();
 
         for (Tile tile : map.getTiles()) { // tests that all tiles are not visited
             assertTrue(tile.getVisited()!=0);
@@ -104,7 +104,7 @@ public class NavigationTest {
         cs.getTile().getCoordinates();
 		assertNotEquals(cs.getTile().getAdjacentTiles().size(), 0);
 
-		Navigation.getInstance().traverseWholeFloor();
+		Navigation.traverseWholeFloor();
 
 		for (Tile tile : map.getTiles()) { // tests that all tiles are not visited
 			assertTrue(tile.getVisited()!=0);
@@ -117,12 +117,13 @@ public class NavigationTest {
 
 	@Test (timeout = 30000)
 	public void runVacuumExampleFloorTest() throws Exception {
-//		FloorPlan map = TestMap.buildExampleFloorPlan();
+		FloorPlan map = TestMap.buildExampleFloorPlan();
+//		cs.enableChargeDebugMode();
 
-        UploadFloorPlan floorPlans = new UploadFloorPlan();
-        floorPlans.loadFloorPlans();
-
-        FloorPlan map = floorPlans.getFloorPlan("Sample Floor Plan");
+//        UploadFloorPlan floorPlans = new UploadFloorPlan();
+//        floorPlans.loadFloorPlans();
+//
+//        FloorPlan map = floorPlans.getFloorPlan("Sample Floor Plan");
 
 		for (Tile tile : map.getActiveTiles()) { // tests that all tiles are not visited
 			assertEquals(tile.getVisited(), 0);
@@ -131,7 +132,7 @@ public class NavigationTest {
 		cs.setTile(map.getTile(0,0));
         cs.getTile().setChargingStation();
 
-		Navigation.getInstance().traverseWholeFloor();
+		Navigation.traverseWholeFloor();
 
 
 		for (Tile tile : map.getActiveTiles()) { // tests that all tiles are not visited
