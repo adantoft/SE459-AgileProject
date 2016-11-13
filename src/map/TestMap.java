@@ -35,17 +35,16 @@ public class TestMap {
         Space masterBedroomA = new Space(new Point(6, 7), new Point(7, 8));
         map.setSpace(0, masterBedroomA, Floor.BARE);
 
-
-        Point point = new Point(6, 6); // ToDo: Tests fail here because CS fails at point (6, 5)
-        Space masterBedroomB = new Space(point, new Point(9, 6));
+        Space masterBedroomB = new Space(new Point(6, 0), new Point(9, 6));
         map.setSpace(0, masterBedroomB, Floor.BARE);
 
+        //below is linking top section of master bedroom to bottom section
         map.setDoorway(new Point(6, 6), new Point(6, 7));
         map.setDoorway(new Point(7, 6), new Point(7, 7));
 
         // This code will work once we figure out issue above.
-//        Space masterHighPile = new Space(new Point(7, 1), new Point(8, 5));
-//        map.setFloor(0, masterHighPile, Floor.HIGH);
+        Space masterHighPile = new Space(new Point(7, 1), new Point(8, 5));
+        map.updateFloorType(masterHighPile, Floor.HIGH);
 
         Space masterBedroomBathroom = new Space(new Point(4, 9), new Point(7, 9));
         map.setSpace(0, masterBedroomBathroom, Floor.BARE);

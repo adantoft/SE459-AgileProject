@@ -37,6 +37,14 @@ public class FloorPlan {
 		setNextTiles();
 	}
 
+	public void updateFloorType(Space space, Floor floor) {
+		for (int x = space.getBottomLeft().getX(); x <= space.getTopRight().getX(); x ++) {
+			for (int y = space.getBottomLeft().getY(); y <= space.getTopRight().getY(); y ++) {
+				this.map[x][y].setFloor(floor);
+			}
+		}
+	}
+
 	public void attachTiles(Space space) {
 		try {
 
@@ -135,20 +143,23 @@ public class FloorPlan {
 		return map[x][y];
 	}
 
-	public void setDoorway(Point tile1, Point tile2) {
+	public void setDoorway(Point startPt, Point endPt) {
+
+		Tile startTile = this.map[startPt.getX()][startPt.getY()];
+		Tile endTile = this.map[endPt.getX()][endPt.getY()];
 
 		try {
-			if (tile1.getX() == tile2.getX()) {
-				if (tile1.getY() > tile2.getY()) {
-					this.map[tile1.getX()][tile1.getY()].attachTile(this.map[tile2.getX()][tile2.getY()], SOUTH);
-				} else if (tile1.getY() < tile2.getY()) {
-					this.map[tile1.getX()][tile1.getY()].attachTile(this.map[tile2.getX()][tile2.getY()], NORTH);
-				}
-			} else if (tile1.getY() == tile2.getY()) {
-				if (tile1.getX() > tile2.getX()) {
-					this.map[tile1.getX()][tile1.getY()].attachTile(this.map[tile2.getX()][tile2.getY()], WEST);
-				} else if (tile1.getX() < tile2.getX()) {
-					this.map[tile1.getX()][tile1.getY()].attachTile(this.map[tile2.getX()][tile2.getY()], EAST);
+			if (startPt.getX() == endPt.getX()) {
+				if (startPt.getY() > endPt.getY()) {
+					startTile.attachTile(endTile, SOUTH);
+				} else if (startPt.getY() < endPt.getY()) {
+					startTile.attachTile(endTile, NORTH);
+			}
+			} else if (startPt.getY() == endPt.getY()) {
+				if (startPt.getX() > endPt.getX()) {
+					startTile.attachTile(endTile, WEST);
+				} else if (startPt.getX() < endPt.getX()) {
+					startTile.attachTile(endTile, EAST);
 				}
 			}
 		} catch (DataValidationException e) {
