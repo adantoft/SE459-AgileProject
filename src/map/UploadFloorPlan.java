@@ -2,6 +2,7 @@ package map;
 
 import com.esotericsoftware.yamlbeans.YamlException;
 import com.esotericsoftware.yamlbeans.YamlReader;
+
 import floor.Tile;
 import general.DataValidationException;
 

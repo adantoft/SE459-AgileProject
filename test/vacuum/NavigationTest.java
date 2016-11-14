@@ -351,4 +351,41 @@ public class NavigationTest {
 		Point p = cs.getNearestChargingStation().getCoordinates();
 		System.out.println("Nearest charging station: " + p);
 	}
+
+	@Test (timeout = 10000)
+	public void rememberWhereItsBeen() throws Exception {
+		System.err.println("\nrememberWhereItsBeen()");
+		cs.enableChargeDebugMode();
+
+		int xSize = 40;
+		int ySize = xSize;
+		int lowerLeft = 0;
+		int upperRight = xSize - 1;
+		int endTileX = (xSize - 1);
+		int endTileY = (ySize - 1);
+
+		FloorPlan map = new FloorPlan(xSize, ySize);
+		Space testRoomBare = new Space(new Point(lowerLeft, lowerLeft), new Point(upperRight,upperRight));
+
+		map.setFloor(20, testRoomBare, BARE);
+		map.setSpace(20, testRoomBare, BARE);
+
+		Tile startTile = map.getTile(0,0);
+		Tile endTile = map.getTile(endTileX, endTileY);
+
+		map.getTile(0,0).setChargingStation();
+		assertTrue(map.getTile(0,0).isChargingStation());
+
+		cs.setTile(startTile);
+		assertNotEquals(cs.getTile().getAdjacentTiles().size(), 0);
+		ArrayList<Tile.Direction> successPath = Navigation.calculatePath(cs.getTile(), endTile);
+		cs.followPath(successPath);
+		assertTrue(cs.emptyMeIndicator);
+
+		assertFalse(cs.isVisitHistoryEmpty());
+		assertNotEquals(cs.getlastTile(), cs.getTile());
+
+	}
+
+
 }

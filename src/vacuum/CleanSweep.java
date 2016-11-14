@@ -248,6 +248,10 @@ public class CleanSweep {
 		Navigation.traverseWholeFloor();
 	}
 
+	public Tile getlastTile() {
+		return lastTile;
+	}
+
 	public Tile getTile() {
 		return currentTile;
 	}
