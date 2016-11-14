@@ -119,7 +119,7 @@ public class NavigationTest {
 	@Test (timeout = 30000)
 	public void runVacuumExampleFloorTest() throws Exception {
 		FloorPlan map = TestMap.buildExampleFloorPlan();
-//		cs.enableChargeDebugMode();
+		cs.enableChargeDebugMode();
 
 //        UploadFloorPlan floorPlans = new UploadFloorPlan();
 //        floorPlans.loadFloorPlans();
