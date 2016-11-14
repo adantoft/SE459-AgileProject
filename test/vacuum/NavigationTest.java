@@ -108,7 +108,7 @@ public class NavigationTest {
 		Navigation.traverseWholeFloor();
 
 		for (Tile tile : map.getTiles()) { // tests that all tiles are not visited
-			assertTrue(tile.getVisited()!=0);
+			assertTrue(tile.getVisited() != 0);
 		}
 
 	}
@@ -120,6 +120,7 @@ public class NavigationTest {
 	public void runVacuumExampleFloorTest() throws Exception {
 		FloorPlan map = TestMap.buildExampleFloorPlan();
 		cs.enableChargeDebugMode();
+        cs.enableDirtDebugMode();
 
 //        UploadFloorPlan floorPlans = new UploadFloorPlan();
 //        floorPlans.loadFloorPlans();
@@ -137,7 +138,7 @@ public class NavigationTest {
 
 
 		for (Tile tile : map.getActiveTiles()) { // tests that all tiles are not visited
-			assertTrue(tile.getVisited()!=0);
+			assertTrue(tile.getVisited() != 0);
 		}
 
 	}
@@ -202,6 +203,8 @@ public class NavigationTest {
 	public void shortestDistanceExampleFloorPlanTest() throws Exception {
 		System.err.println("\nshortestDistanceExampleFloorPlanTest()");
 		FloorPlan map = TestMap.buildExampleFloorPlan();
+        // cs.enableDirtDebugMode();
+        cs.enableChargeDebugMode();
 
 		// Starting coordinates
 		int startTileX = 1;
@@ -222,6 +225,7 @@ public class NavigationTest {
 		}
 
 		cs.setTile(startTile);
+        startTile.setChargingStation();
 		assertNotEquals(cs.getTile().getAdjacentTiles().size(), 0);
 		ArrayList<Tile.Direction> successPath = Navigation.calculatePath(cs.getTile(), endTile);
 		cs.followPath(successPath);
@@ -304,6 +308,7 @@ public class NavigationTest {
 	public void cleanSweepReturnFullDirtTest() throws Exception {
 		System.err.println("\ncleanSweepReturnFullDirtTest()");
         cs.enableChargeDebugMode();
+        //  cs.enableDirtDebugMode();
 
 		int xSize = 40;
 		int ySize = xSize;

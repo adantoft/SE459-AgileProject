@@ -60,6 +60,10 @@ public class CleanSweep {
 		instance.charge = 100000;
 	}
 
+	public void enableDirtDebugMode(){
+		instance.dirtBag = -100000;
+	}
+
 
 	/**
 	 * Moves the Clean Sweep to a specified adjacent tile, if possible.
@@ -83,7 +87,9 @@ public class CleanSweep {
 			return false;
 		}
 
-
+		if (emptyMeIndicator) {
+			return false;
+		}
 
 		// Previous tile
 		double previousFloorCost = currentTile.getFloor().getFloorCost();
@@ -307,7 +313,7 @@ public class CleanSweep {
         if (emptyMeIndicator) {
             System.out.println("---- EMPTY ME ----");
             System.out.println("Clean Sweep powering off...");
-            System.exit(0);
+            // System.exit(0);
         }
 
     }
