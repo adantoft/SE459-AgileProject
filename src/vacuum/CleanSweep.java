@@ -28,6 +28,7 @@ public class CleanSweep {
     private boolean isReturningToStation;
 	private boolean isReturningToLastTile;
 	private Tile lastTile;
+    public boolean emptyMeIndicator;
 
 	private CleanSweep() {}
 
@@ -47,6 +48,7 @@ public class CleanSweep {
             instance.isReturningToStation = false;
 			instance.isReturningToLastTile = false;
 			instance.lastTile = null;
+            instance.emptyMeIndicator = false;
 		}
 		return instance;
 	}
@@ -111,7 +113,7 @@ public class CleanSweep {
 				throw new DataValidationException("ERROR: Invalid direction");
 		}
 
-		System.err.println("Moved to: " + currentTile.getCoordinates());
+		System.out.println("Moved to: " + currentTile.getCoordinates());
 
 		// Next tile
 		double nextFloorCost = currentTile.getFloor().getFloorCost();
@@ -122,7 +124,7 @@ public class CleanSweep {
 
 		// Checks to see if CS needs to return to station
 		chargingStationTile = getNearestChargingStation();
-        if (getCharge() <= returnChargeLow) {
+        if (getCharge() <= returnChargeLow && !isReturningToStation) {
         	returnToStation();
             returnToLastTile();
         }
@@ -157,6 +159,7 @@ public class CleanSweep {
 
 	public void recharge() {
 		charge = MAX_CHARGE;
+        System.out.println("Clean Sweep recharged! \t Current charge: " + charge);
         isReturningToStation = false;
 	}
 	
@@ -169,6 +172,7 @@ public class CleanSweep {
 			isReturningToStation = true;
 			ArrayList<Tile.Direction> successPath = Navigation.calculatePath(getTile(), chargingStationTile);
 			if (successPath == null) {
+                System.out.println("PATH TO CHARGING STATION NOT FOUND");
 				successPath = Navigation.calculatePath(currentTile, baseTile);
 			}
 			followPath(successPath);
@@ -188,12 +192,16 @@ public class CleanSweep {
 	}
 
 	public void cleanTile() throws DataValidationException {
-		while (currentTile.hasDirt()) {
+		if (isReturningToStation){
+            return;
+		}
+
+        while (currentTile.hasDirt()) {
 
 			// Stops cleaning when the bag is full
 			if (dirtBag == MAX_DIRT) {
 				returnToStation();
-                returnToLastTile();
+                setEmptyMeIndicator(true);
 				return;
 			}
 			
@@ -231,9 +239,7 @@ public class CleanSweep {
 	public void followPath(ArrayList<Direction> path) throws DataValidationException {
         if (path != null) {
             for (Direction d : path) {
-                // System.out.println(d);
                 move(d);
-                // TODO: Vacuum when necessary (?)
             }
         }
 	}
@@ -287,6 +293,14 @@ public class CleanSweep {
 		
 		return chargingStationTile;
 	}
+
+	public void setEmptyMeIndicator(boolean state) {
+        emptyMeIndicator = state;
+        if (emptyMeIndicator) {
+            System.out.println("EMPTY ME! \t (Clean Sweep dirt bag needs to be emptied)");
+        }
+
+    }
 
 	/**
 	 * Adds a tile to Clean Sweep's visit history

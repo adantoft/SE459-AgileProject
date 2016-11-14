@@ -1,7 +1,7 @@
 package vacuum;
 
 
-import map.MapTest;
+import map.FloorPlanTest;
 import map.PointTest;
 import map.SpaceTest;
 import org.junit.runner.RunWith;

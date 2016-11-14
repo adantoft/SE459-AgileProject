@@ -14,11 +14,6 @@ public class Navigation {
     private static HashSet<Tile> stateSpace = new HashSet();
 	private static CleanSweep cs;
 
-
-	public  Navigation() {
-
-    }
-
     public static HashSet<Tile> getStateSpace(){
         return stateSpace;
     }
