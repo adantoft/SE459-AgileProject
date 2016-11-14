@@ -3,6 +3,7 @@ package map;
 import floor.Tile;
 import floor.Tile.Direction;
 import floor.Tile.Floor;
+import floor.Tile.Role;
 import general.DataValidationException;
 import vacuum.CleanSweep;
 
@@ -12,28 +13,29 @@ public class TestMap {
         FloorPlan map = new FloorPlan(10, 10);
 
         Space guestBedroomA = new Space(new Point(0, 0), new Point(3, 4));
-        map.setSpace(0, guestBedroomA, Floor.LOW);
+        map.setSpace(1, guestBedroomA, Floor.LOW);
+        map.getTile(0, 0).setRole(Role.BASE);	// Charging station/base
 
         Space guestBedroomACloset = new Space(new Point(0, 5), new Point(3, 5));
-        map.setSpace(0, guestBedroomACloset, Floor.BARE);
+        map.setSpace(1, guestBedroomACloset, Floor.BARE);
 
         Space guestBedroomB = new Space(new Point(0, 7), new Point(3, 9));
-        map.setSpace(0, guestBedroomB, Floor.LOW);
+        map.setSpace(1, guestBedroomB, Floor.LOW);
 
         Space guestBedroomBCloset = new Space(new Point(0, 6), new Point(1, 6));
-        map.setSpace(0, guestBedroomBCloset, Floor.BARE);
+        map.setSpace(2, guestBedroomBCloset, Floor.BARE);
 
         Space hallway = new Space(new Point(4, 0), new Point(5, 7));
-        map.setSpace(0, hallway, Floor.BARE);
+        map.setSpace(1, hallway, Floor.BARE);
 
         Space hallwayCloset = new Space(new Point(2, 6), new Point(3, 6));
-        map.setSpace(0, hallwayCloset, Floor.BARE);
+        map.setSpace(1, hallwayCloset, Floor.BARE);
 
         Space hallwayBathroom = new Space(new Point(4, 8), new Point(5, 8));
-        map.setSpace(0, hallwayBathroom, Floor.BARE);
+        map.setSpace(3, hallwayBathroom, Floor.BARE);
 
         Space masterBedroomA = new Space(new Point(6, 7), new Point(7, 8));
-        map.setSpace(0, masterBedroomA, Floor.BARE);
+        map.setSpace(1, masterBedroomA, Floor.BARE);
 
         Space masterBedroomB = new Space(new Point(6, 0), new Point(9, 6));
         map.setSpace(0, masterBedroomB, Floor.BARE);

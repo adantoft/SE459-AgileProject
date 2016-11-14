@@ -69,7 +69,7 @@ public class CleanSweep {
 	 * @throws DataValidationException
 	 */
 	public boolean move(Direction direction) throws DataValidationException {
-
+		
         if (direction == null) {
             return false;
         }
@@ -113,7 +113,7 @@ public class CleanSweep {
 				throw new DataValidationException("ERROR: Invalid direction");
 		}
 
-		System.out.println("Moved to: " + currentTile.getCoordinates());
+		System.out.println("Moved " + direction.toString().toLowerCase() + " to: " + currentTile.getCoordinates());
 
 		// Next tile
 		double nextFloorCost = currentTile.getFloor().getFloorCost();
@@ -243,6 +243,10 @@ public class CleanSweep {
             }
         }
 	}
+	
+	public void clean() {
+		Navigation.traverseWholeFloor();
+	}
 
 	public Tile getTile() {
 		return currentTile;
@@ -297,7 +301,9 @@ public class CleanSweep {
 	public void setEmptyMeIndicator(boolean state) {
         emptyMeIndicator = state;
         if (emptyMeIndicator) {
-            System.out.println("EMPTY ME! \t (Clean Sweep dirt bag needs to be emptied)");
+            System.out.println("---- EMPTY ME ----");
+            System.out.println("Clean Sweep powering off...");
+            System.exit(0);
         }
 
     }

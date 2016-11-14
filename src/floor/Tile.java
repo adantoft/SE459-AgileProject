@@ -6,6 +6,7 @@ import map.Point;
 import java.util.ArrayList;
 import java.util.List;
 
+import vacuum.CleanSweep;
 import static floor.Tile.Direction.*;
 
 public class Tile {
