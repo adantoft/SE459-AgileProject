@@ -121,6 +121,7 @@ public class CleanSweep {
 
 		System.out.println("Moved " + direction.toString().toLowerCase() + " to: " + currentTile.getCoordinates());
 
+
 		// Next tile
 		double nextFloorCost = currentTile.getFloor().getFloorCost();
 
@@ -173,6 +174,7 @@ public class CleanSweep {
 		if (!isReturningToStation) {
             visitHistoryToStation = visitHistory;
             lastTile = currentTile;
+            System.out.println("---- BATTERY LOW ----");
 			System.out.println("Returning to charging station...");
 			Navigation.clearShortestPath();
 			isReturningToStation = true;
@@ -217,9 +219,14 @@ public class CleanSweep {
 				break;
 			}
 
+            System.out.print("Dirt detected...cleaning. ");
+
 			currentTile.clean();
 			dirtBag ++;
 			depleteCharge();
+
+            System.out.println("Dirt collected: " + dirtBag);
+
 		}
 	}
 
