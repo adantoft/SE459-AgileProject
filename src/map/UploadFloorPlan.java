@@ -73,13 +73,9 @@ public class UploadFloorPlan {
 
             String[] chargingStation= obj.get("charging-station").toString().split(",");
 
-            System.out.println(chargingStation);
-
             floorPlan.getTile(Integer.parseInt(chargingStation[0]), Integer.parseInt(chargingStation[1])).setRole(Tile.Role.CHARGE);
 
             mapHash.put((String) obj.get("name"), floorPlan);
-            System.out.println(mapHash.get(obj.get("name")));
-
 
         }
     }
