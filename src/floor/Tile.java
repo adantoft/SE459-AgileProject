@@ -6,7 +6,6 @@ import map.Point;
 import java.util.ArrayList;
 import java.util.List;
 
-import vacuum.CleanSweep;
 import static floor.Tile.Direction.*;
 
 public class Tile {
@@ -310,9 +309,10 @@ public class Tile {
 			} else if (this.getAdjacent(WEST) == tile) {
 				return WEST;
 			} else {
-                System.out.println(tile.getCoordinates());
-                System.out.println();
-				throw new DataValidationException("ERROR: Direction unknown");
+				return null;
+//                System.out.println(tile.getCoordinates());
+//                System.out.println();
+//				throw new DataValidationException("ERROR: Direction unknown");
 			}
 		} catch (DataValidationException e) {
 			e.printStackTrace();

@@ -10,6 +10,8 @@ public class PresentationMap {
 		
 		FloorPlan mainMap = TestMap.buildExampleFloorPlan();
 		CleanSweep cs = CleanSweep.getInstance();
+//		cs.enableChargeDebugMode();
+//		cs.enableDirtDebugMode();
 		cs.setTile(mainMap.getTile(0, 0));	// Sets CS on charging base
 		cs.clean();
 	}

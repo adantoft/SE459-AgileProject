@@ -313,7 +313,6 @@ public class CleanSweep {
         if (emptyMeIndicator) {
             System.out.println("---- EMPTY ME ----");
             System.out.println("Clean Sweep powering off...");
-            // System.exit(0);
         }
 
     }
