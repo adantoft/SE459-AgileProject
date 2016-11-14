@@ -1,17 +1,21 @@
 package general;
 
-import vacuum.CleanSweep;
+import com.esotericsoftware.yamlbeans.YamlException;
 import map.FloorPlan;
-import map.TestMap;
+import map.UploadFloorPlan;
+import vacuum.CleanSweep;
+
+import java.io.FileNotFoundException;
 
 public class PresentationMap {
 
-	public static void main(String[] args) {
-		
-		FloorPlan mainMap = TestMap.buildExampleFloorPlan();
+	public static void main(String[] args) throws YamlException, FileNotFoundException, DataValidationException {
+        UploadFloorPlan floorPlans = new UploadFloorPlan();
+        floorPlans.loadFloorPlans();
+
+        FloorPlan mainMap = floorPlans.getFloorPlan("Sample Floor Plan");
+
 		CleanSweep cs = CleanSweep.getInstance();
-//		cs.enableChargeDebugMode();
-//		cs.enableDirtDebugMode();
 		cs.setTile(mainMap.getTile(0, 0));	// Sets CS on charging base
 		cs.clean();
 	}

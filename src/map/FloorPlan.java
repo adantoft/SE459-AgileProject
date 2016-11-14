@@ -28,10 +28,8 @@ public class FloorPlan {
 	}
 
 	public void setFloor(int random, Space space, Floor floor) {
-
 //        Random rand = new Random();
-//        random = rand.nextInt(5) + 1;
-
+//        random = rand.nextInt(3) + 1;
 
 		for (int x = space.getBottomLeft().getX(); x <= space.getTopRight().getX(); x ++) {
 			for (int y = space.getBottomLeft().getY(); y <= space.getTopRight().getY(); y ++) {

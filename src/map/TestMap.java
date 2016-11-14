@@ -14,7 +14,7 @@ public class TestMap {
 
         Space guestBedroomA = new Space(new Point(0, 0), new Point(3, 4));
         map.setSpace(1, guestBedroomA, Floor.LOW);
-        map.getTile(0, 0).setRole(Role.BASE);	// Charging station/base
+        map.getTile(0, 0).setRole(Role.CHARGE);	// Charging station/base
 
         Space guestBedroomACloset = new Space(new Point(0, 5), new Point(3, 5));
         map.setSpace(1, guestBedroomACloset, Floor.BARE);

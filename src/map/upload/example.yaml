@@ -1,5 +1,6 @@
 name: Sample Floor Plan
 dimensions: 10x10
+charging-station: 0,0
 rooms:
  - name: Guest Bedroom A
    floor: Low
