@@ -1,0 +1,92 @@
+name: Sample Floor Plan
+dimensions: 10x10
+charging-station: 0,0
+rooms:
+ - name: Guest Bedroom A
+   floor: Low
+   dimensions: 5x4
+   bottom-left: 0,0
+
+ - name: Guest Bedroom A Closet
+   floor: Bare
+   dimensions: 1x4
+   bottom-left: 0,5
+
+ - name: Guest Bedroom B
+   floor: Low
+   dimensions: 3x4
+   bottom-left: 0,7
+
+ - name: Guest Bedroom B Closet
+   floor: Bare
+   dimensions: 1x2
+   bottom-left: 0,6
+
+ - name: Hallway
+   floor: Bare
+   dimensions: 8x2
+   bottom-left: 4,0
+
+ - name: Hallway Closet
+   floor: Bare
+   dimensions: 1x2
+   bottom-left: 2,6
+
+ - name: Hallway Bathroom
+   floor: Bare
+   dimensions: 1x2
+   bottom-left: 4,8
+
+ - name: Master Bedroom A
+   floor: Bare
+   dimensions: 2x2
+   bottom-left: 6,7
+
+ - name: Master Bedroom B
+   floor: Bare
+   dimensions: 1x4
+   bottom-left: 6,6
+
+ - name: Master Bedroom Bathroom
+   floor: Bare
+   dimensions: 1x4
+   bottom-left: 4,9
+
+ - name: Master Bedroom Closet
+   floor: Bare
+   dimensions: 3x2
+   bottom-left: 8,7
+
+doorways:
+ - tile-one: 6,6
+   tile-two: 6,7
+
+ - tile-one: 7,6
+   tile-two: 7,7
+
+ - tile-one: 1,4
+   tile-two: 1,5
+
+ - tile-one: 0,6
+   tile-two: 0,7
+
+ - tile-one: 3,3
+   tile-two: 4,3
+
+ - tile-one: 3,6
+   tile-two: 4,6
+
+ - tile-one: 3,7
+   tile-two: 4,7
+
+ - tile-one: 4,7
+   tile-two: 4,8
+
+ - tile-one: 6,7
+   tile-two: 5,7
+
+ - tile-one: 7,8
+   tile-two: 8,8
+
+ - tile-one: 7,8
+   tile-two: 7,9

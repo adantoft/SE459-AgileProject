@@ -1,4 +1,4 @@
-package map;
+package simulator.map;
 
 import org.junit.Test;
 

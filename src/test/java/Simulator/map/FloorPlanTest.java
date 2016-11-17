@@ -1,9 +1,9 @@
-package map;
+package simulator.map;
 
-import floor.Tile;
+import cleansweep.floor.Tile;
 import org.junit.Test;
 
-import static floor.Tile.Floor.BARE;
+import static cleansweep.floor.Tile.Floor.BARE;
 import static org.junit.Assert.*;
 
 public class FloorPlanTest {

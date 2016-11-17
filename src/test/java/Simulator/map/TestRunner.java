@@ -1,6 +1,8 @@
-import map.JunitMapSuite;
-import floor.JunitTileSuite;
-import vacuum.JunitVacuumSuite;
+package Simulator.map;
+
+import Simulator.map.JunitMapSuite;
+import CleanSweep.floor.JunitTileSuite;
+import CleanSweep.vacuum.JunitVacuumSuite;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;

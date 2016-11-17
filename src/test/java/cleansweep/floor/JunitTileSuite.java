@@ -1,4 +1,4 @@
-package floor;
+package cleansweep.floor;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;

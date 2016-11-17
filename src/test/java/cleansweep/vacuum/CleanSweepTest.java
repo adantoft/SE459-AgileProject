@@ -1,13 +1,13 @@
-package vacuum;
+package cleansweep.vacuum;
 
-import floor.Tile;
+import cleansweep.floor.Tile;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static floor.Tile.Direction.*;
-import static floor.Tile.Floor.*;
+import static cleansweep.floor.Tile.Direction.*;
+import static cleansweep.floor.Tile.Floor.*;
 import static org.junit.Assert.*;
 
 public class CleanSweepTest {

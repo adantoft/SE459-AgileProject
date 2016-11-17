@@ -1,17 +1,20 @@
-package vacuum;
+package cleansweep.vacuum;
 
-import floor.Tile;
-import floor.Tile.Role;
-import map.*;
+import cleansweep.floor.Tile;
+import cleansweep.floor.Tile.Role;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import simulator.map.FloorPlan;
+import simulator.map.Point;
+import simulator.map.Space;
+import simulator.map.TestMap;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.concurrent.ThreadLocalRandom;
 
-import static floor.Tile.Floor.BARE;
+import static cleansweep.floor.Tile.Floor.BARE;
 import static org.junit.Assert.*;
 
 public class NavigationTest {
@@ -125,7 +128,7 @@ public class NavigationTest {
 //        UploadFloorPlan floorPlans = new UploadFloorPlan();
 //        floorPlans.loadFloorPlans();
 //
-//        FloorPlan map = floorPlans.getFloorPlan("Sample Floor Plan");
+//        FloorPlan Simulator.map = floorPlans.getFloorPlan("Sample Floor Plan");
 
 		for (Tile tile : map.getActiveTiles()) { // tests that all tiles are not visited
 			assertEquals(tile.getVisited(), 0);

@@ -1,11 +1,11 @@
-package floor;
+package cleansweep.floor;
 
 import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
-import static floor.Tile.*;
-import static floor.Tile.Direction.*;
-import static floor.Tile.Floor.*;
+import static cleansweep.floor.Tile.*;
+import static cleansweep.floor.Tile.Direction.*;
+import static cleansweep.floor.Tile.Floor.*;
 import static org.junit.Assert.*;
 
 public class TileTest {
@@ -48,7 +48,7 @@ public class TileTest {
 		assertNotNull(Floor.LOW.getFloorCodeAsString());
 		assertNotNull(Floor.HIGH.getFloorCodeAsString());
 
-		assertEquals("Bare floor", Floor.BARE.getFloorCodeAsString());
+		assertEquals("Bare CleanSweep.floor", Floor.BARE.getFloorCodeAsString());
 		assertEquals("Low pile", Floor.LOW.getFloorCodeAsString());
 		assertEquals("High pile", Floor.HIGH.getFloorCodeAsString());
 
@@ -77,7 +77,7 @@ public class TileTest {
 		Tile testTileTwoInput = new Tile(dirtInt, BARE);
 		Tile testTileTwoDirtInput = new Tile(dirtInt2, LOW);
 
-		assertEquals("Dirt: 0" + "\nFloor type: Bare floor",
+		assertEquals("Dirt: 0" + "\nFloor type: Bare CleanSweep.floor",
 				testTileTwoInput.toString());
 		assertEquals("Dirt: 1" + "\nFloor type: Low pile",
 				testTileTwoDirtInput.toString());
@@ -91,7 +91,7 @@ public class TileTest {
 		Tile testTile2 = new Tile(LOW);
 		assertNotNull(testTile1);
 
-		assertEquals("Dirt: 0" + "\nFloor type: Bare floor",
+		assertEquals("Dirt: 0" + "\nFloor type: Bare CleanSweep.floor",
 				testTile1.toString());
 		assertEquals("Dirt: 0" + "\nFloor type: Low pile", testTile2.toString());
 
