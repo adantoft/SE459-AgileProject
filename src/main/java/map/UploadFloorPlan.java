@@ -22,7 +22,7 @@ public class UploadFloorPlan {
     private void loadYamlMap() throws YamlException, FileNotFoundException, DataValidationException {
         for (String string : mapFileList) {
 
-            YamlReader reader = new YamlReader(new FileReader("./src/map/upload/" + string));
+            YamlReader reader = new YamlReader(new FileReader("./src/main/java/map/upload/" + string));
 
             Object object = reader.read();
             Map obj = (Map) object;
@@ -81,7 +81,7 @@ public class UploadFloorPlan {
     }
 
     public void loadFloorPlans() throws YamlException, FileNotFoundException, DataValidationException {
-        File[] listOfFiles = new File("./src/map/upload/").listFiles();
+        File[] listOfFiles = new File("./src/main/java/map/upload/").listFiles();
 
         for (int i = 0; i < listOfFiles.length; i++) {
             if (listOfFiles[i].isFile()) {
